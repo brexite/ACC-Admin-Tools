@@ -1,0 +1,38 @@
+* {
+    margin:0;
+    padding:0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  button {
+    height: 50px;
+    margin: 0px 10px;
+    height: 100%;
+    pointer-events: all;
+    justify-content: center;
+    vertical-align: middle;
+  }
+
+  button:hover {
+    background-color: #97103d;
+  }
+  
+  button > i {
+    pointer-events: none;
+  }
+
+  mat-icon {
+    position: relative;
+    top: -2px; /*Change this to adjust the icon*/
+  }
+  
+  .topnav {
+    background-color: #e91e63;
+    // background-color: aliceblue;
+    display: block;
+    position: sticky;
+    top: 0;
+    height: 50px;
+    padding: 10px;
+  }

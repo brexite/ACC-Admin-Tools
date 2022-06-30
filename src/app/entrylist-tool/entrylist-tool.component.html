@@ -1,0 +1,75 @@
+<mat-spinner *ngIf="loading" [diameter]="70"></mat-spinner>
+<h1 *ngIf="!loading">ACC ENTRY LIST TOOL</h1>
+<div class="body" *ngIf="!loading" [formGroup]="form">
+    <div class="split input-data">
+        <div class="content">
+            <h2>PASTE entrylist.json</h2>
+
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>json goes here x</mat-label>
+                <textarea matInput rows=20 style="resize: none;"
+                    placeholder="json x" formControlName="entrylist"></textarea>
+                <mat-error>Required...</mat-error>
+            </mat-form-field>
+
+            <input type="file" class="file-input" accept=".json"
+                (change)="onFileSelected($event, 0)" #fileUploadEntrylist>
+
+            <button class="upload-button" mat-raised-button color="primary" (click)="fileUploadEntrylist.click()">
+                <mat-icon>upload</mat-icon>
+                Upload JSON
+             </button>
+        </div>
+    </div>
+
+    <div class="small-split">
+        <button [disabled]="!form.valid" class="run-button" mat-raised-button color="primary" (click)="run()">
+            <mat-icon style="vertical-align: middle;">bolt</mat-icon>
+            Run
+        </button>
+
+
+
+        <mat-label class="slider-label">Amount of drivers to reverse</mat-label>
+        <mat-slider color="primary" class="slider" thumbLabel tickInterval="1" step="1" min="0" max="40"
+            aria-label="units" formControlName="reverse"></mat-slider>
+    </div>
+
+    <div class="split input-data">
+        <div class="content">
+            <h2>PASTE the results.json</h2>
+
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>json goes here x</mat-label>
+                <textarea matInput rows=20 style="resize: none;"
+                placeholder="json x"formControlName="results"></textarea>
+                <mat-error>Required...</mat-error>
+            </mat-form-field>
+
+            <input type="file" class="file-input" accept=".json"
+                (change)="onFileSelected($event, 1)" #fileUploadResults>
+
+            <button class="upload-button" mat-raised-button color="primary" (click)="fileUploadResults.click()">
+               <mat-icon>upload</mat-icon>
+               Upload JSON
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!loading" class="bottom-bar" [formGroup]="outputForm">
+
+    <button [disabled]="!outputForm.get('output').value" class="copy-button" mat-raised-button color="primary" (click)="copy()">
+        <mat-icon>assignment</mat-icon>
+    </button>
+
+    <button [disabled]="!outputForm.get('output').value" class="dl-button" mat-raised-button color="primary" (click)="dl()">
+        <mat-icon>file_download</mat-icon>
+    </button>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>output appears here x</mat-label>
+        <textarea matInput readonly cols=50 rows=12
+            style="resize: none;" formControlName="output"></textarea>
+    </mat-form-field>
+</div>
