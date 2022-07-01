@@ -1,0 +1,430 @@
+{
+	"entries": [
+		{
+			"drivers": [
+				{
+					"firstName": "Nathan",
+					"lastName": "Carey",
+					"shortName": "CAR",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198118207370"
+				}
+			],
+			"raceNumber": 10,
+			"forcedCarModel": 30,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 19,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Cameron",
+					"lastName": "Gold",
+					"shortName": "GOL",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198120886567"
+				}
+			],
+			"raceNumber": 33,
+			"forcedCarModel": 16,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 7,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Josh",
+					"lastName": "Perrett",
+					"shortName": "PER",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198077713132"
+				}
+			],
+			"raceNumber": 24,
+			"forcedCarModel": 25,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 18,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Jimmy",
+					"lastName": "Lin",
+					"shortName": "LIN",
+					"driverCategory": 0,
+					"nationality": 35,
+					"playerID": "S76561198213898755"
+				}
+			],
+			"raceNumber": 727,
+			"forcedCarModel": 22,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 3,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Angus",
+					"lastName": "Fender",
+					"shortName": "FEN",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561199050008427"
+				}
+			],
+			"raceNumber": 9,
+			"forcedCarModel": 30,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": -1,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Joe",
+					"lastName": "Share",
+					"shortName": "SHA",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198107408566"
+				}
+			],
+			"raceNumber": 549,
+			"forcedCarModel": 19,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 8,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Cav",
+					"lastName": "Budd",
+					"shortName": "BUD",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198056300957"
+				}
+			],
+			"raceNumber": 53,
+			"forcedCarModel": 30,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": -1,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Josh",
+					"lastName": "Lodge",
+					"shortName": "LOD",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198231838004"
+				}
+			],
+			"raceNumber": 76,
+			"forcedCarModel": 22,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 11,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Ed",
+					"lastName": "Haskell",
+					"shortName": "HAS",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198431146519"
+				}
+			],
+			"raceNumber": 27,
+			"forcedCarModel": 30,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": -1,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "ShaneTyler",
+					"lastName": "Perkins",
+					"shortName": "PER",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198822345772"
+				}
+			],
+			"raceNumber": 63,
+			"forcedCarModel": 15,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": -1,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Blake",
+					"lastName": "Checketts",
+					"shortName": "CHE",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198421630877"
+				}
+			],
+			"raceNumber": 66,
+			"forcedCarModel": 30,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": -1,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Jack",
+					"lastName": "Noller",
+					"shortName": "NOL",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198878162304"
+				}
+			],
+			"raceNumber": 36,
+			"forcedCarModel": 22,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 2,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Harry",
+					"lastName": "Spiers",
+					"shortName": "SPI",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198066435523"
+				}
+			],
+			"raceNumber": 285,
+			"forcedCarModel": 8,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 1,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Anna",
+					"lastName": "LangsdaleFoster",
+					"shortName": "LAN",
+					"driverCategory": 0,
+					"nationality": 0,
+					"playerID": "S76561198024710068"
+				}
+			],
+			"raceNumber": 734,
+			"forcedCarModel": 22,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 4,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Eshan",
+					"lastName": "Wells",
+					"shortName": "WEL",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198109998397"
+				}
+			],
+			"raceNumber": 301,
+			"forcedCarModel": 8,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 9,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Adam",
+					"lastName": "Lee",
+					"shortName": "LEE",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198125431738"
+				}
+			],
+			"raceNumber": 2,
+			"forcedCarModel": 25,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 13,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Jason",
+					"lastName": "List",
+					"shortName": "LIS",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198795858888"
+				}
+			],
+			"raceNumber": 995,
+			"forcedCarModel": 24,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 10,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Oliver",
+					"lastName": "Fletcher",
+					"shortName": "FLE",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198028086208"
+				}
+			],
+			"raceNumber": 187,
+			"forcedCarModel": 16,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 15,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Rusyaidi",
+					"lastName": "Ramli",
+					"shortName": "RAM",
+					"driverCategory": 0,
+					"nationality": 37,
+					"playerID": "S76561198116948534"
+				}
+			],
+			"raceNumber": 86,
+			"forcedCarModel": 30,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 12,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Ethan",
+					"lastName": "OMalley",
+					"shortName": "OMA",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198098777135"
+				}
+			],
+			"raceNumber": 94,
+			"forcedCarModel": 30,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 14,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Adil",
+					"lastName": "Mushtaq",
+					"shortName": "MUS",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198167250247"
+				}
+			],
+			"raceNumber": 12,
+			"forcedCarModel": 22,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 17,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Joel",
+					"lastName": "Purnell",
+					"shortName": "PUR",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198114197170"
+				}
+			],
+			"raceNumber": 8,
+			"forcedCarModel": 22,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": -1,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Ish",
+					"lastName": "Shah",
+					"shortName": "SHA",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198214167843"
+				}
+			],
+			"raceNumber": 14,
+			"forcedCarModel": 8,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 5,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Umar",
+					"lastName": "Farooqi",
+					"shortName": "FAR",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198165075025"
+				}
+			],
+			"raceNumber": 30,
+			"forcedCarModel": 22,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": 6,
+			"isServerAdmin": 0
+		},
+		{
+			"drivers": [
+				{
+					"firstName": "Lewis",
+					"lastName": "GrantSmith",
+					"shortName": "GRA",
+					"driverCategory": 0,
+					"nationality": 5,
+					"playerID": "S76561198278655829"
+				}
+			],
+			"raceNumber": 600,
+			"forcedCarModel": 30,
+			"overrideDriverInfo": 1,
+			"defaultGridPosition": -1,
+			"isServerAdmin": 0
+		}
+	],
+	"forceEntryList": 0
+}

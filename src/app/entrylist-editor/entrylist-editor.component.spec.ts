@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EntrylistToolComponent } from './entrylist-tool.component';
+import { EntrylistEditorComponent } from './entrylist-editor.component';
 
-describe('EntrylistToolComponent', () => {
-  let component: EntrylistToolComponent;
-  let fixture: ComponentFixture<EntrylistToolComponent>;
+describe('RaceResultsToolComponent', () => {
+  let component: EntrylistEditorComponent;
+  let fixture: ComponentFixture<EntrylistEditorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EntrylistToolComponent ]
+      declarations: [ EntrylistEditorComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EntrylistToolComponent);
+    fixture = TestBed.createComponent(EntrylistEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,251 @@
+<mat-drawer-container class="example-container">
+    <mat-spinner *ngIf="loading" [diameter]="70"></mat-spinner>
+
+
+    <div class="body-loading" *ngIf="!loading && !json">
+        <h1 class="title">Upload your entrylist.json here</h1>
+        <input type="file" class="file-input" accept=".json" (change)="onFileSelected($event, 1)" #fileUploadResults>
+        <button class="upload-button" mat-raised-button color="primary" (click)="fileUploadResults.click()">
+            <mat-icon>upload</mat-icon>
+            Upload JSON
+        </button>
+    </div>
+
+
+    <div class="body" *ngIf="!loading && json" [formGroup]="form">
+
+
+        <mat-drawer #drawer class="example-sidenav" mode="over" [formGroup]="advancedForm">
+            <button class="close" mat-raised-button color="warn" (click)="drawer.close()">
+                <mat-icon>close</mat-icon>
+            </button>
+            <h1>Advanced Settings</h1>
+
+            <h4 class="section-title">Set All Drivers to a Category</h4>
+            <!-- <div class="button-arrange">
+                <mat-button-toggle-group style="font-size: small" name="categoryOverride" formControlName="categoryOverride" [value]="advancedForm.get('categoryOverride').value">
+                    <mat-button-toggle [value]="-1" checked>Unchanged</mat-button-toggle>
+                    <mat-button-toggle *ngFor="let cat of driverCategories" [value]="cat.value">{{cat.key}}</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div> -->
+            <div style="flex-direction: column; margin: auto">
+                <div style="display:flex; flex-direction: column; margin-top: 20px;">
+                    <div style="display:flex; flex-direction: row; margin: auto;"><p>Override All Drivers' Information?
+                    <mat-icon class="info-at-radio"
+                        matTooltip="This will override all driver's Names and Category to what is set in the JSON.">info
+                    </mat-icon></p></div>
+
+                    <mat-button-toggle-group style="font-size: 12px; text-align: center; margin-top: 10px; padding: 0;" name="categoryOverride" formControlName="categoryOverride" [value]="advancedForm.get('categoryOverride').value">
+                        <mat-button-toggle style="width:calc(100%/5)" [value]="-1" checked>Unchanged</mat-button-toggle>
+                        <mat-button-toggle style="width:calc(100%/5)" *ngFor="let cat of driverCategories" [value]="cat.value">{{cat.key}}</mat-button-toggle>
+                    </mat-button-toggle-group>
+
+                        <!-- <mat-radio-group class="button-arrange" name="driver" formControlName="driverOverride">
+                            <mat-radio-button name="driver" *ngFor="let op of advancedDriverOptions" [value]="op.value" (change)="advancedUpdate($event, 0)">{{op.key}}</mat-radio-button>
+                        </mat-radio-group> -->
+                </div>
+            </div>
+
+            <h4 class="section-title">Set All Drivers' Override Driver/Car Setting</h4>
+            <div style="flex-direction: column; margin: auto">
+                <div style="display:flex; flex-direction: column; margin-top: 20px;">
+                    <div style="display:flex; flex-direction: row; margin: auto;"><p>Override All Drivers' Information?
+                    </p></div>
+
+                    <mat-button-toggle-group style="font-size: small; margin-top: 10px;" name="driver" formControlName="driverOverride" [value]="advancedForm.get('driverOverride').value">
+                        <mat-button-toggle style="width:calc(100%/3)" *ngFor="let op of advancedDriverOptions" [value]="op.value" (change)="advancedUpdate($event, 0)">{{op.key}}</mat-button-toggle>
+                    </mat-button-toggle-group>
+
+                        <!-- <mat-radio-group class="button-arrange" name="driver" formControlName="driverOverride">
+                            <mat-radio-button name="driver" *ngFor="let op of advancedDriverOptions" [value]="op.value" (change)="advancedUpdate($event, 0)">{{op.key}}</mat-radio-button>
+                        </mat-radio-group> -->
+                </div>
+
+                <div style="display:flex; flex-direction: column; margin-top: 20px;">
+                    <div style="display:flex; flex-direction: row; margin: auto;"><p>Override All Cars' Information?
+                    <mat-icon class="info-at-radio"
+                        matTooltip="This will force all drivers to use their selected cars in the JSON.">info
+                    </mat-icon></p></div>
+
+                    <mat-button-toggle-group style="font-size: small; margin-top: 10px;" name="driver" formControlName="carOverride" [value]="advancedForm.get('carOverride').value">
+                        <mat-button-toggle style="width:calc(100%/3)" *ngFor="let op of advancedCarOptions" [value]="op.value" (change)="advancedUpdate($event, 1)">{{op.key}}</mat-button-toggle>
+                    </mat-button-toggle-group>
+
+                        <!-- <mat-radio-group class="button-arrange" name="car" formGroupName="carOverride">
+                            <mat-radio-button name="car" *ngFor="let op of advancedCarOptions" [value]="op.value" (change)="advancedUpdate($event, 1)">{{op.key}}</mat-radio-button>
+                        </mat-radio-group> -->
+                </div>
+            </div>
+            <h4 class="section-title"></h4>
+            <button mat-raised-button style="width: 100%" color="warn" (click)="advancedSave(); drawer.close()">
+                <mat-icon>save</mat-icon> Save
+            </button>
+
+        </mat-drawer>
+
+
+
+        <div class="sidebar-trigger" (click)="sideBarAction(); drawer.toggle()" *ngIf="!loading && json">
+            <h4>Advanced Settings</h4>
+        </div>
+
+        <div class="split input-data">
+
+            <h1 class="title">ENTRY LIST EDITOR</h1>
+
+            <h3>Driver Information</h3
+                >
+            <mat-form-field class="input-area" appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName">
+            </mat-form-field>
+
+            <mat-form-field class="input-area" appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName">
+            </mat-form-field>
+
+            <mat-form-field class="input-area" appearance="fill">
+                <mat-label>Nickname</mat-label>
+                <input matInput formControlName="nickname">
+            </mat-form-field>
+
+            <mat-form-field class="input-area" appearance="fill">
+                <mat-label>Short Name</mat-label>
+                <input matInput maxlength="3" formControlName="shortName">
+            </mat-form-field>
+            <br>
+
+            <mat-form-field class="input-area" appearance="fill">
+                <mat-label>Nationality</mat-label>
+                <mat-select formControlName="nationality">
+                    <mat-option *ngFor="let nat of driverNationality" [value]="nat.value">
+                        {{nat.key}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="input-area" appearance="fill">
+                <mat-label>Driver Category</mat-label>
+                <mat-select formControlName="driverCategory">
+                    <mat-option *ngFor="let cat of driverCategories" [value]="cat.value">
+                        {{cat.key}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="input-area" appearance="fill">
+                <mat-label>Steam64ID</mat-label>
+                <div style="display:flex; flex-direction: row;"><input matInput formControlName="steamId">
+                    <mat-icon class="info-icon" matTooltip="Input the raw Steam64ID, no letters required.">info
+                    </mat-icon>
+                </div>
+            </mat-form-field>
+
+            <h3>Car Information</h3>
+            <mat-form-field class="input-area" appearance="fill">
+                <mat-label>Custom Car Name</mat-label>
+                <div style="display:flex; flex-direction: row;"><input matInput formControlName="customCarName">
+                    <mat-icon class="info-icon"
+                        matTooltip="Used for forcing team liveries. Input the filename for the server-side JSON.">info
+                    </mat-icon>
+                </div>
+            </mat-form-field>
+
+            <mat-form-field class="input-area" appearance="fill">
+                <mat-label>Race Number</mat-label>
+                <input type="number" max="999" matInput formControlName="raceNumber">
+                <div *ngIf="form.get('raceNumber').errors?.invalidValue">
+                    Warning, this value has already been used!
+                </div>
+            </mat-form-field>
+
+            <mat-form-field class="input-area" appearance="fill">
+                <mat-label>Car Choice</mat-label>
+                <mat-select formControlName="carChoice">
+                    <mat-option [value]="-1">-- None --</mat-option>
+                    <mat-optgroup *ngFor="let group of carNames" [label]="group.category">
+                        <mat-option *ngFor="let car of group.cars" [value]="car.value">
+                            {{car.key}}
+                        </mat-option>
+                    </mat-optgroup>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- <mat-form-field class="input-area" appearance="fill">
+            <mat-label type="number">Grid Position</mat-label>
+            <input matInput formControlName="raceNumber">
+        </mat-form-field> -->
+
+            <h3>Misc Settings</h3>
+            <!-- Force car model? -->
+            <div style="display: flex; flex-direction: column;">
+                <!-- Override User Info? -->
+                <mat-form-field class="input-area">
+                    <input matInput [hidden]="true" formControlName="overrideDriverInfo">
+                    <div style="display:flex; flex-direction: row;">
+                        <mat-checkbox formControlName="overrideDriverInfo">Override Driver Information?</mat-checkbox>
+                        <mat-icon class="info-icon info-at-checkbox"
+                            matTooltip="Check if you want to overwrite the Driver Information with what is in this file.">
+                            info</mat-icon>
+                    </div>
+                </mat-form-field>
+                <!-- Server Admin? -->
+                <mat-form-field class="input-area">
+                    <input matInput [hidden]="true" formControlName="isAdmin">
+                    <mat-checkbox formControlName="isAdmin">Set User as Server Admin?</mat-checkbox>
+                </mat-form-field>
+                <!-- Override Car Model?  -->
+                <mat-form-field class="input-area">
+                    <input matInput [hidden]="true" formControlName="overrideCar">
+                    <div style="display:flex; flex-direction: row;">
+                        <mat-checkbox formControlName="overrideCar">Override Car Model?</mat-checkbox>
+                        <mat-icon class="info-icon info-at-checkbox"
+                            matTooltip="Check if you want to force this driver to use the selected vehicle.">info
+                        </mat-icon>
+                    </div>
+                </mat-form-field>
+
+                <h6></h6>
+                <button mat-raised-button color="warn" (click)="saveData()">
+                    <mat-icon>save</mat-icon> Save
+                </button>
+            </div>
+        </div>
+
+        <div class="small-split">
+            <div class="drag-column">
+                <h2>Ordered</h2>
+
+                <div cdkDropList #orderedList="cdkDropList" [cdkDropListData]="orderedDrivers"
+                    [cdkDropListConnectedTo]="[unorderedList]" class="example-list"
+                    (cdkDropListDropped)="drop($any($event))">
+                    <div class="example-box" *ngFor="let item of orderedDrivers"
+                        [ngStyle]="{'border-left-color': getDriverCategory(item)}" cdkDrag><button mat-flat-button
+                            class="driver-button" (click)="navigateDriver(item)">#{{getDriverByIndex(item).raceNumber}}
+                            - {{getDriverByIndex(item).drivers[0].firstName}}
+                            {{getDriverByIndex(item).drivers[0].lastName}} -
+                            P{{getDriverByIndex(item).defaultGridPosition}}</button>
+                        <mat-icon class="drag-icon" cdkDragHandle>drag_indicator</mat-icon>
+                    </div>
+                </div>
+            </div>
+
+            <div class="drag-column">
+                <h2>Unordered</h2>
+
+                <div cdkDropList #unorderedList="cdkDropList" [cdkDropListData]="unorderedDrivers"
+                    cdkDropListSortingDisabled [cdkDropListConnectedTo]="[orderedList]" class="example-list"
+                    (cdkDropListDropped)="drop($any($event))">
+                    <div class="example-box" *ngFor="let item of unorderedDrivers"
+                        [ngStyle]="{'border-left-color': getDriverCategory(item)}" cdkDrag><button mat-flat-button
+                            class="driver-button" (click)="navigateDriver(item)">#{{getDriverByIndex(item).raceNumber}}
+                            - {{getDriverByIndex(item).drivers[0].firstName}}
+                            {{getDriverByIndex(item).drivers[0].lastName}}</button>
+                        <mat-icon class="drag-icon" cdkDragHandle>drag_indicator</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-drawer-container>

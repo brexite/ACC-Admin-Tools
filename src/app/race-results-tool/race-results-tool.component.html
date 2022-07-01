@@ -3,11 +3,11 @@
 <div class="body" *ngIf="!loading" [formGroup]="form">
     <div class="split input-data">
         <div class="content">
-            <h2>PASTE entrylist.json</h2>
+            <h2>entrylist.json</h2>
 
             <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>json goes here x</mat-label>
-                <textarea matInput rows=20 style="resize: none;"
+                <mat-label>Paste the JSON here</mat-label>
+                <textarea matInput rows=16 style="resize: none;"
                     placeholder="json x" formControlName="entrylist"></textarea>
                 <mat-error>Required...</mat-error>
             </mat-form-field>
@@ -30,19 +30,19 @@
 
 
 
-        <mat-label class="slider-label">Amount of drivers to reverse</mat-label>
+        <mat-label class="slider-label">Amount of drivers to reverse&nbsp;<mat-icon matTooltip="Use this if you are doing reverse-grid races in your series. Ensure that the entrylist has been dumped from the server using the `dumpEntryList` setting in settings.json">info</mat-icon></mat-label>
         <mat-slider color="primary" class="slider" thumbLabel tickInterval="1" step="1" min="0" max="40"
             aria-label="units" formControlName="reverse"></mat-slider>
     </div>
 
     <div class="split input-data">
         <div class="content">
-            <h2>PASTE the results.json</h2>
+            <h2>results.json</h2>
 
             <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>json goes here x</mat-label>
-                <textarea matInput rows=20 style="resize: none;"
-                placeholder="json x"formControlName="results"></textarea>
+                <mat-label>Paste the JSON here</mat-label>
+                <textarea matInput rows=16 style="resize: none;"
+                placeholder="json x" formControlName="results"></textarea>
                 <mat-error>Required...</mat-error>
             </mat-form-field>
 
@@ -67,8 +67,8 @@
         <mat-icon>file_download</mat-icon>
     </button>
 
-    <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>output appears here x</mat-label>
+    <mat-form-field class="example-full-width ouput" appearance="fill">
+        <mat-label>Output</mat-label>
         <textarea matInput readonly cols=50 rows=12
             style="resize: none;" formControlName="output"></textarea>
     </mat-form-field>

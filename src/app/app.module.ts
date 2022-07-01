@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import { HeaderComponent } from './shared/header/header.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -20,6 +20,10 @@ import { HeaderComponent } from './shared/header/header.component';
     SharedModule,
     ClipboardModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+        timeOut: 2500,
+        positionClass: 'toast-top-right'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

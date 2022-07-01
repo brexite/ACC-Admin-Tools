@@ -3,12 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { EntrylistToolComponent } from './entrylist-tool/entrylist-tool.component';
+import { RaceResultsToolComponent } from './race-results-tool/race-results-tool.component';
+import { EntrylistEditorComponent } from './entrylist-editor/entrylist-editor.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'entrylist-tool', component: EntrylistToolComponent }
+  { path: 'race-results-tool', component: RaceResultsToolComponent },
+  { path: 'entrylist-editor', component: EntrylistEditorComponent }
 ];
 
 @NgModule({

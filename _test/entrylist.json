@@ -151,6 +151,7 @@
             "forcedCarModel": 30,
             "overrideDriverInfo": 1,
             "defaultGridPosition": -1,
+            "overrideCarModelForCustomCar": 0,
             "isServerAdmin": 0
         },
         {

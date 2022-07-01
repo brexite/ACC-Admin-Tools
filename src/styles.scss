@@ -4,6 +4,9 @@ html, body { height: 100%; }
 body { margin: 0; background-color: #252526; color: #F1F1F1}
 
 @import '~@angular/material/theming';
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import './variables.scss';
+@import '~ngx-toastr/toastr.css';
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -27,3 +30,22 @@ $fontConfig: (
   caption: mat-typography-level(12px, 20px, 400, 'Noto Sans', 0.0333em),
   input: mat-typography-level(inherit, 1.125, 400, 'Noto Sans', 00.0000em)
 );
+
+.toast {
+  opacity: 1 !important;
+}
+
+mat-icon {
+  position: relative;
+  top: -2px; /*Change this to adjust the icon*/
+}
+
+.fa-brands, .fa-solid {
+  position: relative;
+  top: -2px; /*Change this to adjust the icon*/
+}
+
+mat-drawer-inner-content {
+  z-index: 999 !important;
+  position: relative !important;
+}

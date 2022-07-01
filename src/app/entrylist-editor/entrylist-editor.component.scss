@@ -1,0 +1,217 @@
+* {
+    color-scheme: dark;
+}
+
+h1,
+h2,
+h4 {
+    text-align: center;
+    z-index: 1;
+}
+
+h4 {
+    margin: auto;
+    padding: auto;
+}
+
+p {
+    margin: 0;
+}
+
+.split {
+    width: 60%;
+    // border-right: 2px solid #3E3E40;
+    padding: 2.5%;
+}
+
+.small-split {
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    border-left: 2px solid #3E3E40;
+    flex-direction: row;
+    overflow: auto;
+    padding: 2.5%;
+}
+
+.drag-column {
+    display: flexbox;
+    flex-direction: row;
+    width: 50%;
+    padding: 20px 10px;
+}
+
+.input-area {
+    padding: 0px 10px;
+}
+
+.body {
+    position: absolute;
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    top: 6.5%;
+    bottom: 0;
+    z-index: 0;
+}
+
+.body-loading {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    height: 87.5%;
+    align-items: center;
+    justify-content: center;
+}
+
+.example-box {
+    border-bottom: solid 1px #ccc;
+    border-left: ridge 8px;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background: white;
+    font-size: 14px;
+  }
+
+.title {
+    display: flexbox;
+    border-bottom: 2px solid #3E3E40;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.section-title {
+    display: flexbox;
+    border-top: 2px solid #3E3E40;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.upload-button {
+    display: flexbox;
+    position: relative;
+    text-align: center;
+    height: 50px;
+    width: 35%;
+    align-items: center;
+    justify-content: center;
+}
+
+.drag-icon{
+    text-align: right;
+    cursor: move;
+}
+
+.file-input {
+    display: none;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    margin: 0q;
+}
+
+.driver-button {
+    width: 100%;
+    height: 3em;
+    background-color: transparent;
+    border-color: transparent;
+    color: black;
+}
+
+mat-icon.info-icon {
+    // hack to circumvent the bullshit that is viewboxes not updating any other way
+    width: 16px !important;
+    height: 16px  !important;
+    transform: translate(-4px, -4px)
+}
+
+.info-at-checkbox {
+    transform: translate(4px, 0px) !important
+}
+
+.info-at-radio {
+    transform: translate(0px, 6px) !important
+}
+
+.sidebar-trigger {
+    height: 100%;
+    width: 2.5%;
+    background-color: #666666;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    writing-mode:vertical-rl;
+    text-orientation:sideways-right;
+    cursor: pointer;
+    z-index: 0;
+    box-shadow: 10px 0px 6px -6px #000000;
+    transition-duration: 0.4s;
+    
+    h4{
+        transform: rotate(-180deg);
+        justify-self: center;
+    }
+}
+
+.sidebar-trigger:hover{
+    background-color: #ccc;
+    color: black;
+}
+
+mat-drawer-container {
+    width: 100%;
+    display: flexbox;
+    overflow: hidden !important;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    z-index: 0;
+}
+
+.example-container {
+    overflow: hidden;
+    background-color: #252526;
+}
+  
+  .example-sidenav-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 4;
+  }
+  
+  .example-sidenav {
+    padding: 60px 20px;
+    width: 25%;
+    z-index: 4;
+    background-color: #303030;
+  }
+
+  .button-arrange {
+    display: flex; 
+    justify-content: space-around;
+    width: 90%;
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  ::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
+    z-index: 2;
+    display: none;
+  }
+
+  ::ng-deep .mat-button-toggle-label-content {
+    padding: 0 !important;
+  }

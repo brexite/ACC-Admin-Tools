@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { fadeInOut } from "../shared/animations/animations";
 import { Clipboard } from '@angular/cdk/clipboard';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-entrylist-tool',
-  templateUrl: './entrylist-tool.component.html',
-  styleUrls: ['./entrylist-tool.component.scss']
+  selector: 'app-race-results-tool',
+  templateUrl: './race-results-tool.component.html',
+  styleUrls: ['./race-results-tool.component.scss']
 })
-export class EntrylistToolComponent implements OnInit {
+export class RaceResultsToolComponent implements OnInit {
 
   form: FormGroup;
   outputForm: FormGroup;
@@ -17,7 +18,8 @@ export class EntrylistToolComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    private toastr: ToastrService
   ) {
     animations: [
       fadeInOut
@@ -43,6 +45,7 @@ export class EntrylistToolComponent implements OnInit {
 
   copy() {
     this.clipboard.copy(this.output);
+    this.toastr.success("Copied New Entrylist")
   }
 
   dl() {
@@ -84,7 +87,7 @@ export class EntrylistToolComponent implements OnInit {
 
 
     }
-    console.log(entrylistJSON)
+    // console.log(entrylistJSON)
 
     this.output = JSON.stringify(entrylistJSON, null, "\t");
     this.outputForm.patchValue({
@@ -103,12 +106,16 @@ export class EntrylistToolComponent implements OnInit {
     if (file) {
 
       const fileReader = new FileReader();
-      fileReader.readAsText(file, "UTF-8");
-
+        fileReader.readAsText(file, "UTF-8")
 
       if (key == 0) {
-        console.log("test - entrylist")
+        // console.log("test - entrylist")
         fileReader.onload = () => {
+          try {
+            JSON.stringify(JSON.parse(<string>fileReader.result), null, "\t")
+          } catch (error) {
+            this.toastr.error("Error with the entrylist.json, please try again.");
+          }
           this.form.patchValue({
             entrylist: JSON.stringify(JSON.parse(<string>fileReader.result), null, "\t")
           })
@@ -118,8 +125,13 @@ export class EntrylistToolComponent implements OnInit {
         }
 
       } else {
-        console.log("test - results")
+        // console.log("test - results")
         fileReader.onload = () => {
+          try {
+            JSON.stringify(JSON.parse(<string>fileReader.result), null, "\t")
+          } catch (error) {
+            this.toastr.error("Error with the results.json, please try again.");
+          }
           this.form.patchValue({
             results: JSON.stringify(JSON.parse(<string>fileReader.result), null, "\t")
           })
