@@ -1,0 +1,42 @@
+* {
+    color-scheme: dark;
+  }
+
+.button-group {
+    padding-top: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+button {
+    padding-bottom: 5px;
+}
+
+textarea {
+    display: flexbox;
+    resize: none;
+    overflow:auto;
+    box-sizing: content-box
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.close {
+    border: none;
+    display: inline-block;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+    position: absolute;
+    right: 0;
+    top: 0
+}

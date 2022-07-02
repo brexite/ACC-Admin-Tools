@@ -1,0 +1,20 @@
+<div style="height: 90vh; width: 90vh">
+
+    <mat-form-field class="example-full-width ouput" appearance="fill">
+        <mat-label>Output</mat-label>
+        <textarea matInput readonly cols=150 rows=32
+        style="resize: none;" style="width: 100%">{{ output }}</textarea>
+    </mat-form-field>
+
+    <div class="button-group btm">
+        <button class="json-out" mat-stroked-button color="primary" (click)="copy()">
+            <mat-icon>visibility</mat-icon> Copy JSON to Clipboard
+        </button>
+        <button class="json-out" mat-raised-button color="accent" (click)="dl()">
+            <mat-icon>download</mat-icon> Download JSON
+        </button>
+        <button class="json-out" mat-raised-button color="warn" (click)="close()">
+            <mat-icon>close</mat-icon> Close Window
+        </button>
+    </div>
+</div>

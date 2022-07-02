@@ -9,10 +9,10 @@ export enum CarTypeCategory {
 export interface Car {
     key: string,
     value: number
-  }
-  
-  export interface CarGroup {
+}
+
+export interface CarGroup {
     disabled?: boolean;
     category: string;
     cars: Car[];
-  }
+}

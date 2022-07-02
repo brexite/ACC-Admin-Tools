@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { fadeInOut } from "../shared/animations/animations";
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ToastrService } from 'ngx-toastr';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DriverCategory } from '../models/driver-fields';
 import { CarGroup, CarTypeCategory } from '../models/car-fields';
-import { ReplaySubject } from 'rxjs';
+import { ResetConfirmationComponent } from '../shared/modals/reset-confirmation/reset-confirmation.component';
+import { MatDialog } from '@angular/material/dialog';
+import { TextareaModalComponent } from '../shared/modals/textarea-modal/textarea-modal.component';
 
 @Component({
   selector: 'app-entrylist-editor',
@@ -200,21 +202,24 @@ export class EntrylistEditorComponent implements OnInit {
     { key: "Unchanged", value: 0 },
     { key: "Disabled", value: 1 },
     { key: "Enabled", value: 2 }, 
-]
+  ]
 
-advancedCarOptions = [
+  advancedCarOptions = [
   { key: "Unchanged", value: 0 },
   { key: "Disabled", value: 1 },
   { key: "Enabled", value: 2 }, 
-]
+  ]
 
   orderedDrivers: number[] = [];
   unorderedDrivers: number[] = [];
 
+  output: string;
+
   constructor(
     private fb: FormBuilder,
     private clipboard: Clipboard,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public dialog: MatDialog,
   ) {
     animations: [
       fadeInOut
@@ -242,6 +247,9 @@ advancedCarOptions = [
       overrideDriverInfo: true,
       isAdmin: false,
       overrideCar: false,
+      forceEntryList: false,
+      
+      output: '',
     })
 
   }
@@ -261,16 +269,20 @@ advancedCarOptions = [
       overrideDriverInfo: this.json.entries[key].overrideDriverInfo,
       isAdmin: this.json.entries[key].isServerAdmin,
       overrideCar: (this.json.entries[key]?.overrideCarModelForCustomCar != null) ? this.json.entries[key].overrideCarModelForCustomCar : true,
+      forceEntryList: this.json.forceEntryList
     })
+
     this.loading = false;
   }
 
   copy() {
+    this.saveData()
     this.clipboard.copy(this.json);
     this.toastr.success("Copied New Entrylist")
   }
 
   dl() {
+    this.saveData()
     var data = "data:text/json;charset=utf-8," + encodeURIComponent(this.json);
     var downloader = document.createElement('a');
 
@@ -279,8 +291,36 @@ advancedCarOptions = [
     downloader.click();
   }
 
+  newJson() {
+
+    this.saveData()
+    const dialogRef = this.dialog.open(ResetConfirmationComponent, {
+      autoFocus: true
+    })
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (!confirmed)
+        return;
+        this.json = null;
+    })
+  }
+
+  viewJson() {
+
+    this.saveData()
+    const dialogRef = this.dialog.open(TextareaModalComponent, {
+      autoFocus: true,
+      data: {json: this.json}
+    })
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (!confirmed)
+        return;
+      this.dl();
+    })
+  }
+
   navigateDriver(driverNo: number) {
-    let oldNo = this.json.entries[this.driverIndex].raceNumber;
     try {
       this.saveData();
     } catch (error) {
@@ -324,10 +364,6 @@ advancedCarOptions = [
     } catch (error) {
       console.error(error)
     }
-
-
-    console.log(this.unorderedDrivers)
-    console.log(this.orderedDrivers);
   }
 
   updateGridPosition() {
@@ -357,6 +393,12 @@ advancedCarOptions = [
           this.loading = true;
           JSON.stringify(JSON.parse(<string>fileReader.result), null, "\t")
           this.json = JSON.parse(<string>fileReader.result)
+
+          this.output = JSON.stringify(this.json, null, "\t")
+          this.form.patchValue({
+            output: this.output
+          })
+
           this.driverLength = this.json.entries.length
           this.getDriverOrders();
           this.patchForm(0);
@@ -389,6 +431,8 @@ advancedCarOptions = [
   }
 
   saveData() {
+    console.log(this.json)
+
     this.json.entries[this.driverIndex].drivers[0].firstName = this.form.get("firstName").value;
     this.json.entries[this.driverIndex].drivers[0].lastName = this.form.get("lastName").value;
     this.json.entries[this.driverIndex].drivers[0].nickname = this.form.get("nickname").value;
@@ -402,6 +446,14 @@ advancedCarOptions = [
     this.json.entries[this.driverIndex].overrideDriverInfo = this.form.get("overrideDriverInfo").value;
     this.json.entries[this.driverIndex].isServerAdmin = this.form.get("isAdmin").value;
     this.json.entries[this.driverIndex].overrideCarModelForCustomCar = this.form.get("overrideCar").value;
+    this.json.forceEntryList = this.form.get("forceEntryList").value;
+
+    this.output = JSON.stringify(this.json, null, "\t")
+    this.form.patchValue({
+      output: this.output
+    })
+
+    console.log(this.json)
   }
 
   //id: cdk-drop-list-0 = ordered
@@ -444,10 +496,6 @@ advancedCarOptions = [
         carOverride: event.value
       })
     }
-
-    console.log(this.advancedForm.get('driverOverride').value)
-    console.log(this.advancedForm.get('carOverride').value)
-
   }
 
   advancedSave(){
