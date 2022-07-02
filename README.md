@@ -27,6 +27,8 @@ No edits planned
  - [ ] Remove requirement for driver nationality
  - [ ] Remove workarounds for invalid forms
  - [ ] Add ability to work with multiple drivers per team
+ - [ ] Add Car Logos with tooltips
+ - [ ] Enable/Disable Ordering drivers on the grid
 
 **General Edits**
  - [ ] Remove in-line styling
