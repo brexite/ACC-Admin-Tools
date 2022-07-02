@@ -1,16 +1,19 @@
-<mat-spinner *ngIf="loading" [diameter]="70"></mat-spinner>
-<div class="body" *ngIf="!loading">
-    <h1 class="title">Welcome to some ACC Admin Tools</h1>
-    <h3 class="title" >Useful for server hosting and such</h3>
-    <label class="title">By Marley Watts - @brexite</label>
-
-    <div id="myDropdown" class="socials">
-        <a href="https://github.com/brexite/ACC-Admin-Tools" target="_blank"><button
-                class="social-btn"><i class="fa-brands fa-github-square"></i></button></a>
-        <a href="https://revsport.racing" target="_blank"><button class="social-btn"><i
-                    class="fa-solid fa-globe"></i></button></a>
-        <a href="https://twitter.com/brexite/" target="_blank"><button class="social-btn"><i
-                    class="fa-brands fa-twitter"></i></button></a>
-
+<!-- <mat-spinner *ngIf="loading" [diameter]="70"></mat-spinner> -->
+<div class="body" [ngStyle]="{'background-image': 'url(' + currentBg + ')'}"  *ngIf="!loading">
+    <div class="wrapper">
+        <h1 class="title">Welcome to ACC Server Tools</h1>
+        <h3 class="title" >Useful for server hosting and such</h3>
+        <label class="title">By Marley Watts - @brexite</label>
+    
+        <div id="myDropdown" class="socials">
+            <a href="https://github.com/brexite/ACC-Admin-Tools" target="_blank"><button
+                    class="social-btn"><i class="fa-brands fa-github-square"></i></button></a>
+            <a href="https://revsport.racing" target="_blank"><button class="social-btn"><i
+                        class="fa-solid fa-globe"></i></button></a>
+            <a href="https://twitter.com/brexite/" target="_blank"><button class="social-btn"><i
+                        class="fa-brands fa-twitter"></i></button></a>
+    
+        </div>
     </div>
+    
 </div>

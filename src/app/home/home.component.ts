@@ -15,6 +15,15 @@ export class HomeComponent implements OnInit {
   loading: boolean = true;
   output: string;
 
+  bg = [
+    './assets/bg0.png',
+    './assets/bg1.png',
+    './assets/bg2.png',
+    './assets/bg3.png',
+  ]
+
+  currentBg: string = null;
+
   constructor(
     private fb: FormBuilder,
     private clipboard: Clipboard
@@ -25,6 +34,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentBg = this.bg[Math.floor(Math.random() * 4)]
     this.loading = false;
   }
 }

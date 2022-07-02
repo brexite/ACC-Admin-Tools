@@ -1,18 +1,29 @@
 * {
     color-scheme: dark;
+    overflow: hidden;
   }
 
 h1, h2 {
     text-align: center;
 }
 
-.body {
-    overflow: auto;
+.wrapper {
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    height: 90%;
+    height:100%;
+    padding: 0;
+    margin: 0;
+    top: 0;
     align-items: center;
     justify-content: center;
+}
+
+.body {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
 }
 
 .social-btn {
