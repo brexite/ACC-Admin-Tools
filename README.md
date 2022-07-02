@@ -1,3 +1,4 @@
+
 # ACC Admin Tools
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/brexite/ACC-Admin-Tools)
@@ -13,3 +14,20 @@ A tool designed for helping edit server-side files easily and quickly. ACC Serve
 ## Running this tool
 
 Coming soon...
+
+## To-do List
+
+**Race Results Tool**
+No edits planned
+
+**Entry List Editor**
+ - [ ] Sort Unordered by driver number by default
+ - [ ] Add quick add tools between sorted and unsorted list
+ - [ ] Ability to add new drivers
+ - [ ] Remove requirement for driver nationality
+ - [ ] Remove workarounds for invalid forms
+ - [ ] Add ability to work with multiple drivers per team
+
+**General Edits**
+ - [ ] Remove in-line styling
+ - [ ] De-tangle codebase
