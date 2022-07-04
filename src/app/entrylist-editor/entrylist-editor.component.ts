@@ -277,13 +277,13 @@ export class EntrylistEditorComponent implements OnInit {
 
   copy() {
     this.saveData()
-    this.clipboard.copy(this.json);
+    this.clipboard.copy(JSON.stringify(this.json));
     this.toastr.success("Copied New Entrylist")
   }
 
   dl() {
     this.saveData()
-    var data = "data:text/json;charset=utf-8," + encodeURIComponent(this.json);
+    var data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.json, null, "\t"));
     var downloader = document.createElement('a');
 
     downloader.setAttribute('href', data);
@@ -340,9 +340,14 @@ export class EntrylistEditorComponent implements OnInit {
       if (<number>entry.defaultGridPosition == -1) return index;
     })
 
+    this.unorderedDrivers.sort(function(a,b) {
+      return tempJSON.entries[a].raceNumber - tempJSON.entries[b].raceNumber
+    })
+
     this.unorderedDrivers = this.unorderedDrivers.filter(function (element) {
       return element !== undefined;
     });
+
 
     // tempJSON = tempJSON.entries.filter(entry => {
     //   return entry.defaultGridPosition !== -1
@@ -443,10 +448,10 @@ export class EntrylistEditorComponent implements OnInit {
     this.json.entries[this.driverIndex].raceNumber = this.form.get("raceNumber").value;
     this.json.entries[this.driverIndex].drivers[0].nationality = this.form.get("nationality").value;
     this.json.entries[this.driverIndex].forcedCarModel = this.form.get("carChoice").value;
-    this.json.entries[this.driverIndex].overrideDriverInfo = this.form.get("overrideDriverInfo").value;
-    this.json.entries[this.driverIndex].isServerAdmin = this.form.get("isAdmin").value;
-    this.json.entries[this.driverIndex].overrideCarModelForCustomCar = this.form.get("overrideCar").value;
-    this.json.forceEntryList = this.form.get("forceEntryList").value;
+    this.json.entries[this.driverIndex].overrideDriverInfo = this.form.get("overrideDriverInfo").value ? 1 : 0;
+    this.json.entries[this.driverIndex].isServerAdmin = this.form.get("isAdmin").value ? 1 : 0;
+    this.json.entries[this.driverIndex].overrideCarModelForCustomCar = this.form.get("overrideCar").value ? 1 : 0;
+    this.json.forceEntryList = this.form.get("forceEntryList").value ? 1 : 0;
 
     this.output = JSON.stringify(this.json, null, "\t")
     this.form.patchValue({
@@ -471,6 +476,12 @@ export class EntrylistEditorComponent implements OnInit {
       console.log(event.container)
     }
     this.updateGridPosition();
+    
+    let tempJSON = this.json;
+    this.unorderedDrivers.sort(function(a,b) {
+      return tempJSON.entries[a].raceNumber - tempJSON.entries[b].raceNumber
+    })
+
   }
 
   sideBarAction() {
@@ -499,6 +510,9 @@ export class EntrylistEditorComponent implements OnInit {
   }
 
   advancedSave(){
+
+    this.saveData(); 
+
     let cat = this.advancedForm.get('categoryOverride').value
     let drive = this.advancedForm.get('driverOverride').value
     let car = this.advancedForm.get('carOverride').value
@@ -512,14 +526,14 @@ export class EntrylistEditorComponent implements OnInit {
     if (drive > 0) {
       let bool = drive == 2 ?  true : false
       this.json.entries.forEach(entry => {
-        entry.overrideDriverInfo = bool;
+        entry.overrideDriverInfo = bool ? 1 : 0;
       });
     }
 
     if (car > 0) {
       let bool = car == 2 ?  true : false
       this.json.entries.forEach(entry => {
-        entry.overrideCarModelForCustomCar = bool;
+        entry.overrideCarModelForCustomCar = bool ? 1 : 0;
       });
     }
 
