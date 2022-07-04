@@ -85,6 +85,17 @@ p {
     font-size: 14px;
   }
 
+  .example-list {
+    min-height: 36px;
+  }
+  
+  .example-custom-placeholder {
+    background: #ccc;
+    border: dotted 3px #999;
+    min-height: 60px;
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
 .title {
     display: flexbox;
     border-bottom: 2px solid #3E3E40;

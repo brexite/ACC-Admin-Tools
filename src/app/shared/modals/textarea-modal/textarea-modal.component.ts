@@ -32,7 +32,7 @@ export class TextareaModalComponent {
     }
 
     copy() {
-        this.clipboard.copy(JSON.stringify(this.data.json, null, "\t"));
+        this.clipboard.copy(JSON.stringify(this.data.json));
         this.toastr.success("Copied New Entrylist")
       }
 }
