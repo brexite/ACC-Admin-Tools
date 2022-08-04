@@ -21,7 +21,7 @@ Coming soon...
 No edits planned
 
 **Entry List Editor**
- - [ ] Sort Unordered by driver number by default
+ - [x] Sort Unordered by driver number by default
  - [ ] Add quick add tools between sorted and unsorted list
  - [ ] Ability to add new drivers
  - [ ] Remove requirement for driver nationality
