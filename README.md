@@ -24,7 +24,7 @@ No edits planned
  - [x] Sort Unordered by driver number by default
  - [ ] Add quick add tools between sorted and unsorted list
  - [ ] Ability to add new drivers
- - [ ] Remove requirement for driver nationality
+ - [x] Remove requirement for driver nationality
  - [ ] Remove workarounds for invalid forms
  - [ ] Add ability to work with multiple drivers per team
  - [ ] Add Car Logos with tooltips
