@@ -242,7 +242,7 @@ export class EntrylistEditorComponent implements OnInit {
       steamId: ['', [Validators.required]],
       customCarName: '',
       raceNumber: ['', [Validators.required]],
-      nationality: [0, [Validators.required]],
+      nationality: [0],
       carChoice: null,
       overrideDriverInfo: true,
       isAdmin: false,
