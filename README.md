@@ -23,13 +23,17 @@ No edits planned
 **Entry List Editor**
  - [x] Sort Unordered by driver number by default
  - [ ] Add quick add tools between sorted and unsorted list
- - [ ] Ability to add new drivers
+ - [ ] Ability to add new drivers and delete drivers
  - [x] Remove requirement for driver nationality
  - [ ] Remove workarounds for invalid forms
  - [ ] Add ability to work with multiple drivers per team
  - [ ] Add Car Logos with tooltips
- - [ ] Enable/Disable Ordering drivers on the grid
+ - [ ] Enable/Disable Ordering drivers on the grid shortcut
 
 **General Edits**
  - [ ] Remove in-line styling
  - [ ] De-tangle codebase
+ - [ ] Change colour scheme to match REVSPORT better
+
+ **Future Features**
+ - [ ] Full server file config (Race Weekend Setup)
