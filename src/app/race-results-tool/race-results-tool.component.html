@@ -1,11 +1,156 @@
 <mat-spinner *ngIf="loading" [diameter]="70"></mat-spinner>
-<h1 *ngIf="!loading">ACC ENTRY LIST TOOL</h1>
 <div class="body" *ngIf="!loading" [formGroup]="form">
+  <div class="top-section">
+    <div class="input-data split">
+      <h2>entrylist.json</h2>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Paste the JSON here</mat-label>
+        <textarea
+          matInput
+          rows="10"
+          placeholder="json x"
+          style="resize: none"
+          formControlName="entrylist"
+        ></textarea>
+        <mat-error>Required...</mat-error>
+      </mat-form-field>
+
+      <input
+        type="file"
+        class="file-input"
+        accept=".json"
+        (change)="onFileSelected($event, 0)"
+        #fileUploadEntrylist
+      />
+
+      <button
+        class="upload-button"
+        mat-raised-button
+        color="primary"
+        (click)="fileUploadEntrylist.click()"
+      >
+        <mat-icon>upload</mat-icon>
+        Upload JSON
+      </button>
+    </div>
+    <div class="small-split options">
+      <button
+        [disabled]="!form.valid"
+        class="run-button"
+        mat-raised-button
+        color="primary"
+        (click)="run()"
+      >
+        <mat-icon>bolt</mat-icon>
+        Run
+      </button>
+      <mat-divider></mat-divider>
+      <div class="reverse">
+        <mat-label class="slider-label"
+          >Amount of drivers to reverse&nbsp;<mat-icon
+            matTooltip="Use this if you are doing reverse-grid races in your series. Ensure that the entrylist has been dumped from the server using the `dumpEntryList` setting in settings.json"
+            >info</mat-icon
+          ></mat-label
+        >
+
+        <mat-slider
+          color="primary"
+          class="slider"
+          thumbLabel
+          tickInterval="1"
+          step="1"
+          min="0"
+          max="40"
+          aria-label="units"
+          formControlName="reverse"
+        ></mat-slider>
+      </div>
+    </div>
+    <div class="input-data split">
+      <h2>results.json</h2>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Paste the JSON here</mat-label>
+        <textarea
+          matInput
+          rows="10"
+          style="resize: none"
+          placeholder="json x"
+          formControlName="results"
+        ></textarea>
+        <mat-error>Required...</mat-error>
+      </mat-form-field>
+
+      <input
+        type="file"
+        class="file-input"
+        accept=".json"
+        (change)="onFileSelected($event, 1)"
+        #fileUploadResults
+      />
+
+      <button
+        class="upload-button"
+        mat-raised-button
+        color="primary"
+        (click)="fileUploadResults.click()"
+      >
+        <mat-icon>upload</mat-icon>
+        Upload JSON
+      </button>
+    </div>
+  </div>
+  <div class="bottom-section" [formGroup]="outputForm">
+    <div class="output-buttons">
+        <button
+        [disabled]="!outputForm.get('output').value"
+        class="copy-button"
+        mat-raised-button
+        color="primary"
+        (click)="viewJson()"
+      >
+        <mat-icon>visibility</mat-icon>
+      </button>
+
+      <button
+        [disabled]="!outputForm.get('output').value"
+        class="copy-button"
+        mat-raised-button
+        color="primary"
+        (click)="copy()"
+      >
+        <mat-icon>assignment</mat-icon>
+      </button>
+
+      <button
+        [disabled]="!outputForm.get('output').value"
+        class="dl-button"
+        mat-raised-button
+        color="primary"
+        (click)="dl()"
+      >
+        <mat-icon>file_download</mat-icon>
+      </button>
+    </div>
+
+    <mat-form-field class="output" appearance="fill">
+      <mat-label>Output</mat-label>
+      <textarea
+        matInput
+        readonly
+        style="resize: none"
+        formControlName="output"
+      ></textarea>
+    </mat-form-field>
+  </div>
+</div>
+<!-- <div class="body" *ngIf="!loading" [formGroup]="form">
     <div class="split input-data">
         <div class="content">
             <h2>entrylist.json</h2>
 
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field appearance="fill">
                 <mat-label>Paste the JSON here</mat-label>
                 <textarea matInput rows=10 style="resize: none;"
                     placeholder="json x" formControlName="entrylist"></textarea>
@@ -39,7 +184,7 @@
         <div class="content">
             <h2>results.json</h2>
 
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field appearance="fill">
                 <mat-label>Paste the JSON here</mat-label>
                 <textarea matInput rows=10 style="resize: none;"
                 placeholder="json x" formControlName="results"></textarea>
@@ -72,4 +217,4 @@
         <textarea matInput readonly cols=50 rows=12
             style="resize: none;" formControlName="output"></textarea>
     </mat-form-field>
-</div>
+</div> -->
