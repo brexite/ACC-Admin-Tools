@@ -1,42 +1,60 @@
 * {
-    color-scheme: dark;
-  }
+  color-scheme: dark;
+}
+
+.body {
+  height: 80vh;
+  width: 80vh;
+}
 
 .button-group {
-    padding-top: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  margin-top: 1vh;
+  height: 12vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 button {
-    padding-bottom: 5px;
+  padding-bottom: 5px;
+  height: 6vh;
 }
 
 textarea {
-    display: flexbox;
-    resize: none;
-    overflow:auto;
-    box-sizing: content-box
+  display: flexbox;
+  resize: none;
+  overflow: auto;
+  box-sizing: content-box;
+  height: 80%;
+}
+
+::ng-deep .output .mat-form-field-wrapper,
+::ng-deep .output .mat-form-field-flex,
+::ng-deep .output .mat-form-field-infix {
+  height: 60vh !important;
+}
+
+::ng-deep .output .mat-input-element {
+    height: 90% !important;
 }
 
 .example-full-width {
-    width: 100%;
+  width: 100%;
 }
 
 .close {
-    border: none;
-    display: inline-block;
-    padding: 8px 16px;
-    vertical-align: middle;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    background-color: inherit;
-    text-align: center;
-    cursor: pointer;
-    white-space: nowrap;
-    position: absolute;
-    right: 0;
-    top: 0
+  border: none;
+  display: inline-block;
+  padding: 8px 16px;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background-color: inherit;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
