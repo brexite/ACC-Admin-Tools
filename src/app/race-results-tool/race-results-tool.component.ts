@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { fadeInOut } from '../shared/animations/animations';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ToastrService } from 'ngx-toastr';
@@ -36,6 +36,7 @@ export class RaceResultsToolComponent implements OnInit {
       entrylist: ['', [Validators.required]],
       results: ['', [Validators.required]],
       reverse: 0,
+      forceEL: true,
     });
 
     this.outputForm = this.fb.group({
@@ -78,7 +79,10 @@ export class RaceResultsToolComponent implements OnInit {
 
     let entrylistJSON = JSON.parse(this.form.get('entrylist').value);
     let resultsJSON = JSON.parse(this.form.get('results').value);
+    let forceEntryList = this.form.get('forceEL').value;
     let reverseGrid = this.form.get('reverse').value;
+
+    console.log(forceEntryList)
 
     if (resultsJSON.sessionResult.leaderBoardLines.length < reverseGrid) {
       reverseGrid = resultsJSON.sessionResult.leaderBoardLines.length;
@@ -107,6 +111,8 @@ export class RaceResultsToolComponent implements OnInit {
       }
     }
     // console.log(entrylistJSON)
+
+    entrylistJSON.forceEntryList = forceEntryList ? 1 : 0;
 
     this.output = JSON.stringify(entrylistJSON, null, '\t');
     this.outputForm.patchValue({

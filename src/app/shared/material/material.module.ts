@@ -30,6 +30,7 @@ import { MatTooltipModule  } from '@angular/material/tooltip'
 import { MatTreeModule } from '@angular/material/tree';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatExpansionModule,
     MatRadioModule,
     MatButtonToggleModule,
+    MatSlideToggleModule,
   ],
   exports: [
     MatButtonModule,
@@ -97,6 +99,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatExpansionModule,
     MatRadioModule,
     MatButtonToggleModule,
+    MatSlideToggleModule,
   ],
   providers: [MatDatepickerModule]
 })

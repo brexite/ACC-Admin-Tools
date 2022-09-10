@@ -41,6 +41,12 @@
     }
 }
 
+.inline {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .reverse {
     display: flex;
     flex-direction: column;
@@ -77,6 +83,10 @@
   width: 100%;
   height: 100%;
   padding: 0;
+}
+
+mat-divider {
+  margin: 2.5vh 0;
 }
 
 textarea {

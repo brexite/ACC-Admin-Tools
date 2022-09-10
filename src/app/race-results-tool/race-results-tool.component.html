@@ -65,6 +65,13 @@
           aria-label="units"
           formControlName="reverse"
         ></mat-slider>
+        <mat-divider></mat-divider>
+        <div class="inline">
+          <mat-label>Force Entrylist?</mat-label>
+
+          <mat-slide-toggle color="primary" formControlName="forceEL">
+          </mat-slide-toggle>
+        </div>
       </div>
     </div>
     <div class="input-data split">
@@ -103,7 +110,7 @@
   </div>
   <div class="bottom-section" [formGroup]="outputForm">
     <div class="output-buttons">
-        <button
+      <button
         [disabled]="!outputForm.get('output').value"
         class="copy-button"
         mat-raised-button
