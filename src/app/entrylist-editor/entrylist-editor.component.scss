@@ -44,6 +44,7 @@ p {
 .drag-column {
     display: flexbox;
     flex-direction: row;
+    height: inherit;
     width: 50%;
     padding: 20px 10px;
 }
@@ -90,7 +91,9 @@ p {
   }
 
   .example-list {
-    min-height: 36px;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
   }
   
   .example-custom-placeholder {

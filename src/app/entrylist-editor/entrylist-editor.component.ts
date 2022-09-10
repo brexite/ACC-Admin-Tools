@@ -421,6 +421,26 @@ export class EntrylistEditorComponent implements OnInit {
     }
   }
 
+  newFile() {
+    this.loading = true;
+    this.json = JSON.parse('{"entries": [],"forceEntryList": 0}');
+    this.createDriver();
+    this.loading = false;
+  }
+
+  createDriver() {
+    // new driver to json array on click
+
+    // this.saveData();
+  }
+
+  deleteDriver() {
+    //remove currently selected driver
+    //if last driver, do createDriver() or not allow deletion of last driver
+    
+    // this.saveData();
+  }
+
   getDriverCategory(index: number) {
     return this.driverColours[this.json.entries[index].drivers[0].driverCategory]
   }
