@@ -1,51 +1,55 @@
 * {
-    color-scheme: dark;
-    overflow: hidden;
-  }
+  color-scheme: dark;
+  overflow: hidden;
+}
 
-h1, h2 {
-    text-align: center;
+h1,
+h2 {
+  text-align: center;
 }
 
 .wrapper {
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    height:100%;
-    padding: 0;
-    margin: 0;
-    top: 0;
-    align-items: center;
-    justify-content: center;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  align-items: center;
+  justify-content: center;
 }
 
 .body {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .social-btn {
-    background-color: transparent;
-    border-color: transparent;
-    font-size: 32px;
-    min-width: 48px;
-    transition: transform 0.2s;
-    pointer-events: all;
-  }
-
-.title {
-    display: flexbox;
+  background-color: transparent;
+  border-color: transparent;
+  font-size: 32px;
+  min-width: 48px;
+  transition: transform 0.2s;
+  pointer-events: all;
 }
 
-mat-spinner{
-    position: absolute;
-    height: 100px;
-    width: 100px;
-    top: 50%;
-    left: 50%;
-    margin-left: -50px;
-    margin-top: -50px;
-    background-size: 100%;
+.title {
+  display: flexbox;
+}
+
+mat-spinner {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  background-size: 100%;
 }

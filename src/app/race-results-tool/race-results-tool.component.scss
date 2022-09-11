@@ -20,12 +20,12 @@
 .top-section {
   display: flex;
   flex-direction: row;
-  height: 80%;
+  height: 70%;
 }
 
 .bottom-section {
   display: block;
-  height: 20%;
+  height: 30%;
   width: 100%;
 }
 
@@ -33,23 +33,31 @@
 }
 
 .options {
-    
-    justify-content: center;
+  justify-content: center;
 
-    > * {
-        margin: 2vh 0;
-    }
+  > * {
+    margin: 2vh 0;
+  }
+}
+
+.slider-label {
+  display: inline-flex;
+  vertical-align: middle;
+
+  mat-icon {
+    font-size: 20px;
+  }
 }
 
 .inline {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
 .reverse {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .split,
@@ -72,11 +80,16 @@
 .output-buttons {
   display: flex;
   flex-direction: column;
-  height: 18%;
-  justify-content: space-around;
+  height: 27%;
+  justify-content: center;
   position: absolute;
   right: 2vw;
   z-index: 5;
+
+  button {
+    height: 4vw;
+    margin: 1vh 0;
+  }
 }
 
 .output {
@@ -96,7 +109,7 @@ textarea {
 }
 
 .split textarea {
-    height: 80%;
+  height: 80%;
 }
 
 ::ng-deep .split .mat-form-field-wrapper,
@@ -117,5 +130,5 @@ textarea {
 }
 
 ::ng-deep .output .mat-form-field-underline {
-    display: none;
+  display: none;
 }

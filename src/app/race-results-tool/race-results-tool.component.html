@@ -35,17 +35,6 @@
       </button>
     </div>
     <div class="small-split options">
-      <button
-        [disabled]="!form.valid"
-        class="run-button"
-        mat-raised-button
-        color="primary"
-        (click)="run()"
-      >
-        <mat-icon>bolt</mat-icon>
-        Run
-      </button>
-      <mat-divider></mat-divider>
       <div class="reverse">
         <mat-label class="slider-label"
           >Amount of drivers to reverse&nbsp;<mat-icon
@@ -72,6 +61,18 @@
           <mat-slide-toggle color="primary" formControlName="forceEL">
           </mat-slide-toggle>
         </div>
+        <mat-divider></mat-divider>
+
+        <button
+          [disabled]="!form.valid"
+          class="run-button"
+          mat-raised-button
+          color="primary"
+          (click)="run()"
+        >
+          <mat-icon>bolt</mat-icon>
+          Run
+        </button>
       </div>
     </div>
     <div class="input-data split">

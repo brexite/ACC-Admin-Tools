@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { fadeInOut } from '../shared/animations/animations';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ToastrService } from 'ngx-toastr';
@@ -21,7 +26,7 @@ export class RaceResultsToolComponent implements OnInit {
     private fb: FormBuilder,
     private clipboard: Clipboard,
     private toastr: ToastrService,
-    public dialog: MatDialog,
+    private dialog: MatDialog
   ) {
     animations: [fadeInOut];
   }
@@ -60,17 +65,15 @@ export class RaceResultsToolComponent implements OnInit {
   }
 
   viewJson() {
-
     const dialogRef = this.dialog.open(TextareaModalComponent, {
       autoFocus: true,
-      data: {json: JSON.parse(this.output)}
-    })
+      data: { json: JSON.parse(this.output) },
+    });
 
     dialogRef.afterClosed().subscribe((confirmed) => {
-      if (!confirmed)
-        return;
+      if (!confirmed) return;
       this.dl();
-    })
+    });
   }
 
   run() {
@@ -82,7 +85,7 @@ export class RaceResultsToolComponent implements OnInit {
     let forceEntryList = this.form.get('forceEL').value;
     let reverseGrid = this.form.get('reverse').value;
 
-    console.log(forceEntryList)
+    console.log(forceEntryList);
 
     if (resultsJSON.sessionResult.leaderBoardLines.length < reverseGrid) {
       reverseGrid = resultsJSON.sessionResult.leaderBoardLines.length;
