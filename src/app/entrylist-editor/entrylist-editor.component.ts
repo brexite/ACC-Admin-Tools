@@ -413,12 +413,35 @@ export class EntrylistEditorComponent implements OnInit {
     this.loading = true;
     this.json = JSON.parse('{"entries": [],"forceEntryList": 0}');
     this.createDriver();
+    this.output = JSON.stringify(this.json, null, '\t');
+    this.form.patchValue({
+      output: this.output,
+    });
+
+    this.driverLength = this.json.entries.length;
+    this.getDriverOrders();
+    this.patchForm(0);
     this.loading = false;
   }
 
   createDriver() {
-    // new driver to json array on click
-    // this.saveData();
+    this.json['entries'].push({
+      drivers: [
+        {
+          firstName: '',
+          lastName: '',
+          shortName: '',
+          driverCategory: null,
+          nationality: null,
+          playerID: '',
+        },
+      ],
+      raceNumber: null,
+      forcedCarModel: -1,
+      overrideDriverInfo: 1,
+      defaultGridPosition: -1,
+      isServerAdmin: 0,
+    });
   }
 
   deleteDriver() {
