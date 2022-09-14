@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "launch": "ng serve --disable-host-check --o",
+    "fire-deploy": "ng build --aot && firebase deploy",
     "test": "ng test"
   },
   "private": true,
