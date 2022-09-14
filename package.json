@@ -1,5 +1,5 @@
 {
-  "name": "acc-admin-tool",
+  "name": "acc-admin-tools",
   "version": "1.0.1",
   "scripts": {
     "ng": "ng",
