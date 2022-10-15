@@ -506,8 +506,6 @@ export class EntrylistEditorComponent implements OnInit {
     this.form.patchValue({
       output: this.output,
     });
-
-    console.log(this.json);
   }
 
   //id: cdk-drop-list-0 = ordered

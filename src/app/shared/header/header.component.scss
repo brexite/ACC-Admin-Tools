@@ -1,3 +1,5 @@
+@import '../../../variables';
+
 * {
   margin: 0;
   padding: 0;
@@ -14,7 +16,7 @@ button {
 }
 
 button:hover {
-  background-color: #97103d;
+  background-color: $revGold;
 }
 
 button > i {
@@ -22,11 +24,12 @@ button > i {
 }
 
 .topnav {
-  background-color: #e91e63;
+  background-color: $revGrey;
   display: block;
   position: sticky;
   top: 0;
   height: 7.5vh;
   padding: 10px;
   box-shadow: 0px 0px 5px 3px #111;
+  border-bottom: 2px solid $revGold;
 }

@@ -13,7 +13,7 @@
     <button
       class="upload-button"
       mat-raised-button
-      color="primary"
+      color="accent"
       (click)="fileUploadResults.click()"
     >
       <mat-icon>upload</mat-icon>
@@ -149,7 +149,7 @@
       <button
         mat-raised-button
         style="width: 100%"
-        color="primary"
+        color="accent"
         (click)="advancedSave(); drawer.close()"
       >
         <mat-icon>save</mat-icon> Save
@@ -296,7 +296,7 @@
       <button
         style="width: 100%"
         mat-raised-button
-        color="primary"
+        color="accent"
         [disabled]="this.form.invalid"
         (click)="saveData()"
       >
@@ -329,7 +329,7 @@
           <button
             class="json-out"
             mat-stroked-button
-            color="primary"
+            color="accent"
             (click)="viewJson()"
           >
             <mat-icon>visibility</mat-icon> View JSON
