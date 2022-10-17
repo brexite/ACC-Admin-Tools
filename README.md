@@ -20,6 +20,9 @@ Coming soon...
 **Race Results Tool**
 No edits planned
 
+**Server Files Creator**
+Coming Soon
+
 **Entry List Editor**
  - [x] Sort Unordered by driver number by default
  - [ ] Add quick add tools between sorted and unsorted list
@@ -32,8 +35,8 @@ No edits planned
 
 **General Edits**
  - [ ] Remove in-line styling
- - [ ] De-tangle codebase
- - [ ] Change colour scheme to match REVSPORT better
+ - [x] De-tangle codebase
+ - [x] Change colour scheme to match REVSPORT better
 
  **Future Features**
  - [ ] Full server file config (Race Weekend Setup)
