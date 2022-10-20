@@ -14,6 +14,7 @@ import { ResetConfirmationComponent } from '../shared/modals/reset-confirmation/
 import { MatDialog } from '@angular/material/dialog';
 import { TextareaModalComponent } from '../shared/modals/textarea-modal/textarea-modal.component';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { SeoService } from '../seo.service';
 
 @Component({
   selector: 'app-entrylist-editor',
@@ -216,7 +217,8 @@ export class EntrylistEditorComponent implements OnInit {
     private fb: FormBuilder,
     private clipboard: Clipboard,
     private toastr: ToastrService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private seo: SeoService,
   ) {
     animations: [fadeInOut];
   }
@@ -224,6 +226,12 @@ export class EntrylistEditorComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.advancedInit();
+
+    this.seo.generateTags({
+      title: 'ACC ADM.IN | Entrylist Editor',
+      description: 'For creating and editing entrylists in a easy to use way.',
+    })
+
     this.loading = false;
   }
 

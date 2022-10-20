@@ -10,6 +10,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { ToastrService } from 'ngx-toastr';
 import { TextareaModalComponent } from '../shared/modals/textarea-modal/textarea-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SeoService } from '../seo.service';
 
 @Component({
   selector: 'app-race-results-tool',
@@ -26,13 +27,18 @@ export class RaceResultsToolComponent implements OnInit {
     private fb: FormBuilder,
     private clipboard: Clipboard,
     private toastr: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private seo: SeoService
   ) {
     animations: [fadeInOut];
   }
 
   ngOnInit(): void {
     this.initForm();
+    this.seo.generateTags({
+      title: 'ACC ADM.IN | Race Results Tool',
+      description: 'For creating entrylists with grids from race and qualifying results JSONs.',
+    })
     this.loading = false;
   }
 

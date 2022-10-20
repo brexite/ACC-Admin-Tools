@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { fadeInOut } from "../shared/animations/animations";
 import { Clipboard } from '@angular/cdk/clipboard';
+import { SeoService } from '../seo.service';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    private seo: SeoService
   ) {
     animations: [
       fadeInOut
@@ -36,5 +38,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.currentBg = this.bg[Math.floor(Math.random() * 4)]
     this.loading = false;
+    this.seo.generateTags(null);
   }
 }
