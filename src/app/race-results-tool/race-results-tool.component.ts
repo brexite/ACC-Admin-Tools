@@ -79,13 +79,12 @@ export class RaceResultsToolComponent implements OnInit {
   run() {
     // MAPPING FROM sessionResult.leaderBoardLines[i].car.raceNumber
     // TO entries[i].raceNumber -> entries[i].defaultGridPosition
+    // Ignores Drivers who did not partake in the previous session
 
     let entrylistJSON = JSON.parse(this.form.get('entrylist').value);
     let resultsJSON = JSON.parse(this.form.get('results').value);
     let forceEntryList = this.form.get('forceEL').value;
     let reverseGrid = this.form.get('reverse').value;
-
-    console.log(forceEntryList);
 
     if (resultsJSON.sessionResult.leaderBoardLines.length < reverseGrid) {
       reverseGrid = resultsJSON.sessionResult.leaderBoardLines.length;
@@ -96,7 +95,6 @@ export class RaceResultsToolComponent implements OnInit {
       i < resultsJSON.sessionResult.leaderBoardLines.length;
       i++
     ) {
-      // console.log(i)
       let carNo = resultsJSON.sessionResult.leaderBoardLines[i].car.raceNumber;
       let position = i + 1;
 
@@ -113,7 +111,6 @@ export class RaceResultsToolComponent implements OnInit {
           entrylistJSON.entries[key].defaultGridPosition = position;
       }
     }
-    // console.log(entrylistJSON)
 
     entrylistJSON.forceEntryList = forceEntryList ? 1 : 0;
 
@@ -133,7 +130,6 @@ export class RaceResultsToolComponent implements OnInit {
       fileReader.readAsText(file, 'UTF-8');
 
       if (key == 0) {
-        // console.log("test - entrylist")
         fileReader.onload = () => {
           try {
             JSON.stringify(JSON.parse(<string>fileReader.result), null, '\t');
