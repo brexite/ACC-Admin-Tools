@@ -65,7 +65,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
     MatExpansionModule,
     MatRadioModule,
     MatButtonToggleModule,
-    MatSlideToggleModule,
+    MatSlideToggleModule
   ],
   exports: [
     MatButtonModule,
@@ -99,7 +99,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
     MatExpansionModule,
     MatRadioModule,
     MatButtonToggleModule,
-    MatSlideToggleModule,
+    MatSlideToggleModule
   ],
   providers: [MatDatepickerModule]
 })

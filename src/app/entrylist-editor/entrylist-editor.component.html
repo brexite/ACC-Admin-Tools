@@ -13,7 +13,7 @@
     <button
       class="upload-button"
       mat-raised-button
-      color="primary"
+      color="accent"
       (click)="fileUploadResults.click()"
     >
       <mat-icon>upload</mat-icon>
@@ -149,7 +149,7 @@
       <button
         mat-raised-button
         style="width: 100%"
-        color="primary"
+        color="accent"
         (click)="advancedSave(); drawer.close()"
       >
         <mat-icon>save</mat-icon> Save
@@ -296,7 +296,7 @@
       <button
         style="width: 100%"
         mat-raised-button
-        color="primary"
+        color="accent"
         [disabled]="this.form.invalid"
         (click)="saveData()"
       >
@@ -329,7 +329,7 @@
           <button
             class="json-out"
             mat-stroked-button
-            color="primary"
+            color="accent"
             (click)="viewJson()"
           >
             <mat-icon>visibility</mat-icon> View JSON
@@ -354,71 +354,74 @@
       </div>
     </div>
 
-    <div class="small-split">
-      <div class="drag-column">
-        <h2>Ordered</h2>
+    <div class="flex-vert">
+      <span style="text-align: center;">Enable Grid Order? <mat-slide-toggle [checked]="showOrdered" (change)="gridOrderToggle($event)"></mat-slide-toggle></span>
+      <div class="small-split">
+        <div class="drag-column" [ngStyle]="showOrdered ? {'display': 'block'} : {'display': 'none'}">
+          <h2>Ordered</h2>
 
-        <div
-          cdkDropList
-          #orderedList="cdkDropList"
-          [cdkDropListData]="orderedDrivers"
-          [cdkDropListConnectedTo]="[unorderedList]"
-          class="example-list"
-          (cdkDropListDropped)="drop($any($event))"
-        >
           <div
-            class="example-box"
-            *ngFor="let item of orderedDrivers"
-            [ngStyle]="{ 'border-left-color': getDriverCategory(item) }"
-            cdkDrag
+            cdkDropList
+            #orderedList="cdkDropList"
+            [cdkDropListData]="orderedDrivers"
+            [cdkDropListConnectedTo]="[unorderedList]"
+            class="example-list"
+            (cdkDropListDropped)="drop($any($event))"
           >
-            <button
-              mat-flat-button
-              class="driver-button"
-              (click)="navigateDriver(item)"
+            <div
+              class="example-box"
+              *ngFor="let item of orderedDrivers"
+              [ngStyle]="{ 'border-left-color': getDriverCategory(item) }"
+              cdkDrag
             >
-              #{{ getDriverByIndex(item).raceNumber }} -
-              {{ getDriverByIndex(item).drivers[0].firstName }}
-              {{ getDriverByIndex(item).drivers[0].lastName }} - P{{
-                getDriverByIndex(item).defaultGridPosition
-              }}
-            </button>
-            <mat-icon class="drag-icon" cdkDragHandle>drag_indicator</mat-icon>
+              <button
+                mat-flat-button
+                class="driver-button"
+                (click)="navigateDriver(item)"
+              >
+                #{{ getDriverByIndex(item).raceNumber }} -
+                {{ getDriverByIndex(item).drivers[0].firstName }}
+                {{ getDriverByIndex(item).drivers[0].lastName }} - P{{
+                  getDriverByIndex(item).defaultGridPosition
+                }}
+              </button>
+              <mat-icon class="drag-icon" cdkDragHandle>drag_indicator</mat-icon>
+            </div>
+            <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
           </div>
-          <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
         </div>
-      </div>
 
-      <div class="drag-column">
-        <h2>Unordered</h2>
+        <div class="drag-column" [ngStyle]="showOrdered ? {'width': '50%'} : {'width': '100%'}">
+          <h2>{{showOrdered ? "Unordered" : "Drivers"}}</h2>
 
-        <div
-          cdkDropList
-          #unorderedList="cdkDropList"
-          [cdkDropListData]="unorderedDrivers"
-          cdkDropListSortingDisabled
-          [cdkDropListConnectedTo]="[orderedList]"
-          class="example-list"
-          (cdkDropListDropped)="drop($any($event))"
-        >
           <div
-            class="example-box"
-            *ngFor="let item of unorderedDrivers"
-            [ngStyle]="{ 'border-left-color': getDriverCategory(item) }"
-            cdkDrag
+            cdkDropList
+            #unorderedList="cdkDropList"
+            [cdkDropListData]="unorderedDrivers"
+            cdkDropListSortingDisabled
+            [cdkDropListConnectedTo]="[orderedList]"
+            class="example-list"
+            (cdkDropListDropped)="drop($any($event))"
           >
-            <button
-              mat-flat-button
-              class="driver-button"
-              (click)="navigateDriver(item)"
+            <div
+              class="example-box"
+              *ngFor="let item of unorderedDrivers"
+              [ngStyle]="{ 'border-left-color': getDriverCategory(item) }"
+              cdkDrag
             >
-              #{{ getDriverByIndex(item).raceNumber }} -
-              {{ getDriverByIndex(item).drivers[0].firstName }}
-              {{ getDriverByIndex(item).drivers[0].lastName }}
-            </button>
-            <mat-icon class="drag-icon" cdkDragHandle>drag_indicator</mat-icon>
+              <button
+                mat-flat-button
+                class="driver-button"
+                (click)="navigateDriver(item)"
+              >
+                #{{ getDriverByIndex(item).raceNumber }} -
+                {{ getDriverByIndex(item).drivers[0].firstName }}
+                {{ getDriverByIndex(item).drivers[0].lastName }}
+              </button>
+              <mat-icon class="drag-icon" cdkDragHandle>drag_indicator</mat-icon>
+            </div>
+            <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
           </div>
-          <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
         </div>
       </div>
     </div>

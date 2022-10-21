@@ -28,7 +28,6 @@ p {
 .small-split {
     display: flex;
     justify-content: center;
-    width: 40%;
     border-left: 2px solid #3E3E40;
     flex-direction: row;
     overflow: auto;
@@ -39,6 +38,14 @@ p {
 .json-out {
     width: 99%;
     margin: 5px;
+}
+
+.flex-vert {
+    padding: auto 0;
+    padding-top: 1%;
+    display: flex;
+    flex-direction: column;
+    width: 40%;
 }
 
 .drag-column {
@@ -94,6 +101,8 @@ p {
     height: inherit;
     display: flex;
     flex-direction: column;
+    // min-height: 30px;
+    padding-bottom: 30px;
   }
   
   .example-custom-placeholder {
@@ -259,3 +268,7 @@ mat-drawer-container {
   ::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
     opacity: 0;
     }
+
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }

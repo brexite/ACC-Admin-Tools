@@ -13,6 +13,7 @@ import { CarGroup, CarTypeCategory } from '../models/car-fields';
 import { ResetConfirmationComponent } from '../shared/modals/reset-confirmation/reset-confirmation.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TextareaModalComponent } from '../shared/modals/textarea-modal/textarea-modal.component';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-entrylist-editor',
@@ -26,6 +27,8 @@ export class EntrylistEditorComponent implements OnInit {
   advancedForm: FormGroup;
   driverIndex: number = 0;
   driverLength: number = 0;
+
+  showOrdered = false;
 
   driverColours: any = [['#ff5a31'], ['#999999'], ['#bba14f'], ['#69bdba']];
 
@@ -358,8 +361,26 @@ export class EntrylistEditorComponent implements OnInit {
           return element.defaultGridPosition !== -1;
         })
         .map((a) => a.index);
+      this.showOrdered = this.orderedDrivers.length !== 0;
+        
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  gridOrderToggle($event: MatSlideToggleChange) {
+    let tempJSON = this.json;
+
+    this.showOrdered = $event.checked;
+    if(!$event.checked) {
+      this.unorderedDrivers = this.unorderedDrivers.concat(this.orderedDrivers);
+      this.orderedDrivers = [];
+
+      this.unorderedDrivers = this.unorderedDrivers.sort(function (a, b) {
+        return tempJSON.entries[a].raceNumber - tempJSON.entries[b].raceNumber;
+      });
+      
+      this.updateGridPosition();
     }
   }
 
@@ -506,8 +527,6 @@ export class EntrylistEditorComponent implements OnInit {
     this.form.patchValue({
       output: this.output,
     });
-
-    console.log(this.json);
   }
 
   //id: cdk-drop-list-0 = ordered
@@ -529,11 +548,6 @@ export class EntrylistEditorComponent implements OnInit {
       console.log(event.container);
     }
     this.updateGridPosition();
-
-    let tempJSON = this.json;
-    this.unorderedDrivers.sort(function (a, b) {
-      return tempJSON.entries[a].raceNumber - tempJSON.entries[b].raceNumber;
-    });
   }
 
   sideBarAction() {
