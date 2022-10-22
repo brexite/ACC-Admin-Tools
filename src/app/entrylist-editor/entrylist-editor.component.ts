@@ -224,7 +224,7 @@ export class EntrylistEditorComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.advancedInit();
-    this.loading = false;
+    // this.loading = false;
   }
 
   initForm() {
@@ -425,7 +425,7 @@ export class EntrylistEditorComponent implements OnInit {
       fileReader.onerror = (error) => {
         this.loading = false;
         this.json = null;
-        console.log(error);
+        console.error(error);
       };
     }
   }
@@ -488,7 +488,6 @@ export class EntrylistEditorComponent implements OnInit {
   }
 
   saveData() {
-    console.log(this.json);
 
     this.json.entries[this.driverIndex].drivers[0].firstName =
       this.form.get('firstName').value;
@@ -545,7 +544,6 @@ export class EntrylistEditorComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
-      console.log(event.container);
     }
     this.updateGridPosition();
   }
