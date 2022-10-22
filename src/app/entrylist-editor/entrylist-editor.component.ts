@@ -224,19 +224,19 @@ export class EntrylistEditorComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.advancedInit();
-    // this.loading = false;
+    this.loading = false;
   }
 
   initForm() {
     this.form = this.fb.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
+      firstName: [''],
+      lastName: [''],
       nickname: '',
-      shortName: ['', [Validators.required, Validators.maxLength(3)]],
-      driverCategory: [null, [Validators.required]],
-      steamId: ['', [Validators.required]],
+      shortName: [''],
+      driverCategory: [null],
+      steamId: [''],
       customCarName: '',
-      raceNumber: ['', [Validators.required]],
+      raceNumber: [''],
       nationality: [0],
       carChoice: null,
       overrideDriverInfo: true,
@@ -368,11 +368,11 @@ export class EntrylistEditorComponent implements OnInit {
     }
   }
 
-  gridOrderToggle($event: MatSlideToggleChange) {
+  gridOrderToggle() {
     let tempJSON = this.json;
 
-    this.showOrdered = $event.checked;
-    if(!$event.checked) {
+    this.showOrdered = !this.showOrdered
+    if(!this.showOrdered) {
       this.unorderedDrivers = this.unorderedDrivers.concat(this.orderedDrivers);
       this.orderedDrivers = [];
 
@@ -432,7 +432,7 @@ export class EntrylistEditorComponent implements OnInit {
 
   newFile() {
     this.loading = true;
-    this.json = JSON.parse('{"entries": [],"forceEntryList": 0}');
+    this.json = JSON.parse('{"entries": [],"forceEntryList": 1}');
     this.createDriver();
     this.output = JSON.stringify(this.json, null, '\t');
     this.form.patchValue({
@@ -440,13 +440,12 @@ export class EntrylistEditorComponent implements OnInit {
     });
 
     this.driverLength = this.json.entries.length;
-    this.getDriverOrders();
     this.patchForm(0);
     this.loading = false;
   }
 
   createDriver() {
-    this.json['entries'].push({
+    this.json.entries.push({
       drivers: [
         {
           firstName: '',
@@ -463,12 +462,48 @@ export class EntrylistEditorComponent implements OnInit {
       defaultGridPosition: -1,
       isServerAdmin: 0,
     });
+    
+    this.getDriverOrders();
   }
 
   deleteDriver() {
+    console.log(this.json.entries[this.driverIndex])
+
+    let deleteIndex = this.driverIndex
+
+    if(this.json.entries.length === 1)
+      return this.toastr.error("Cannot delete the last driver in an entrylist!")
+
+    this.json.entries.splice(deleteIndex, 1)
+    this.unorderedDrivers.map(x => {
+      if(x < deleteIndex){
+        //do nothing
+      }
+      else if(x == deleteIndex) {
+        this.unorderedDrivers.splice(this.unorderedDrivers.indexOf(x), 1)
+      }
+      else {
+        x -= 1;
+      }
+    })
+
+    this.orderedDrivers.map(x => {
+      if(x < deleteIndex){
+        //do nothing
+      }
+      else if(x == deleteIndex) {
+        this.orderedDrivers.splice(this.unorderedDrivers.indexOf(x), 1)
+      }
+      else {
+        x -= 1;
+      }
+    })
+    this.patchByIndex(deleteIndex)
+    this.getDriverOrders()
     //remove currently selected driver
     //if last driver in json, do createDriver() or not allow deletion of last driver
     // this.saveData();
+    return null;
   }
 
   getDriverCategory(index: number) {
