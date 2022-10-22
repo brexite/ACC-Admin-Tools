@@ -57,8 +57,12 @@ p {
 }
 
 .input-area {
-    width: 24%;
-    padding: 0px 10px;
+    width: 25%;
+    padding: 0px 6px;
+}
+
+.input-wide {
+    width: 50%;
 }
 
 .input-data {
@@ -132,8 +136,13 @@ p {
     text-align: center;
     height: 50px;
     width: 35%;
+    margin: 4px 0px;
     align-items: center;
     justify-content: center;
+}
+
+.vert-button {
+    margin: 2px 20px;
 }
 
 .drag-icon{
@@ -178,7 +187,7 @@ mat-icon.info-icon {
     // hack to circumvent the bullshit that is viewboxes not updating any other way
     width: 16px !important;
     height: 16px  !important;
-    transform: translate(-4px, -4px)
+    transform: translate(-4px, -10px)
 }
 
 .info-at-checkbox {
@@ -272,3 +281,15 @@ mat-drawer-container {
   .cdk-drag-placeholder {
     opacity: 0;
   }
+
+  /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

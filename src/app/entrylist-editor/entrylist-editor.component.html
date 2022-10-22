@@ -19,18 +19,18 @@
       <mat-icon>upload</mat-icon>
       Upload JSON
     </button>
-    <p><br>This is still a work in progress, please report any bugs you find at the 
-      <a href="https://github.com/brexite/ACC-Admin-Tools/issues" target="_blank">GitHub issues page</a>
-    </p>
-    <!-- <button
+    <button
       class="upload-button"
       mat-raised-button
       color="secondary"
       (click)="newFile()"
     >
-      <mat-icon>new</mat-icon>
+      <mat-icon>add</mat-icon>
       New Entrylist
-    </button> -->
+    </button>
+    <p><br>This is still a work in progress, please report any bugs you find at the 
+      <a href="https://github.com/brexite/ACC-Admin-Tools/issues" target="_blank">GitHub issues page</a>
+    </p>
   </div>
 
   <div class="body" *ngIf="!loading && json" [formGroup]="form">
@@ -199,7 +199,7 @@
       </mat-form-field>
 
       <mat-form-field class="input-area" appearance="fill">
-        <mat-label>Driver Category</mat-label>
+        <mat-label>Driver Cat.</mat-label>
         <mat-select formControlName="driverCategory">
           <mat-option *ngFor="let cat of driverCategories" [value]="cat.value">
             {{ cat.key }}
@@ -207,10 +207,10 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field class="input-area" appearance="fill">
+      <mat-form-field class="input-area input-wide" appearance="fill">
         <mat-label>Steam64ID</mat-label>
-        <div style="display: flex; flex-direction: row">
-          <input matInput formControlName="steamId" />
+        <div style="display: flex; flex-direction: row;">
+          <input matInput type="number" formControlName="steamId" />
           <mat-icon
             class="info-icon"
             matTooltip="Input the raw Steam64ID, no letters required."
@@ -221,7 +221,7 @@
 
       <h3>Car Information</h3>
       <mat-form-field class="input-area" appearance="fill">
-        <mat-label>Custom Car Name</mat-label>
+        <mat-label>Custom Car</mat-label>
         <div style="display: flex; flex-direction: row">
           <input matInput formControlName="customCarName" />
           <mat-icon
@@ -240,7 +240,7 @@
         </div>
       </mat-form-field>
 
-      <mat-form-field class="input-area carchoice" appearance="fill">
+      <mat-form-field class="input-area input-wide" appearance="fill">
         <mat-label>Car Choice</mat-label>
         <mat-select formControlName="carChoice">
           <mat-option [value]="-1">-- None --</mat-option>
@@ -294,13 +294,20 @@
 
       <h6></h6>
       <button
-        style="width: 100%"
+        style="width: 100%; margin: 10px 0;"
         mat-raised-button
         color="accent"
-        [disabled]="this.form.invalid"
         (click)="saveData()"
       >
         <mat-icon>save</mat-icon> Save
+      </button>
+      <button
+        style="width: 100%"
+        mat-raised-button
+        color="warn"
+        (click)="deleteDriver()"
+      >
+        <mat-icon>delete</mat-icon> Delete Driver
       </button>
 
       <hr />
@@ -355,7 +362,10 @@
     </div>
 
     <div class="flex-vert">
-      <span style="text-align: center;">Enable Grid Order? <mat-slide-toggle [checked]="showOrdered" (change)="gridOrderToggle($event)"></mat-slide-toggle></span>
+      <!-- <span style="text-align: center;">Enable Grid Order? <mat-slide-toggle [checked]="showOrdered" (change)="gridOrderToggle($event)"></mat-slide-toggle></span> -->
+      <button mat-raised-button color="secondary" class="vert-button" (click)="createDriver()">Add New Driver</button>
+      <button mat-raised-button color="secondary" class="vert-button" (click)="gridOrderToggle()">{{showOrdered ? "Disable" : "Enable" }} Grid Order?</button>
+      <mat-divider class="my-2"></mat-divider>
       <div class="small-split">
         <div class="drag-column" [ngStyle]="showOrdered ? {'display': 'block'} : {'display': 'none'}">
           <h2>Ordered</h2>

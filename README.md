@@ -26,7 +26,7 @@ Coming Soon
 
 **Entry List Editor**
  - [x] Sort Unordered by driver number by default
- - [ ] Ability to add new drivers and delete drivers
+ - [x] Ability to add new drivers and delete drivers
  - [x] Remove requirement for driver nationality
  - [x] Remove workarounds for invalid forms
  - [ ] Add ability to work with multiple drivers per team
