@@ -42,3 +42,5 @@ Coming Soon
  - [ ] Full server file config (Race Weekend Setup)
  - [ ] Mobile support
  - [ ] SSR Support to assist with initial load times (Coming with the latest version of Firebase)
+ - [ ] Setup Viewer Tool
+ - [ ] Server Log Viewer
