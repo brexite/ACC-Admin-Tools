@@ -7,8 +7,8 @@ import { RaceResultsToolComponent } from './race-results-tool/race-results-tool.
 import { EntrylistEditorComponent } from './entrylist-editor/entrylist-editor.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', component: HomeComponent },
+  { path: 'home', redirectTo: '/', pathMatch: 'full' },
   { path: 'race-results-tool', component: RaceResultsToolComponent },
   { path: 'entrylist-editor', component: EntrylistEditorComponent }
 ];

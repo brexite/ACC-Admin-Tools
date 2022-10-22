@@ -7,7 +7,7 @@
 
 ## Overview
 
-https://acc-admin-tools.web.app/
+https://accadm.in/
 
 A tool designed for helping edit server-side files easily and quickly. ACC Server Tools allows for adjusting entry lists quickly, from result files or for that quick edit of a driver's name, it's got you covered.
 
@@ -15,9 +15,10 @@ A tool designed for helping edit server-side files easily and quickly. ACC Serve
 
 Coming soon...
 
-## To-do List
+## To-do List for V3 Release
 
 **Race Results Tool**
+
 No edits planned
 
 **Server Files Creator**
@@ -31,6 +32,7 @@ Coming Soon
  - [ ] Add ability to work with multiple drivers per team
  - [ ] Add Car Logos with tooltips
  - [x] Enable/Disable Ordering drivers on the grid shortcut
+ - [ ] Update styling to match the in-game leaderboard
 
 **General Edits**
  - [x] De-tangle codebase
@@ -38,3 +40,5 @@ Coming Soon
 
  **Future Features**
  - [ ] Full server file config (Race Weekend Setup)
+ - [ ] Mobile support
+ - [ ] SSR Support to assist with initial load times (Coming with the latest version of Firebase)
