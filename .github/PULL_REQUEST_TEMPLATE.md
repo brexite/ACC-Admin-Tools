@@ -1,6 +1,18 @@
 # PATCHNOTES
 
-List any patch notes here
+## Race Results Tool
+No Updates
+
+## Server Files Creator
+No Updates
+
+## Entry List Editor
+No Updates
+
+## General Edits
+No Updates
+
+---
 
 # CHECK BEFORE MERGING
 - [ ] Any local changes to .gitignore files are replicated over to main branch.
