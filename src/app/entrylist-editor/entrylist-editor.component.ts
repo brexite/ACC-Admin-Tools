@@ -242,7 +242,7 @@ export class EntrylistEditorComponent implements OnInit {
       overrideDriverInfo: true,
       isAdmin: false,
       overrideCar: false,
-      forceEntryList: false,
+      forceEntryList: true,
 
       output: '',
     });
