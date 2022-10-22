@@ -9,6 +9,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ToastrModule } from 'ngx-toastr';
 import { AngularFireModule } from '@angular/fire/compat';
 import {HttpClientModule} from '@angular/common/http';
+import { RaceCreationToolComponent } from './race-creation-tool/race-creation-tool.component';
 // import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 // import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 // import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -24,7 +25,7 @@ const config = {
 };
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, RaceCreationToolComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
