@@ -464,7 +464,7 @@ export class EntrylistEditorComponent implements OnInit {
     });
     
     this.getDriverOrders();
-    this.navigateDriver(0)
+    this.navigateDriver(this.json.entries.length - 1);
   }
 
   deleteDriver() {
