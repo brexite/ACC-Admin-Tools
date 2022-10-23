@@ -464,10 +464,10 @@ export class EntrylistEditorComponent implements OnInit {
     });
     
     this.getDriverOrders();
+    this.navigateDriver(0)
   }
 
   deleteDriver() {
-    console.log(this.json.entries[this.driverIndex])
 
     let deleteIndex = this.driverIndex
 
