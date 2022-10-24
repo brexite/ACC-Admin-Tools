@@ -236,6 +236,7 @@ export class EntrylistEditorComponent implements OnInit {
       driverCategory: [null],
       steamId: [''],
       customCarName: '',
+      teamName: '',
       raceNumber: [''],
       nationality: [0],
       carChoice: null,
@@ -261,6 +262,7 @@ export class EntrylistEditorComponent implements OnInit {
       driverCategory: driver.driverCategory,
       steamId: driver.playerID.substring(1),
       customCarName: entry.customCar,
+      teamName: entry.teamName,
       raceNumber: entry.raceNumber,
       nationality: driver.nationality,
       carChoice: entry.forcedCarModel,
@@ -538,6 +540,8 @@ export class EntrylistEditorComponent implements OnInit {
       'S' + this.form.get('steamId').value;
     this.json.entries[this.driverIndex].customCar =
       this.form.get('customCarName').value;
+    this.json.entries[this.driverIndex].teamName = 
+      this.form.get('teamName').value;
     this.json.entries[this.driverIndex].raceNumber =
       this.form.get('raceNumber').value;
     this.json.entries[this.driverIndex].drivers[0].nationality =
