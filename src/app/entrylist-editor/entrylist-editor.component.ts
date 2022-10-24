@@ -500,8 +500,6 @@ export class EntrylistEditorComponent implements OnInit {
         x -= 1;
       }
     })
-    console.table(this.json.entries[deleteIndex])
-    console.log(this.json.entries.length)
     this.patchByIndex(this.unorderedDrivers[0] ?? this.orderedDrivers[0])
     this.getDriverOrders()
     //remove currently selected driver
