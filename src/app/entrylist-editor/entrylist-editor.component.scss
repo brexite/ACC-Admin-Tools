@@ -21,7 +21,7 @@ p {
 .split {
     width: 60%;
     // border-right: 2px solid #3E3E40;
-    padding: 2.5%;
+    padding: 2%;
     padding-top: 1%
 }
 
@@ -32,7 +32,8 @@ p {
     flex-direction: row;
     overflow: auto;
     padding: 2.5%;
-    padding-top: 1%
+    padding-top: 1%;
+    min-height: 80vh;
 }
 
 .json-out {
