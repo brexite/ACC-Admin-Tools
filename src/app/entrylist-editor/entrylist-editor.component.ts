@@ -235,6 +235,7 @@ export class EntrylistEditorComponent implements OnInit {
       driverCategory: [null],
       steamId: [''],
       customCarName: '',
+      teamName: '',
       raceNumber: [''],
       nationality: [0],
       carChoice: null,
@@ -260,6 +261,7 @@ export class EntrylistEditorComponent implements OnInit {
       driverCategory: driver.driverCategory,
       steamId: driver.playerID.substring(1),  //Remove the S at the beginning of the Steam ID
       customCarName: entry.customCar,
+      teamName: entry.teamName,
       raceNumber: entry.raceNumber,
       nationality: driver.nationality,
       carChoice: entry.forcedCarModel,
@@ -497,7 +499,7 @@ export class EntrylistEditorComponent implements OnInit {
         x -= 1;
       }
     })
-    this.patchByIndex(deleteIndex)
+    this.patchByIndex(this.unorderedDrivers[0] ?? this.orderedDrivers[0])
     this.getDriverOrders()
     //remove currently selected driver
     //if last driver in json, do createDriver() or not allow deletion of last driver
@@ -537,6 +539,8 @@ export class EntrylistEditorComponent implements OnInit {
       'S' + this.form.get('steamId').value;     // Add back the S at the start
     this.json.entries[this.driverIndex].customCar =
       this.form.get('customCarName').value;
+    this.json.entries[this.driverIndex].teamName = 
+      this.form.get('teamName').value;
     this.json.entries[this.driverIndex].raceNumber =
       this.form.get('raceNumber').value;
     this.json.entries[this.driverIndex].drivers[0].nationality =
