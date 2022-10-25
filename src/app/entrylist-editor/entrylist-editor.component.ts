@@ -13,7 +13,6 @@ import { CarGroup, CarTypeCategory } from '../models/car-fields';
 import { ResetConfirmationComponent } from '../shared/modals/reset-confirmation/reset-confirmation.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TextareaModalComponent } from '../shared/modals/textarea-modal/textarea-modal.component';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-entrylist-editor',
@@ -259,7 +258,7 @@ export class EntrylistEditorComponent implements OnInit {
       nickname: driver.nickname,
       shortName: driver.shortName,
       driverCategory: driver.driverCategory,
-      steamId: driver.playerID.substring(1),
+      steamId: driver.playerID.substring(1),  //Remove the S at the beginning of the Steam ID
       customCarName: entry.customCar,
       raceNumber: entry.raceNumber,
       nationality: driver.nationality,
@@ -535,7 +534,7 @@ export class EntrylistEditorComponent implements OnInit {
     this.json.entries[this.driverIndex].drivers[0].driverCategory =
       this.form.get('driverCategory').value;
     this.json.entries[this.driverIndex].drivers[0].playerID =
-      'S' + this.form.get('steamId').value;
+      'S' + this.form.get('steamId').value;     // Add back the S at the start
     this.json.entries[this.driverIndex].customCar =
       this.form.get('customCarName').value;
     this.json.entries[this.driverIndex].raceNumber =
