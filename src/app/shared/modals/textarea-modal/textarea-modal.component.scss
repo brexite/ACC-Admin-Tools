@@ -13,11 +13,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
 
-button {
-  padding-bottom: 5px;
-  height: 6vh;
+  button {
+    margin: 5px 0;
+    height: 5vh;
+  }
 }
 
 textarea {
