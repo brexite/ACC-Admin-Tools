@@ -29,7 +29,11 @@ export class EntrylistEditorComponent implements OnInit {
 
   showOrdered = false;
 
-  driverColours: any = [['#ff5a31'], ['#999999'], ['#bba14f'], ['#69bdba']];
+  // driverColours: any = [['#ff5a31'], ['#999999'], ['#bba14f'], ['#69bdba']];
+  // driverTextColours: any =[['white'], ['white'], ['white'], ['white']];
+  driverColours: any = [['red'], ['black'], ['transparent'], ['transparent']];
+  driverTextColours: any =[['white'], ['white'], ['black'], ['black']];
+
 
   driverNationality: any = [
     { key: 'No Nationality', value: 0 },
@@ -519,6 +523,12 @@ export class EntrylistEditorComponent implements OnInit {
     ];
   }
 
+  getDriverCategoryText(index: number) {
+    return this.driverTextColours[
+      this.json.entries[index].drivers[0].driverCategory
+    ];
+  }
+
   getDriverCarLogo(index: number) {
     var car = (this.carNamesArray.find(x => x.value == this.json.entries[index].forcedCarModel))
     return car ? car.key.split(" ")[0] : "Error"
@@ -650,5 +660,36 @@ export class EntrylistEditorComponent implements OnInit {
 
     this.advancedInit();
     this.patchForm(this.driverIndex);
+  }
+
+  randomiseDriverOrder() {
+    this.saveData();
+    const dialogRef = this.dialog.open(ResetConfirmationComponent, {
+      autoFocus: true,
+      data: {title: 'Are you sure you want to randomise drivers?', subtitle: 'All edits made to the order will be lost!'}
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (!confirmed) return;
+      var amountOfDrivers = this.json.entries.length;
+
+      this.showOrdered = true;
+      this.unorderedDrivers = [];
+      this.orderedDrivers = Array(amountOfDrivers).fill(0).map((n, i) => n + i) //Fill all drivers into this list randomly
+
+      for (let i = this.orderedDrivers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.orderedDrivers[i], this.orderedDrivers[j]] = [this.orderedDrivers[j], this.orderedDrivers[i]];
+    }
+
+
+      console.log(this.orderedDrivers)
+
+      for(let i = 0; i < this.orderedDrivers.length; i++) {
+        console.log(`Iterator: ${i} - Position #${this.orderedDrivers[i]}`)
+        this.json.entries[this.orderedDrivers[i]].defaultGridPosition = i + 1
+        console.log("Success")
+      }
+    });
   }
 }

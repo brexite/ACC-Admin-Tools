@@ -365,6 +365,7 @@
       <!-- <span style="text-align: center;">Enable Grid Order? <mat-slide-toggle [checked]="showOrdered" (change)="gridOrderToggle($event)"></mat-slide-toggle></span> -->
       <button mat-raised-button color="secondary" class="vert-button" (click)="createDriver()"><mat-icon>add</mat-icon> New Driver</button>
       <button mat-raised-button color="secondary" class="vert-button" (click)="gridOrderToggle()"><mat-icon>123</mat-icon> {{showOrdered ? "Disable" : "Enable" }} Grid Order?</button>
+      <!-- <button mat-raised-button color="secondary" class="vert-button" (click)="randomiseDriverOrder()"><mat-icon>shuffle</mat-icon> Randomise Drivers?</button> -->
       <mat-divider class="my-2"></mat-divider>
       <div class="small-split">
         <div class="drag-column" [ngStyle]="showOrdered ? {'display': 'block'} : {'display': 'none'}">
@@ -395,8 +396,8 @@
             <div class="manufacturer">
               <img src="./assets/car-logo/{{ getDriverCarLogo(item) }}.png">
             </div>
-            <div class="num-box">
-              {{ getDriverByIndex(item).raceNumber == ' ' ? getDriverByIndex(item).raceNumber : '???' }}
+            <div class="num-box" [ngStyle]="{'background-color': getDriverCategory(item), 'color' : getDriverCategoryText(item) }">
+              {{ !getDriverByIndex(item).raceNumber ? '???' : getDriverByIndex(item).raceNumber }}
             </div>
               <mat-icon class="drag-icon" cdkDragHandle>drag_indicator</mat-icon>
             </div>
@@ -430,8 +431,8 @@
             <div class="manufacturer">
               <img src="./assets/car-logo/{{ getDriverCarLogo(item) }}.png">
             </div>
-            <div class="num-box">
-              {{ getDriverByIndex(item).raceNumber == ' ' ? getDriverByIndex(item).raceNumber : '???' }}
+            <div class="num-box" [ngStyle]="{'background-color': getDriverCategory(item), 'color' : getDriverCategoryText(item) }">
+              {{ !getDriverByIndex(item).raceNumber ? '???' : getDriverByIndex(item).raceNumber }}
             </div>
               <mat-icon class="drag-icon" cdkDragHandle>drag_indicator</mat-icon>
             </div>
