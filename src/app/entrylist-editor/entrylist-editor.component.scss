@@ -102,6 +102,73 @@ p {
     font-size: 14px;
   }
 
+  .acc-drag-box {
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    // background: rgb(2, 169, 89);
+    background-color: rgb(236, 236, 236);
+    font-size: 14px;
+    cursor: pointer;
+
+    .pos-box, .manufacturer, .num-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        color: white;
+        height: 42px;
+        text-align: center;
+        margin: auto 0;
+        
+        aspect-ratio: 1 / 1;
+    }
+
+    .pos-box {
+        background-color: red;
+        color: white;
+    }
+
+    .driver-name {
+        background-color: rgb(236, 236, 236);
+        width: calc(80%);
+        height: 42px;
+        display: inline-block;
+        padding: 0 1em;
+        line-height: 42px;
+        font-weight: bold;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden; 
+    }
+
+    .manufacturer {
+        background-color: rgb(187, 187, 187);
+        color: white;
+        right: 0;
+        aspect-ratio: 1 / 1;
+
+        img {
+            max-width: 28px;
+            max-width: 28px;
+        }
+    }
+
+    .num-box {
+        background-color: black;
+        color: white;
+        right: 0;
+        aspect-ratio: 1 / 1;
+    }
+
+  }
+
+  .acc-drag-box:hover {
+    filter: brightness(95%);
+  }
+
   .example-list {
     height: inherit;
     display: flex;
@@ -149,6 +216,7 @@ p {
 .drag-icon{
     text-align: right;
     cursor: move;
+    color: black;
 }
 
 .file-input {

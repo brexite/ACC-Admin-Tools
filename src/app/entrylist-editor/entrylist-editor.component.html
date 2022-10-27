@@ -379,22 +379,25 @@
             (cdkDropListDropped)="drop($any($event))"
           >
             <div
-              class="example-box"
+              class="acc-drag-box"
               *ngFor="let item of orderedDrivers"
-              [ngStyle]="{ 'border-left-color': getDriverCategory(item) }"
+              (click)="navigateDriver(item)"
               cdkDrag
             >
-              <button
-                mat-flat-button
-                class="driver-button"
-                (click)="navigateDriver(item)"
-              >
-                #{{ getDriverByIndex(item).raceNumber }} -
-                {{ getDriverByIndex(item).drivers[0].firstName }}
-                {{ getDriverByIndex(item).drivers[0].lastName }} - P{{
-                  getDriverByIndex(item).defaultGridPosition
-                }}
-              </button>
+            <div class="pos-box">
+              {{ getDriverByIndex(item).defaultGridPosition }}
+            </div>
+            <div class="driver-name"
+            [ngStyle]="showOrdered ? {'text-align': 'left'} : {'text-align': 'center'}">
+              {{ getDriverByIndex(item).drivers[0].firstName[0] ?? "\<blank>" }}. 
+              {{ getDriverByIndex(item).drivers[0].lastName == '' ? "\<blank>" : getDriverByIndex(item).drivers[0].lastName }}
+            </div>
+            <div class="manufacturer">
+              <img src="./assets/car-logo/{{ getDriverCarLogo(item) }}.png">
+            </div>
+            <div class="num-box">
+              {{ getDriverByIndex(item).raceNumber == ' ' ? getDriverByIndex(item).raceNumber : '???' }}
+            </div>
               <mat-icon class="drag-icon" cdkDragHandle>drag_indicator</mat-icon>
             </div>
             <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
@@ -414,20 +417,22 @@
             (cdkDropListDropped)="drop($any($event))"
           >
             <div
-              class="example-box"
+              class="acc-drag-box"
               *ngFor="let item of unorderedDrivers"
-              [ngStyle]="{ 'border-left-color': getDriverCategory(item) }"
+              (click)="navigateDriver(item)"
               cdkDrag
             >
-              <button
-                mat-flat-button
-                class="driver-button"
-                (click)="navigateDriver(item)"
-              >
-                #{{ getDriverByIndex(item).raceNumber }} -
-                {{ getDriverByIndex(item).drivers[0].firstName }}
-                {{ getDriverByIndex(item).drivers[0].lastName }}
-              </button>
+            <div class="driver-name"
+            [ngStyle]="showOrdered ? {'text-align': 'left'} : {'text-align': 'center'}">
+              {{ getDriverByIndex(item).drivers[0].firstName[0] ?? "\<blank>" }}. 
+              {{ getDriverByIndex(item).drivers[0].lastName == '' ? "\<blank>" : getDriverByIndex(item).drivers[0].lastName }}
+            </div>
+            <div class="manufacturer">
+              <img src="./assets/car-logo/{{ getDriverCarLogo(item) }}.png">
+            </div>
+            <div class="num-box">
+              {{ getDriverByIndex(item).raceNumber == ' ' ? getDriverByIndex(item).raceNumber : '???' }}
+            </div>
               <mat-icon class="drag-icon" cdkDragHandle>drag_indicator</mat-icon>
             </div>
             <div class="example-custom-placeholder" *cdkDragPlaceholder></div>

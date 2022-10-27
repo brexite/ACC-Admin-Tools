@@ -9,7 +9,7 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { DriverCategory } from '../models/driver-fields';
-import { CarGroup, CarTypeCategory } from '../models/car-fields';
+import { Car, CarGroup, CarTypeCategory } from '../models/car-fields';
 import { ResetConfirmationComponent } from '../shared/modals/reset-confirmation/reset-confirmation.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TextareaModalComponent } from '../shared/modals/textarea-modal/textarea-modal.component';
@@ -187,6 +187,8 @@ export class EntrylistEditorComponent implements OnInit {
     },
   ];
 
+  carNamesArray: Car[] = [];
+
   driverCategories: any = [
     { key: 'Bronze', value: DriverCategory.Bronze },
     { key: 'Silver', value: DriverCategory.Silver },
@@ -223,6 +225,9 @@ export class EntrylistEditorComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.advancedInit();
+    this.carNames.forEach(x =>{
+      this.carNamesArray = [...this.carNamesArray, ...x.cars]
+    })
     this.loading = false;
   }
 
@@ -299,6 +304,7 @@ export class EntrylistEditorComponent implements OnInit {
     this.saveData();
     const dialogRef = this.dialog.open(ResetConfirmationComponent, {
       autoFocus: true,
+      data: {title: 'Are you sure you want to start again?', subtitle: 'All edits made to this file will be lost!'}
     });
 
     dialogRef.afterClosed().subscribe((confirmed) => {
@@ -511,6 +517,11 @@ export class EntrylistEditorComponent implements OnInit {
     return this.driverColours[
       this.json.entries[index].drivers[0].driverCategory
     ];
+  }
+
+  getDriverCarLogo(index: number) {
+    var car = (this.carNamesArray.find(x => x.value == this.json.entries[index].forcedCarModel))
+    return car ? car.key.split(" ")[0] : "Error"
   }
 
   getDriverByIndex(index: number) {
