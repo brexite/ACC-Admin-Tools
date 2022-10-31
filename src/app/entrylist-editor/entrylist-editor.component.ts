@@ -32,8 +32,9 @@ export class EntrylistEditorComponent implements OnInit {
   // driverColours: any = [['#ff5a31'], ['#999999'], ['#bba14f'], ['#69bdba']];
   // driverTextColours: any =[['white'], ['white'], ['white'], ['white']];
   driverColours: any = [['red'], ['black'], ['transparent'], ['transparent']];
-  driverTextColours: any =[['white'], ['white'], ['black'], ['black']];
+  driverTextColours: any = [['white'], ['white'], ['black'], ['black']];
 
+  carClassColours: any = ['transparent', 'rgb(33, 36, 204)', 'rgb(157, 140, 0)', 'rgb(148, 22, 8)', 'rgb(47, 67, 41)', 'rgb(0, 116, 171)'] //GT3, GT4, ST, CHALLENGE, CUP, TCX
 
   driverNationality: any = [
     { key: 'No Nationality', value: 0 },
@@ -538,6 +539,61 @@ export class EntrylistEditorComponent implements OnInit {
     return this.json.entries[index];
   }
 
+  getCarClass(index: number) {
+    var cat;
+    var car = (this.carNamesArray.find(x => x.value == this.json.entries[index].forcedCarModel))
+    var carName = car ? car.key.split(" ")[0] : "Error"
+
+    for(let i = 0; i < this.carNames.length; i++) {
+      if(this.carNames[i].cars.find(x => x.value == this.json.entries[index].forcedCarModel) !== undefined)
+        cat = this.carNames[i].category
+    }
+
+    let i = 0; //GT3, GT4, ST, CHALLENGE, CUP, TCX
+
+    switch(cat){
+      case 'GT3': {
+        i = 0;
+        break;
+      }
+      case 'GT4': {
+        i = 1;
+        break;
+      }
+      case 'CUP': {
+        if(carName == 'Lamborghini')
+          i = 2;
+        if(carName == 'Ferrari')
+          i = 3;
+        if(carName == 'Porsche')
+          i = 4;
+        break;
+      }
+      case 'TCX': {
+        i = 5;
+        break;
+      }
+    }
+    return `linear-gradient(-45deg, ${this.carClassColours[i]} 8px, transparent 0)`
+  }
+
+  getCarClassBg(index: number) {
+    var cat;
+
+    for(let i = 0; i < this.carNames.length; i++) {
+      if(this.carNames[i].cars.find(x => x.value == this.json.entries[index].forcedCarModel) !== undefined)
+        cat = this.carNames[i].category
+    }
+
+    let colour = 'rgb(255, 255, 255)'; //GT3, GT4, ST, CHALLENGE, CUP, TCX
+
+    if (cat == 'GT3') {
+      colour = 'transparent';
+    }
+
+    return `linear-gradient(-45deg, ${colour} 10px, transparent 0)`
+  }
+
   patchByIndex(index: number) {
     this.driverIndex = index;
 
@@ -585,6 +641,8 @@ export class EntrylistEditorComponent implements OnInit {
     this.form.patchValue({
       output: this.output,
     });
+
+    this.getCarClass(this.driverIndex)
   }
 
   //id: cdk-drop-list-0 = ordered

@@ -113,7 +113,7 @@ p {
     font-size: 14px;
     cursor: pointer;
 
-    .pos-box, .manufacturer, .num-box {
+    .pos-box, .manufacturer, .num-box, .triangle, .triangle-color  {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -142,6 +142,7 @@ p {
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden; 
+        text-align: center;
     }
 
     .manufacturer {
@@ -156,7 +157,7 @@ p {
         }
     }
 
-    .num-box {
+    .num-box, .triangle, .triangle-color {
         // background-color: black;
         color: white;
         right: 0;
