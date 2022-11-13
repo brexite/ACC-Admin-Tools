@@ -11,6 +11,7 @@ import { EntrylistEditorComponent } from '../entrylist-editor/entrylist-editor.c
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ResetConfirmationComponent } from './modals/reset-confirmation/reset-confirmation.component';
 import { TextareaModalComponent } from './modals/textarea-modal/textarea-modal.component';
+import { DragOverComponent } from './drag-over/drag-over.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { TextareaModalComponent } from './modals/textarea-modal/textarea-modal.c
     EntrylistEditorComponent,
     HeaderComponent,
     ResetConfirmationComponent,
-    TextareaModalComponent
+    TextareaModalComponent,
+    DragOverComponent
   ],
   imports: [
     CommonModule,

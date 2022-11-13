@@ -1,0 +1,16 @@
+<span 
+  class="info" 
+  *ngIf="drag"
+  [ngClass]="drag ? 'inner-dragged-over' : ''">
+  <mat-icon>upload</mat-icon>
+  <h1>Upload File</h1>
+  <h6>Supports: JSON</h6>
+</span>
+
+<div
+  [ngClass]="drag ? 'dragged-over' : ''"
+  class="drag-drop"
+  (drop)="dropHandler($event)"
+  (dragleave)="dragEndHandler($event)"
+  (dragover)="dragStartHandler($event)">
+</div>
