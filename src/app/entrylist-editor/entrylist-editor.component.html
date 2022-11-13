@@ -155,28 +155,28 @@
       <h1 class="title">ENTRY LIST EDITOR</h1>
 
       <h3>Driver Information</h3>
-      <mat-form-field class="input-area" appearance="fill">
+      <mat-form-field color="accent" class="input-area" appearance="fill">
         <mat-label>First Name</mat-label>
         <input matInput formControlName="firstName" />
       </mat-form-field>
 
-      <mat-form-field class="input-area" appearance="fill">
+      <mat-form-field color="accent" class="input-area" appearance="fill">
         <mat-label>Last Name</mat-label>
         <input matInput formControlName="lastName" />
       </mat-form-field>
 
-      <mat-form-field class="input-area" appearance="fill">
+      <mat-form-field color="accent" class="input-area" appearance="fill">
         <mat-label>Nickname</mat-label>
         <input matInput formControlName="nickname" />
       </mat-form-field>
 
-      <mat-form-field class="input-area" appearance="fill">
+      <mat-form-field color="accent" class="input-area" appearance="fill">
         <mat-label>Short Name</mat-label>
         <input matInput maxlength="3" formControlName="shortName" />
       </mat-form-field>
       <br />
 
-      <mat-form-field class="input-area" appearance="fill">
+      <mat-form-field color="accent" class="input-area" appearance="fill">
         <mat-label>Nationality</mat-label>
         <mat-select formControlName="nationality">
           <mat-option *ngFor="let nat of driverNationality" [value]="nat.value">
@@ -185,7 +185,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field class="input-area" appearance="fill">
+      <mat-form-field color="accent" class="input-area" appearance="fill">
         <mat-label>Driver Cat.</mat-label>
         <mat-select formControlName="driverCategory">
           <mat-option *ngFor="let cat of driverCategories" [value]="cat.value">
@@ -194,7 +194,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field class="input-area input-wide" appearance="fill">
+      <mat-form-field color="accent" class="input-area input-wide" appearance="fill">
         <mat-label>Steam64ID</mat-label>
         <div style="display: flex; flex-direction: row;">
           <input matInput type="number" formControlName="steamId" />
@@ -207,7 +207,7 @@
       </mat-form-field>
 
       <h3>Car Information</h3>
-      <mat-form-field class="input-area" appearance="fill">
+      <mat-form-field color="accent" class="input-area" appearance="fill">
         <mat-label>Custom Car</mat-label>
         <div style="display: flex; flex-direction: row">
           <input matInput formControlName="customCarName" />
@@ -219,7 +219,7 @@
         </div>
       </mat-form-field>
 
-      <mat-form-field class="input-area" appearance="fill">
+      <mat-form-field color="accent" class="input-area" appearance="fill">
         <mat-label>Race Number</mat-label>
         <input type="number" max="999" matInput formControlName="raceNumber" />
         <div *ngIf="form.get('raceNumber').errors?.invalidValue">
@@ -227,7 +227,7 @@
         </div>
       </mat-form-field>
 
-      <mat-form-field class="input-area input-wide" appearance="fill">
+      <mat-form-field color="accent" class="input-area input-wide" appearance="fill">
         <mat-label>Car Choice</mat-label>
         <mat-select formControlName="carChoice">
           <mat-option [value]="-1">-- None --</mat-option>
@@ -239,7 +239,7 @@
         </mat-select>
       </mat-form-field>
 
-      <!-- <mat-form-field class="input-area" appearance="fill">
+      <!-- <mat-form-field color="accent" class="input-area" appearance="fill">
             <mat-label type="number">Grid Position</mat-label>
             <input matInput formControlName="raceNumber">
         </mat-form-field> -->
