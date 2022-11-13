@@ -4,9 +4,10 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 100px;
     margin: 4px;
     width: 35vw;
+    height: 35vh;
+    cursor: pointer;
 
     background-color: rgba(206, 206, 206, 0.75);
     border: 6px dashed;
@@ -27,4 +28,8 @@ mat-icon {
 
 h6 {
     font-style: italic;
+}
+
+.file-input {
+    display: none;
 }

@@ -407,7 +407,7 @@ export class EntrylistEditorComponent implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
 
-    this.fileHandler(file)
+    this.fileHandler(file);
   }
 
   fileHandler(file: File) {
