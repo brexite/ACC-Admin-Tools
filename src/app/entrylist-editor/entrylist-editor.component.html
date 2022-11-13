@@ -1,10 +1,8 @@
-<!-- <app-drag-over (fileEmitter)="fileHandler($event)" *ngIf="!loading && !json">
-</app-drag-over> -->
 <mat-drawer-container class="example-container">
   <mat-spinner *ngIf="loading" [diameter]="70"></mat-spinner>
 
   <div class="body-loading" *ngIf="!loading && !json">
-    <h1 class="title">Drag your entrylist.json here</h1>
+    <h1 class="title">Upload your entrylist.json here</h1>
     <input
       type="file"
       class="file-input"
@@ -30,6 +28,10 @@
       <mat-icon>add</mat-icon>
       New Entrylist
     </button>
+
+    <app-drag-over (fileEmitter)="fileHandler($event)" *ngIf="!loading && !json">
+    </app-drag-over>
+
     <p><br>This is still a work in progress, please report any bugs you find at the 
       <a href="https://github.com/brexite/ACC-Admin-Tools/issues" target="_blank">GitHub issues page</a>
     </p>
