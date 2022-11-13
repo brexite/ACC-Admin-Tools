@@ -118,7 +118,6 @@ p {
         justify-content: center;
         align-items: center;
         font-weight: bold;
-        color: white;
         height: 42px;
         text-align: center;
         margin: auto 0;
@@ -157,13 +156,33 @@ p {
         }
     }
 
-    .num-box, .triangle, .triangle-color {
-        // background-color: black;
-        color: white;
+    .num-box {
         right: 0;
         aspect-ratio: 1 / 1;
     }
 
+    .triangle, .triangle-color {
+        // background-color: black;
+        color: inherit;
+        right: 0;
+        aspect-ratio: 1 / 1;
+    }
+
+  }
+
+  .bronze {
+    background-color: red;
+    color: white;
+  }
+
+  .silver {
+    background-color: black;
+    color: white;
+  }
+
+  .gold, .platinum {
+    background-color: white;
+    color: black;
   }
 
   .acc-drag-box:hover {

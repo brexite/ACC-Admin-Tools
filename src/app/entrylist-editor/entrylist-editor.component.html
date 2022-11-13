@@ -1,5 +1,5 @@
-<app-drag-over (fileEmitter)="fileHandler($event)" *ngIf="!loading && !json">
-</app-drag-over>
+<!-- <app-drag-over (fileEmitter)="fileHandler($event)" *ngIf="!loading && !json">
+</app-drag-over> -->
 <mat-drawer-container class="example-container">
   <mat-spinner *ngIf="loading" [diameter]="70"></mat-spinner>
 
@@ -397,7 +397,7 @@
             <div class="manufacturer">
               <img src="./assets/car-logo/{{ getDriverCarLogo(item) }}.png">
             </div>
-            <div class="num-box" [ngStyle]="{'background-color': getDriverCategory(item), 'color' : getDriverCategoryText(item) }">
+            <div class="num-box" [ngClass]="{'bronze' : this.json.entries[item].drivers[0].driverCategory == 0, 'silver' : this.json.entries[item].drivers[0].driverCategory == 1, 'gold' : this.json.entries[item].drivers[0].driverCategory >= 2}">
               <div class="triangle" [ngStyle]="{'background': getCarClassBg(item)}">
                 <div class="triangle-color" [ngStyle]="{'background': getCarClass(item)}">
                   {{ !getDriverByIndex(item).raceNumber ? '???' : getDriverByIndex(item).raceNumber }}
@@ -435,7 +435,7 @@
             <div class="manufacturer">
               <img src="./assets/car-logo/{{ getDriverCarLogo(item) }}.png">
             </div>
-            <div class="num-box" [ngStyle]="{'background-color': getDriverCategory(item), 'color' : getDriverCategoryText(item) }">
+            <div class="num-box" [ngClass]="{'bronze' : this.json.entries[item].drivers[0].driverCategory == 0, 'silver' : this.json.entries[item].drivers[0].driverCategory == 1, 'gold' : this.json.entries[item].drivers[0].driverCategory >= 2}">
               <div class="triangle" [ngStyle]="{'background': getCarClassBg(item)}">
                 <div class="triangle-color" [ngStyle]="{'background': getCarClass(item)}">
                   {{ !getDriverByIndex(item).raceNumber ? '???' : getDriverByIndex(item).raceNumber }}
