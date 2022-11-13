@@ -31,8 +31,6 @@ export class EntrylistEditorComponent implements OnInit {
 
   // driverColours: any = [['#ff5a31'], ['#999999'], ['#bba14f'], ['#69bdba']];
   // driverTextColours: any =[['white'], ['white'], ['white'], ['white']];
-  driverColours: any = [['red'], ['black'], ['transparent'], ['transparent']];
-  driverTextColours: any = [['white'], ['white'], ['black'], ['black']];
 
   carClassColours: any = ['transparent', 'rgb(33, 36, 204)', 'rgb(157, 140, 0)', 'rgb(148, 22, 8)', 'rgb(47, 67, 41)', 'rgb(0, 116, 171)'] //GT3, GT4, ST, CHALLENGE, CUP, TCX
 
@@ -522,16 +520,8 @@ export class EntrylistEditorComponent implements OnInit {
     return null;
   }
 
-  getDriverCategory(index: number) {
-    return this.driverColours[
-      this.json.entries[index].drivers[0].driverCategory
-    ];
-  }
-
-  getDriverCategoryText(index: number) {
-    return this.driverTextColours[
-      this.json.entries[index].drivers[0].driverCategory
-    ];
+  getDriverClass(index: number) {
+    this.json.entries[index].drivers[0].driverCategory;
   }
 
   getDriverCarLogo(index: number) {
