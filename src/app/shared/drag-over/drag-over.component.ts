@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-drag-over',
   templateUrl: './drag-over.component.html',
@@ -10,7 +12,9 @@ export class DragOverComponent implements OnInit {
   @Output() fileEmitter: EventEmitter<File> = new EventEmitter<File>();
   drag: boolean = false;
 
-  constructor() { }
+  constructor(
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -22,15 +26,14 @@ export class DragOverComponent implements OnInit {
 
     const fileList = event.dataTransfer.files;
     if(fileList.length > 1) {
-      return; //toastr
+      return this.toastr.error('Error with the entrylist.json, please try again.');
     }
 
     const file: File = fileList[0];
 
     if(file.type == 'application/json')
       this.fileEmitter.emit(file);
-      return console.log("time to return");
-    return; //toastr
+    return this.toastr.error('Error with the entrylist.json, please try again.');
   }
 
   dragStartHandler(event) {
@@ -38,7 +41,6 @@ export class DragOverComponent implements OnInit {
     event.preventDefault();
 
     this.drag = true;
-    console.log(`drag start`);
   }
 
   dragEndHandler(event) {
@@ -46,7 +48,6 @@ export class DragOverComponent implements OnInit {
     event.preventDefault();
 
     this.drag = false;
-    console.log(`drag end`);
   }
 
 }
