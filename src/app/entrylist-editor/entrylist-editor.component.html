@@ -1,36 +1,21 @@
-<!-- <app-drag-over (fileEmitter)="fileHandler($event)" *ngIf="!loading && !json">
-</app-drag-over> -->
 <mat-drawer-container class="example-container">
   <mat-spinner *ngIf="loading" [diameter]="70"></mat-spinner>
 
   <div class="body-loading" *ngIf="!loading && !json">
-    <h1 class="title">Drag your entrylist.json here</h1>
-    <input
-      type="file"
-      class="file-input"
-      accept=".json"
-      (change)="onFileSelected($event)"
-      #fileUploadResults
-    />
+    <h1 class="title">Upload your entrylist.json here</h1>
+    <app-drag-over (fileEmitter)="fileHandler($event)" *ngIf="!loading && !json">
+    </app-drag-over>
     <button
       class="upload-button"
       mat-raised-button
       color="accent"
-      (click)="fileUploadResults.click()"
-    >
-      <mat-icon>upload</mat-icon>
-      Upload JSON
-    </button>
-    <button
-      class="upload-button"
-      mat-raised-button
-      color="secondary"
       (click)="newFile()"
     >
       <mat-icon>add</mat-icon>
-      New Entrylist
+      Create a New Entrylist
     </button>
-    <p><br>This is still a work in progress, please report any bugs you find at the 
+
+    <p>This is still a work in progress, please report any bugs you find at the 
       <a href="https://github.com/brexite/ACC-Admin-Tools/issues" target="_blank">GitHub issues page</a>
     </p>
   </div>

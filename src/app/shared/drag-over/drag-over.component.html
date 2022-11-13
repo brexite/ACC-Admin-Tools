@@ -1,16 +1,19 @@
 <span 
-  class="info" 
-  *ngIf="drag"
-  [ngClass]="drag ? 'inner-dragged-over' : ''">
+  class="info"
+  [ngClass]="drag ? 'dragged' : ''"
+  (drop)="dropHandler($event)"
+  (dragleave)="dragEndHandler($event)"
+  (dragover)="dragStartHandler($event)"
+  (click)="fileUploadResults.click()">
   <mat-icon>upload</mat-icon>
-  <h1>Upload File</h1>
+  <h1>Click or Drag to Upload File</h1>
   <h6>Supports: JSON</h6>
 </span>
 
-<div
-  [ngClass]="drag ? 'dragged-over' : ''"
-  class="drag-drop"
-  (drop)="dropHandler($event)"
-  (dragleave)="dragEndHandler($event)"
-  (dragover)="dragStartHandler($event)">
-</div>
+<input
+  type="file"
+  class="file-input"
+  accept=".json"
+  (change)="onFileSelected($event)"
+  #fileUploadResults
+/>
