@@ -32,7 +32,7 @@ export class DragOverComponent implements OnInit {
     const file: File = fileList[0];
 
     if(file.type == 'application/json')
-      this.fileEmitter.emit(file);
+      return this.fileEmitter.emit(file);
     return this.toastr.error('Error with the entrylist.json, please try again.');
   }
 
