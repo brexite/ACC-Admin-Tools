@@ -1,0 +1,50 @@
+.drag-drop {
+    position: absolute;
+    top: 7.5%;
+    left: 0;
+    z-index: 1001;
+    height: 92.5%;
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.info {
+    position: absolute;
+    height: 70%;
+    width: 70%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    z-index: 501;
+}
+
+.dragged-over {
+    background-color: rgba(128, 128, 128, 0.5);
+}
+
+.inner-dragged-over {
+    background-color: rgba(128, 128, 128, 0.75);
+    border: 6px dashed;
+    border-color: lightgray;
+    border-radius: 25px; 
+}
+
+mat-icon {
+    height: 20vh;
+    width: 20vh;
+    font-size: 20vh;
+}
+
+h6 {
+    font-style: italic;
+}

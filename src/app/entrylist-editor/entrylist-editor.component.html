@@ -1,13 +1,15 @@
+<app-drag-over (fileEmitter)="fileHandler($event)" *ngIf="!loading && !json">
+</app-drag-over>
 <mat-drawer-container class="example-container">
   <mat-spinner *ngIf="loading" [diameter]="70"></mat-spinner>
 
   <div class="body-loading" *ngIf="!loading && !json">
-    <h1 class="title">Upload your entrylist.json here</h1>
+    <h1 class="title">Drag your entrylist.json here</h1>
     <input
       type="file"
       class="file-input"
       accept=".json"
-      (change)="onFileSelected($event, 1)"
+      (change)="onFileSelected($event)"
       #fileUploadResults
     />
     <button
