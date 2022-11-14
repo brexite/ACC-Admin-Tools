@@ -86,6 +86,11 @@ export class RaceResultsToolComponent implements OnInit {
     let forceEntryList = this.form.get('forceEL').value;
     let reverseGrid = this.form.get('reverse').value;
 
+    // Remove existing positions
+    entrylistJSON.entries.forEach(driver => {
+      driver.defaultGridPosition = -1
+    });
+
     if (resultsJSON.sessionResult.leaderBoardLines.length < reverseGrid) {
       reverseGrid = resultsJSON.sessionResult.leaderBoardLines.length;
     }
@@ -107,8 +112,9 @@ export class RaceResultsToolComponent implements OnInit {
       // console.log(`Car #${carNo} will start in P${position}\n`);
 
       for (let key in entrylistJSON.entries) {
-        if (entrylistJSON.entries[key].raceNumber == carNo)
+        if (entrylistJSON.entries[key].raceNumber == carNo) {
           entrylistJSON.entries[key].defaultGridPosition = position;
+        }
       }
     }
 
@@ -120,16 +126,11 @@ export class RaceResultsToolComponent implements OnInit {
     });
   }
 
-  upload(key: number) {}
+  parseFile(file:File, encoding: string, key: number) {
+    const fileReader = new FileReader();
+    fileReader.readAsText(file, encoding); // Used for testing the file
 
-  onFileSelected(event: any, key: number) {
-    const file: File = event.target.files[0];
-
-    if (file) {
-      const fileReader = new FileReader();
-      fileReader.readAsText(file, 'UTF-8');
-
-      if (key == 0) {
+    if (key == 0) {
         fileReader.onload = () => {
           try {
             JSON.stringify(JSON.parse(<string>fileReader.result), null, '\t');
@@ -153,7 +154,7 @@ export class RaceResultsToolComponent implements OnInit {
         // console.log("test - results")
         fileReader.onload = () => {
           try {
-            JSON.stringify(JSON.parse(<string>fileReader.result), null, '\t');
+            JSON.stringify(JSON.parse((<string>fileReader.result).replace(`(?>\\S)(\\s)(?>\")`, "")), null, '\t');
           } catch (error) {
             this.toastr.error('Error with the results.json, please try again.');
           }
@@ -168,6 +169,30 @@ export class RaceResultsToolComponent implements OnInit {
         fileReader.onerror = (error) => {
           console.log(error);
         };
+      }
+  }
+
+  onFileSelected(event: any, key: number) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      const fileReader = new FileReader();
+      fileReader.readAsText(file, 'UTF-8'); // Used for testing the file
+      
+      // Files created by users are in UTF-8
+      // Files created by the game are output in UTF-16
+
+      fileReader.onload = () => {
+        try{
+          if(JSON.parse(<string>fileReader.result) !== null){
+            this.parseFile(file, 'UTF-8', key);
+          }
+          else {
+            this.parseFile(file, 'UTF-16', key);
+          }
+        } catch {
+          this.parseFile(file, 'UTF-16', key);
+        }
       }
     }
   }

@@ -428,6 +428,7 @@ export class EntrylistEditorComponent implements OnInit {
           });
 
           this.driverLength = this.json.entries.length;
+          this.driverIndex = 0;
           this.getDriverOrders();
           this.patchForm(0);
         } catch (error) {
