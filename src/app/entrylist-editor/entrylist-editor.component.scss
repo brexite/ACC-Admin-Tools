@@ -132,7 +132,7 @@ p {
 
     .driver-name {
         background-color: rgb(236, 236, 236);
-        width: calc(80%);
+        width: calc(100%);
         height: 42px;
         display: inline-block;
         padding: 0 1em;
@@ -239,6 +239,11 @@ p {
     color: black;
 }
 
+.icon-hide {
+    cursor: unset;
+    color: transparent !important;
+}
+
 .file-input {
     display: none;
 }
@@ -264,6 +269,10 @@ p {
     margin: 0q;
 }
 
+.steam-button {
+    height: 100%;
+}
+
 .driver-button {
     width: 100%;
     height: 3em;
@@ -276,7 +285,8 @@ mat-icon.info-icon {
     // hack to circumvent the bullshit that is viewboxes not updating any other way
     width: 16px !important;
     height: 16px  !important;
-    transform: translate(-4px, -10px)
+    transform: translate(-4px, -10px);
+    color: white;
 }
 
 .info-at-checkbox {

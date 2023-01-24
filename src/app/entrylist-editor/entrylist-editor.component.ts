@@ -27,7 +27,10 @@ export class EntrylistEditorComponent implements OnInit {
   driverIndex: number = 0;
   driverLength: number = 0;
 
+  showAdmins = false;
   showOrdered = false;
+
+  dragDisabled = true;
 
   // driverColours: any = [['#ff5a31'], ['#999999'], ['#bba14f'], ['#69bdba']];
   // driverTextColours: any =[['white'], ['white'], ['white'], ['white']];
@@ -345,10 +348,18 @@ export class EntrylistEditorComponent implements OnInit {
     let tempJSON = this.json;
 
     this.unorderedDrivers = tempJSON.entries.map((entry, index) => {
+      if (<number>entry.defaultGridPosition == undefined || <number>entry.forcedCarModel == undefined) {
+        this.handleSimGridAdmin(tempJSON, index)
+        if(this.showAdmins) return index;
+        return;
+      }
+
       if (<number>entry.defaultGridPosition == -1) return index;
     });
 
     this.unorderedDrivers.sort(function (a, b) {
+      if(tempJSON.entries[a].raceNumber == undefined) return -1;
+      if(tempJSON.entries[b].raceNumber == undefined) return 1;
       return tempJSON.entries[a].raceNumber - tempJSON.entries[b].raceNumber;
     });
 
@@ -377,6 +388,14 @@ export class EntrylistEditorComponent implements OnInit {
       console.error(error);
     }
   }
+  handleSimGridAdmin(tempJSON: any, index: any) {
+    tempJSON.entries[index].defaultGridPosition = -1;
+  }
+
+  adminToggle() {
+    this.showAdmins = !this.showAdmins
+    this.getDriverOrders()
+  }
 
   gridOrderToggle() {
     let tempJSON = this.json;
@@ -387,6 +406,8 @@ export class EntrylistEditorComponent implements OnInit {
       this.orderedDrivers = [];
 
       this.unorderedDrivers = this.unorderedDrivers.sort(function (a, b) {
+        if(tempJSON.entries[a].raceNumber == undefined) return -1;
+        if(tempJSON.entries[b].raceNumber == undefined) return 1;
         return tempJSON.entries[a].raceNumber - tempJSON.entries[b].raceNumber;
       });
       
@@ -402,6 +423,8 @@ export class EntrylistEditorComponent implements OnInit {
     for (let i = 0; i < this.unorderedDrivers.length; i++) {
       this.json.entries[this.unorderedDrivers[i]].defaultGridPosition = -1;
     }
+
+    this.getDriverOrders();
   }
 
   onFileSelected(event: any) {
@@ -519,6 +542,20 @@ export class EntrylistEditorComponent implements OnInit {
     //if last driver in json, do createDriver() or not allow deletion of last driver
     // this.saveData();
     return null;
+  }
+
+  isAdmin(index: number) {
+    return this.getDriverByIndex(index).forcedCarModel == undefined
+  }
+
+  getDriverFirstName(index: number) {
+    if(this.getDriverByIndex(index).drivers[0].firstName == undefined) return "A"
+    return this.getDriverByIndex(index).drivers[0]?.firstName[0] ?? "\<blank>"
+  }
+
+  getDriverLastName(index: number) {
+    if(this.getDriverByIndex(index).drivers[0].lastName == undefined) return "Server Admin"
+    return this.getDriverByIndex(index).drivers[0]?.lastName ?? "\<blank>"
   }
 
   getDriverClass(index: number) {
@@ -658,6 +695,7 @@ export class EntrylistEditorComponent implements OnInit {
       );
     }
     this.updateGridPosition();
+    this.dragDisabled = true;
   }
 
   sideBarAction() {
