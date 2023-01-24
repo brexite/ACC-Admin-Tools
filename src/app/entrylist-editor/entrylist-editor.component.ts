@@ -341,7 +341,6 @@ export class EntrylistEditorComponent implements OnInit {
       this.toastr.error('There was an error with saving.');
       return;
     }
-
     this.patchByIndex(driverNo);
   }
 
@@ -507,6 +506,22 @@ export class EntrylistEditorComponent implements OnInit {
     this.navigateDriver(this.json.entries.length - 1);
   }
 
+  createAdmin() {
+    this.json.entries.push({
+      drivers: [
+        {
+          playerID: '',
+        },
+      ],
+      defaultGridPosition: -1,
+      isServerAdmin: 1,
+    });
+    
+    this.showAdmins = true;
+    this.getDriverOrders();
+    this.navigateDriver(this.json.entries.length - 1);
+  }
+
   deleteDriver() {
 
     let deleteIndex = this.driverIndex
@@ -556,7 +571,7 @@ export class EntrylistEditorComponent implements OnInit {
   }
 
   getDriverLastName(index: number) {
-    if(this.getDriverByIndex(index).drivers[0].lastName == undefined) return "Server Admin"
+    if(this.getDriverByIndex(index).drivers[0].lastName == undefined) return `Server Admin (${this.getDriverByIndex(index).drivers[0].playerID})`
     return this.getDriverByIndex(index).drivers[0]?.lastName ?? "\<blank>"
   }
 
@@ -770,19 +785,26 @@ export class EntrylistEditorComponent implements OnInit {
       this.unorderedDrivers = [];
       this.orderedDrivers = Array(amountOfDrivers).fill(0).map((n, i) => n + i) //Fill all drivers into this list randomly
 
+      let sub = 0;
+
+      for (let i = this.orderedDrivers.length - 1; i > 0; i--) {
+        if(this.isAdmin(i)){
+          if(this.showAdmins) this.unorderedDrivers.push(i)
+        }
+      }
+
+      this.orderedDrivers = this.orderedDrivers.filter(x => !this.isAdmin(x))
+
       for (let i = this.orderedDrivers.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [this.orderedDrivers[i], this.orderedDrivers[j]] = [this.orderedDrivers[j], this.orderedDrivers[i]];
-    }
-
-
-      console.log(this.orderedDrivers)
-
-      for(let i = 0; i < this.orderedDrivers.length; i++) {
-        console.log(`Iterator: ${i} - Position #${this.orderedDrivers[i]}`)
-        this.json.entries[this.orderedDrivers[i]].defaultGridPosition = i + 1
-        console.log("Success")
       }
+
+      // for(let i = 0; i < this.orderedDrivers.length; i++) {
+      //   console.log(`Iterator: ${i} - Position #${this.orderedDrivers[i]}`)
+      //   this.json.entries[this.orderedDrivers[i]].defaultGridPosition = i + 1
+      //   console.log("Success")
+      // }
     });
   }
 }

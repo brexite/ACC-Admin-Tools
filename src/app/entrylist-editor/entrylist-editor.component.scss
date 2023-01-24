@@ -49,6 +49,16 @@ p {
     width: 40%;
 }
 
+.flex-hor {
+    padding: auto 0;
+    padding-top: 1%;
+    margin: 2px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: calc(100% - 40px)
+}
+
 .drag-column {
     display: flexbox;
     flex-direction: row;
@@ -230,6 +240,10 @@ p {
 
 .vert-button {
     margin: 2px 20px;
+}
+
+.hor-button {
+    width: calc(50% - 2px);
 }
 
 .drag-icon{
