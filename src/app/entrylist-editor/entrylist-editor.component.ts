@@ -27,6 +27,7 @@ export class EntrylistEditorComponent implements OnInit {
   driverIndex: number = 0;
   driverLength: number = 0;
 
+  doAdminsExist = false;
   showAdmins = false;
   showOrdered = false;
 
@@ -349,6 +350,7 @@ export class EntrylistEditorComponent implements OnInit {
 
     this.unorderedDrivers = tempJSON.entries.map((entry, index) => {
       if (<number>entry.defaultGridPosition == undefined || <number>entry.forcedCarModel == undefined) {
+        this.doAdminsExist = true;
         this.handleSimGridAdmin(tempJSON, index)
         if(this.showAdmins) return index;
         return;

@@ -280,12 +280,21 @@ p {
     color: black;
 }
 
-mat-icon.info-icon {
+a, mat-icon.info-icon {
     // hack to circumvent the bullshit that is viewboxes not updating any other way
     width: 16px !important;
     height: 16px  !important;
     transform: translate(-4px, -10px);
     color: white;
+}
+
+.icon-button {
+    width: 16px;
+    height: 16px;
+
+    mat-icon.info-icon {
+        line-height: 16px !important;
+    }
 }
 
 .info-at-checkbox {
