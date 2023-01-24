@@ -49,6 +49,16 @@ p {
     width: 40%;
 }
 
+.flex-hor {
+    padding: auto 0;
+    padding-top: 1%;
+    margin: 2px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: calc(100% - 40px)
+}
+
 .drag-column {
     display: flexbox;
     flex-direction: row;
@@ -119,10 +129,9 @@ p {
         align-items: center;
         font-weight: bold;
         height: 42px;
+        width: 42px;
         text-align: center;
         margin: auto 0;
-        
-        aspect-ratio: 1 / 1;
     }
 
     .pos-box {
@@ -132,7 +141,7 @@ p {
 
     .driver-name {
         background-color: rgb(236, 236, 236);
-        width: calc(80%);
+        width: calc(100%);
         height: 42px;
         display: inline-block;
         padding: 0 1em;
@@ -233,10 +242,19 @@ p {
     margin: 2px 20px;
 }
 
+.hor-button {
+    width: calc(50% - 2px);
+}
+
 .drag-icon{
     text-align: right;
     cursor: move;
     color: black;
+}
+
+.icon-hide {
+    cursor: unset;
+    color: transparent !important;
 }
 
 .file-input {
@@ -264,6 +282,10 @@ p {
     margin: 0q;
 }
 
+.steam-button {
+    height: 100%;
+}
+
 .driver-button {
     width: 100%;
     height: 3em;
@@ -272,11 +294,21 @@ p {
     color: black;
 }
 
-mat-icon.info-icon {
+a, mat-icon.info-icon {
     // hack to circumvent the bullshit that is viewboxes not updating any other way
     width: 16px !important;
     height: 16px  !important;
-    transform: translate(-4px, -10px)
+    transform: translate(-4px, -10px);
+    color: white;
+}
+
+.icon-button {
+    width: 16px;
+    height: 16px;
+
+    mat-icon.info-icon {
+        line-height: 16px !important;
+    }
 }
 
 .info-at-checkbox {
