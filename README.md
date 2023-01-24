@@ -2,7 +2,7 @@
 # ACC Admin Tools
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/brexite/ACC-Admin-Tools)
-[![](https://img.shields.io/discord/565048515357835264.svg?logo=discord&colorB=7289DA&label=Revsport%20Discord%20\(yum\))](https://discord.gg/UNWPSGVa)
+[![](https://img.shields.io/discord/565048515357835264.svg?logo=discord&colorB=7289DA&label=Revsport%20Discord%20\(yum\))](https://discord.revsport.racing)
 ![Twitter Follow](https://img.shields.io/twitter/follow/brexite?color=%23000000&logoColor=%23111111&style=social)
 
 ## Overview
@@ -22,6 +22,7 @@ Coming soon...
 No edits planned
 
 **Server Files Creator**
+
 Coming Soon
 
 **Entry List Editor**
@@ -32,7 +33,7 @@ Coming Soon
  - [ ] Add ability to work with multiple drivers per team
  - [ ] Add Car Logos with tooltips
  - [x] Enable/Disable Ordering drivers on the grid shortcut
- - [ ] Update styling to match the in-game leaderboard
+ - [x] Update styling to match the in-game leaderboard
 
 **General Edits**
  - [x] De-tangle codebase
