@@ -437,6 +437,7 @@ export class EntrylistEditorComponent implements OnInit {
   fileHandler(file: File) {
     if (file) {
       this.loading = true;
+      this.doAdminsExist = false;
 
       const fileReader = new FileReader();
       fileReader.readAsText(file, 'UTF-8');
@@ -480,6 +481,7 @@ export class EntrylistEditorComponent implements OnInit {
 
     this.driverLength = this.json.entries.length;
     this.patchForm(0);
+    this.doAdminsExist = false;
     this.loading = false;
   }
 
