@@ -227,15 +227,50 @@ p {
     padding-top: 10px;
 }
 
+.clipboard-paste {
+    display: flex;    
+    flex-direction: row;
+    width: 35%;
+    margin: 8px;
+    padding: 8px 0;
+    border-top: 1px solid rgb(133, 133, 133);
+    border-bottom: 1px solid rgb(133, 133, 133);
+    align-items: center;
+
+    input {
+        width: 63%;
+        margin-right: 2%;
+        height: 80%;
+        display:block !important;
+        background-color: transparent;
+        border: none;
+    }
+}
+
+.admin-inline {
+    // font-size: 14px;
+    width: 14px;
+    height: 14px;
+    line-height: 14px !important;
+    vertical-align:middle;
+    margin-right: 10px;
+}
+
+.from-clipboard-button {
+    width: 35%;
+    height: 100%;
+    border-color: rgb(133, 133, 133);
+}
+
 .upload-button {
     display: flexbox;
     position: relative;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     height: 50px;
     width: 35%;
     margin: 4px 0px;
-    align-items: center;
-    justify-content: center;
 }
 
 .vert-button {
