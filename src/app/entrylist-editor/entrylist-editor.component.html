@@ -5,6 +5,16 @@
     <h1 class="title">Upload your entrylist.json here</h1>
     <app-drag-over (fileEmitter)="fileHandler($event)" *ngIf="!loading && !json">
     </app-drag-over>
+    <div class="clipboard-paste" [formGroup]="inputForm">
+      <ng-container>
+        <input matInput formControlName="input" placeholder="Paste entrylist here..."/>
+      </ng-container>
+      <button
+        class="from-clipboard-button"
+        mat-stroked-button
+        color="accent"
+        (click)="newFile(this.inputForm.get('input').value)"><i class="fa-solid fa-clipboard-list"></i> Create from Clipboard</button>
+    </div>
     <button
       class="upload-button"
       mat-raised-button
@@ -408,6 +418,7 @@
               {{ getDriverByIndex(item).defaultGridPosition }}
             </div>
             <div class="driver-name">
+              <mat-icon class="admin-inline" *ngIf="hasAdminRole(item)" >admin_panel_settings</mat-icon>
               {{ getDriverFirstName(item) }}. 
               {{ getDriverLastName(item) }}
             </div>
@@ -447,6 +458,7 @@
               [cdkDragDisabled]="isAdmin(item) || dragDisabled"
             >
               <div class="driver-name">
+                <mat-icon class="admin-inline" *ngIf="hasAdminRole(item)" >admin_panel_settings</mat-icon> 
                 {{ getDriverFirstName(item) }}. 
                 {{ getDriverLastName(item) }}
               </div>

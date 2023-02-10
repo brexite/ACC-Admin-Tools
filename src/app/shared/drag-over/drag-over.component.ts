@@ -32,7 +32,7 @@ export class DragOverComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    console.log(event.target.files)
+    // console.log(event.target.files)
     const files: FileList = event.target.files;
 
     this.fileHandler(files)

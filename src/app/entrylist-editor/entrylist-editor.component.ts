@@ -23,6 +23,7 @@ export class EntrylistEditorComponent implements OnInit {
   loading: boolean = true;
   json: any = null;
   form: FormGroup;
+  inputForm: FormGroup;
   advancedForm: FormGroup;
   driverIndex: number = 0;
   driverLength: number = 0;
@@ -258,6 +259,10 @@ export class EntrylistEditorComponent implements OnInit {
 
       output: '',
     });
+
+    this.inputForm = this.fb.group({
+      input: null
+    })
   }
 
   patchForm(key: number) {
@@ -317,6 +322,7 @@ export class EntrylistEditorComponent implements OnInit {
     dialogRef.afterClosed().subscribe((confirmed) => {
       if (!confirmed) return;
       this.json = null;
+      this.initForm();
     });
   }
 
@@ -349,7 +355,7 @@ export class EntrylistEditorComponent implements OnInit {
     let tempJSON = this.json;
 
     this.unorderedDrivers = tempJSON.entries.map((entry, index) => {
-      if (<number>entry.defaultGridPosition == undefined || <number>entry.forcedCarModel == undefined) {
+      if ((<number>entry.defaultGridPosition == undefined || <number>entry.forcedCarModel == undefined) && entry.isServerAdmin) {
         this.doAdminsExist = true;
         this.handleSimGridAdmin(tempJSON, index)
         if(this.showAdmins) return index;
@@ -390,6 +396,7 @@ export class EntrylistEditorComponent implements OnInit {
       console.error(error);
     }
   }
+
   handleSimGridAdmin(tempJSON: any, index: any) {
     tempJSON.entries[index].defaultGridPosition = -1;
   }
@@ -458,6 +465,7 @@ export class EntrylistEditorComponent implements OnInit {
           this.driverIndex = 0;
           this.getDriverOrders();
           this.patchForm(0);
+          
         } catch (error) {
           this.loading = false;
           this.json = null;
@@ -471,23 +479,34 @@ export class EntrylistEditorComponent implements OnInit {
       };
     }
   }
-
-  newFile() {
+  
+  newFile(input: string = null) {
     this.loading = true;
-    this.json = JSON.parse('{"entries": [],"forceEntryList": 1}');
-    this.createDriver();
+    this.doAdminsExist = false;
+    if(!input) {
+      this.json = JSON.parse('{"entries": [],"forceEntryList": 1}');
+      this.createDriver();
+      this.getDriverOrders();
+      this.driverLength = 1;
+    }
+    else try{
+      this.json = JSON.parse(input);
+      this.getDriverOrders();
+      this.driverLength = this.json.entries.length;
+    } catch {
+      this.loading = false;
+      this.json = null;
+      this.toastr.error('Error with the entrylist, please try again.');
+    }
+    
     this.output = JSON.stringify(this.json, null, '\t');
     this.form.patchValue({
       output: this.output,
     });
-
-    this.driverLength = this.json.entries.length;
-    this.patchForm(0);
-    this.doAdminsExist = false;
     this.showAdmins = false;
     this.loading = false;
   }
-
+  
   createDriver() {
     this.json.entries.push({
       drivers: [
@@ -568,6 +587,10 @@ export class EntrylistEditorComponent implements OnInit {
 
   isAdmin(index: number) {
     return this.getDriverByIndex(index).forcedCarModel == undefined
+  }
+
+  hasAdminRole(index: number) {
+    return this.getDriverByIndex(index).isServerAdmin
   }
 
   getDriverFirstName(index: number) {
@@ -677,7 +700,8 @@ export class EntrylistEditorComponent implements OnInit {
     this.json.entries[this.driverIndex].drivers[0].nationality =
       this.form.get('nationality').value;
     this.json.entries[this.driverIndex].forcedCarModel =
-      this.form.get('carChoice').value;
+      this.form.get('carChoice').value 
+      ?? -1;
     this.json.entries[this.driverIndex].overrideDriverInfo = this.form.get(
       'overrideDriverInfo'
     ).value
