@@ -38,10 +38,14 @@ h2 {
   min-width: 48px;
   transition: transform 0.2s;
   pointer-events: all;
+  i {
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  }
 }
 
 .title {
   display: flexbox;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 mat-spinner {
