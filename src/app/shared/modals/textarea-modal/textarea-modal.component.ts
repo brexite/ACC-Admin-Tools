@@ -19,7 +19,7 @@ export class TextareaModalComponent {
         private toastr: ToastrService,
     ) 
     { 
-        console.log(data)
+        // console.log(data)
         this.output = JSON.stringify(data.json, null, "\t")
     }
 

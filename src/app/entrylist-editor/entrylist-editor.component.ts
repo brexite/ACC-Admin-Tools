@@ -845,11 +845,11 @@ export class EntrylistEditorComponent implements OnInit {
         [this.orderedDrivers[i], this.orderedDrivers[j]] = [this.orderedDrivers[j], this.orderedDrivers[i]];
       }
 
-      for(let i = 0; i < this.orderedDrivers.length; i++) {
-        console.log(`Iterator: ${i} - Position #${this.orderedDrivers[i]}`)
-        this.json.entries[this.orderedDrivers[i]].defaultGridPosition = i + 1
-        console.log("Success")
-      }
+      // for(let i = 0; i < this.orderedDrivers.length; i++) {
+      //   console.log(`Iterator: ${i} - Position #${this.orderedDrivers[i]}`)
+      //   this.json.entries[this.orderedDrivers[i]].defaultGridPosition = i + 1
+      //   console.log("Success")
+      // }
     });
   }
 }
