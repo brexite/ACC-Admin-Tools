@@ -13,17 +13,17 @@ A tool designed for helping edit server-side files easily and quickly. ACC Serve
 
 ## Running this tool
 
-Coming soon...
+- Coming soon...
 
 ## To-do List for V3 Release
 
 **Race Results Tool**
 
-No edits planned
+- No edits planned
 
 **Server Files Creator**
 
-Coming Soon
+- Coming Soon
 
 **Entry List Editor**
  - [x] Sort Unordered by driver number by default
