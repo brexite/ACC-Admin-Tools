@@ -1,10 +1,12 @@
 <span 
-  class="info"
-  [ngClass]="drag ? 'dragged' : ''"
-  (drop)="dropHandler($event)"
-  (dragleave)="dragEndHandler($event)"
-  (dragover)="dragStartHandler($event)"
-  (click)="fileUploadResults.click()">
+class="info"
+(drop)="dropHandler($event)"
+(dragleave)="dragEndHandler($event)"
+(dragover)="dragStartHandler($event)"
+(click)="fileUploadResults.click()">
+</span>
+
+<span class="info-text" [ngClass]="drag ? 'dragged' : ''">
   <mat-icon>upload</mat-icon>
   <h1>Click or Drag to Upload File</h1>
   <h6>Supports: JSON</h6>

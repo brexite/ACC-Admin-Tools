@@ -1,4 +1,23 @@
 .info {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 4px;
+    width: 35vw;
+    height: 35vh;
+    padding: 25px;
+    cursor: pointer;
+
+    background-color: rgba(206, 206, 206, 0.01);
+    border: 6px dashed;
+    border-color: lightgray;
+    border-radius: 25px; 
+}
+
+.info-text{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -11,8 +30,6 @@
     cursor: pointer;
 
     background-color: rgba(206, 206, 206, 0.75);
-    border: 6px dashed;
-    border-color: lightgray;
     border-radius: 25px; 
 }
 
