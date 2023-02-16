@@ -392,12 +392,14 @@
         <button mat-raised-button color="secondary" class="hor-button" (click)="createDriver()"><mat-icon>add</mat-icon> New Driver</button>
         <button mat-raised-button color="secondary" class="hor-button" (click)="createAdmin()"><mat-icon>add</mat-icon> New Admin</button>
       </div>
-      <button mat-raised-button color="secondary" class="vert-button" (click)="gridOrderToggle()"><mat-icon>123</mat-icon> {{showOrdered ? "Disable" : "Enable" }} Grid Order?</button>
       <div class="flex-hor">
         <button mat-raised-button color="secondary" class="hor-button" (click)="reverseDriverOrder()" [disabled]=" orderedDrivers.length <= 1 || !showOrdered"><mat-icon>swap_horiz</mat-icon> Reverse Grid?</button>
         <button mat-raised-button color="secondary" class="hor-button" (click)="randomiseDriverOrder()"><mat-icon>shuffle</mat-icon> Randomise Drivers?</button>
       </div>
-      <button mat-raised-button color="secondary" class="vert-button" (click)="adminToggle()" *ngIf="doAdminsExist"><mat-icon>admin_panel_settings</mat-icon> {{showAdmins ? "Hide" : "Show" }} Admins?</button>
+      <div class="flex-hor">
+        <button mat-raised-button color="secondary" class="hor-button" (click)="adminToggle()" *ngIf="doAdminsExist"><mat-icon>admin_panel_settings</mat-icon> {{showAdmins ? "Hide" : "Show" }} Admins?</button>
+        <button mat-raised-button color="secondary" class="hor-button" (click)="gridOrderToggle()"><mat-icon>123</mat-icon> {{showOrdered ? "Disable" : "Enable" }} Grid Order?</button>
+      </div>
       <mat-divider class="my-2"></mat-divider>
       <div class="small-split">
         <div class="drag-column" [ngStyle]="showOrdered ? {'display': 'block'} : {'display': 'none'}">

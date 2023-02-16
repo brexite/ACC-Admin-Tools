@@ -822,11 +822,11 @@ export class EntrylistEditorComponent implements OnInit {
       this.toastr.error("You have no drivers to reverse!");
       return;
     }
-    if(this.unorderedDrivers.length == 0) {
+    if(this.orderedDrivers.length == 0) {
       this.toastr.error("You have no drivers to reverse!");
       return;
     }
-    if(this.unorderedDrivers.length == 1) {
+    if(this.orderedDrivers.length == 1) {
       return;
     }
 
@@ -878,20 +878,19 @@ export class EntrylistEditorComponent implements OnInit {
       this.unorderedDrivers = [];
       this.orderedDrivers = Array(amountOfDrivers).fill(0).map((n, i) => n + i) //Fill all drivers into this list randomly
 
-      let sub = 0;
-
-      for (let i = this.orderedDrivers.length - 1; i > 0; i--) {
-        if(this.isAdmin(i)){
-          if(this.showAdmins) this.unorderedDrivers.push(i)
-        }
-      }
-
+      this.unorderedDrivers = this.orderedDrivers.filter(x => this.isAdmin(x))
       this.orderedDrivers = this.orderedDrivers.filter(x => !this.isAdmin(x))
 
       for (let i = this.orderedDrivers.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [this.orderedDrivers[i], this.orderedDrivers[j]] = [this.orderedDrivers[j], this.orderedDrivers[i]];
       }
+
+      for(let [i, driver] of this.orderedDrivers.entries()) {
+        this.json.entries[driver].defaultGridPosition = i + 1;
+      }
+
+      this.getDriverOrders();
 
       // for(let i = 0; i < this.orderedDrivers.length; i++) {
       //   console.log(`Iterator: ${i} - Position #${this.orderedDrivers[i]}`)
