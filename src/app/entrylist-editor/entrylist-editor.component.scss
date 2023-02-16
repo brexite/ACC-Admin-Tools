@@ -31,9 +31,11 @@ p {
     border-left: 2px solid #3E3E40;
     flex-direction: row;
     overflow: auto;
-    padding: 2.5%;
+    padding: 5%;
+    padding-bottom: 0;
     padding-top: 1%;
     min-height: 80vh;
+    height: 125%;
 }
 
 .json-out {
@@ -43,7 +45,7 @@ p {
 
 .flex-vert {
     padding: auto 0;
-    padding-top: 1%;
+    padding-top: 2%;
     display: flex;
     flex-direction: column;
     width: 40%;
@@ -51,7 +53,6 @@ p {
 
 .flex-hor {
     padding: auto 0;
-    padding-top: 1%;
     margin: 2px 20px;
     display: flex;
     flex-direction: row;
@@ -203,7 +204,15 @@ p {
     display: flex;
     flex-direction: column;
     // min-height: 30px;
-    padding-bottom: 100px;
+    // margin-bottom: 100px;
+    padding-bottom: max(200px, 100%);
+    background: repeating-linear-gradient(
+        45deg,
+        #202020,
+        #202020 10px,
+        #252526 10px,
+        #252526 20px
+    );
   }
   
   .example-custom-placeholder {

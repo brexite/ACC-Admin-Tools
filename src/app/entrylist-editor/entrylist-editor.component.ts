@@ -826,6 +826,9 @@ export class EntrylistEditorComponent implements OnInit {
       this.toastr.error("You have no drivers to reverse!");
       return;
     }
+    if(this.unorderedDrivers.length == 1) {
+      return;
+    }
 
     const dialogRef = this.dialog.open(ResetConfirmationComponent, {
       autoFocus: true,
