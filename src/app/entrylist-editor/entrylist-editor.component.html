@@ -397,7 +397,7 @@
         <button mat-raised-button color="secondary" class="hor-button" (click)="randomiseDriverOrder()"><mat-icon>shuffle</mat-icon> Randomise Drivers?</button>
       </div>
       <div class="flex-hor">
-        <button mat-raised-button color="secondary" class="hor-button" (click)="adminToggle()" *ngIf="doAdminsExist"><mat-icon>admin_panel_settings</mat-icon> {{showAdmins ? "Hide" : "Show" }} Admins?</button>
+        <button mat-raised-button color="secondary" class="hor-button" (click)="adminToggle()" [disabled]="doAdminsExist"><mat-icon>admin_panel_settings</mat-icon> {{showAdmins ? "Hide" : "Show" }} Admins?</button>
         <button mat-raised-button color="secondary" class="hor-button" (click)="gridOrderToggle()"><mat-icon>123</mat-icon> {{showOrdered ? "Disable" : "Enable" }} Grid Order?</button>
       </div>
       <mat-divider class="my-2"></mat-divider>
