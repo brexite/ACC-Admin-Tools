@@ -1,4 +1,24 @@
 .info {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 4px;
+    width: 35vw;
+    height: 35vh;
+    padding: 25px;
+    cursor: pointer;
+
+    background-color: transparent;
+    border: 6px dashed;
+    border-color: lightgray;
+    border-radius: 25px; 
+    z-index: 1;
+}
+
+.info-text{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -11,9 +31,12 @@
     cursor: pointer;
 
     background-color: rgba(206, 206, 206, 0.75);
-    border: 6px dashed;
-    border-color: lightgray;
     border-radius: 25px; 
+    z-index: -0;
+
+    * {
+        z-index: -0;
+    }
 }
 
 .dragged {
@@ -25,6 +48,7 @@ mat-icon {
     height: 5vh;
     width: 5vh;
     font-size: 5vh;
+    z-index: -1;
 }
 
 h6 {

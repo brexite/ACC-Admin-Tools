@@ -815,6 +815,54 @@ export class EntrylistEditorComponent implements OnInit {
     this.patchForm(this.driverIndex);
   }
 
+  reverseDriverOrder(){
+    this.saveData();
+
+    if(!this.showOrdered) {
+      this.toastr.error("You have no drivers to reverse!");
+      return;
+    }
+    if(this.orderedDrivers.length == 0) {
+      this.toastr.error("You have no drivers to reverse!");
+      return;
+    }
+    if(this.orderedDrivers.length == 1) {
+      return;
+    }
+
+    const dialogRef = this.dialog.open(ResetConfirmationComponent, {
+      autoFocus: true,
+      data: {title: 'Are you sure you want to randomise drivers?', subtitle: 'All edits made to the order will be lost!'}
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (!confirmed) return;
+
+      let tempJSON = this.json;
+
+      this.orderedDrivers = tempJSON.entries
+        .map((entry, index) => {
+          return {
+            defaultGridPosition: parseInt(entry.defaultGridPosition),
+            index: parseInt(index),
+          };
+        })
+        .sort((a, b) => {
+          return b.defaultGridPosition - a.defaultGridPosition;
+        })
+        .filter(function (element) {
+          return element.defaultGridPosition !== -1;
+        })
+        .map((a) => a.index);
+      
+        for(let [i, driver] of this.orderedDrivers.entries()) {
+          tempJSON.entries[driver].defaultGridPosition = i + 1;
+        }
+
+        console.log(tempJSON)
+    })
+  }
+
   randomiseDriverOrder() {
     this.saveData();
     const dialogRef = this.dialog.open(ResetConfirmationComponent, {
@@ -830,20 +878,19 @@ export class EntrylistEditorComponent implements OnInit {
       this.unorderedDrivers = [];
       this.orderedDrivers = Array(amountOfDrivers).fill(0).map((n, i) => n + i) //Fill all drivers into this list randomly
 
-      let sub = 0;
-
-      for (let i = this.orderedDrivers.length - 1; i > 0; i--) {
-        if(this.isAdmin(i)){
-          if(this.showAdmins) this.unorderedDrivers.push(i)
-        }
-      }
-
+      this.unorderedDrivers = this.orderedDrivers.filter(x => this.isAdmin(x))
       this.orderedDrivers = this.orderedDrivers.filter(x => !this.isAdmin(x))
 
       for (let i = this.orderedDrivers.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [this.orderedDrivers[i], this.orderedDrivers[j]] = [this.orderedDrivers[j], this.orderedDrivers[i]];
       }
+
+      for(let [i, driver] of this.orderedDrivers.entries()) {
+        this.json.entries[driver].defaultGridPosition = i + 1;
+      }
+
+      this.getDriverOrders();
 
       // for(let i = 0; i < this.orderedDrivers.length; i++) {
       //   console.log(`Iterator: ${i} - Position #${this.orderedDrivers[i]}`)
