@@ -11,17 +11,18 @@ jobs:
 
     steps:
     - name: Setup Checkout
-    - uses: actions/checkout@v1
+      uses: actions/checkout@v1
     - name: Use Node.js 16.x
-    - uses: actions/setup-node@v1
+      uses: actions/setup-node@v1
       with:
         node-version: 16.x
     - name: Install dependencies
-    - run: npm ci
+      run: npm ci
     - name: Build Angular Project
-    - run: npm run build
-    - name: Success
-    - if: success()
+      run: npm run build
+    - name: Result of Build
+      uses: ./
+      if: success()
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         name: Test Based On Job (Success)
