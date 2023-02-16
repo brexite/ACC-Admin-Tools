@@ -11,10 +11,11 @@
     padding: 25px;
     cursor: pointer;
 
-    background-color: rgba(206, 206, 206, 0.01);
+    background-color: transparent;
     border: 6px dashed;
     border-color: lightgray;
     border-radius: 25px; 
+    z-index: 1;
 }
 
 .info-text{
@@ -31,6 +32,11 @@
 
     background-color: rgba(206, 206, 206, 0.75);
     border-radius: 25px; 
+    z-index: -0;
+
+    * {
+        z-index: -0;
+    }
 }
 
 .dragged {
@@ -42,6 +48,7 @@ mat-icon {
     height: 5vh;
     width: 5vh;
     font-size: 5vh;
+    z-index: -1;
 }
 
 h6 {
