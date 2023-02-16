@@ -393,6 +393,7 @@
         <button mat-raised-button color="secondary" class="hor-button" (click)="createAdmin()"><mat-icon>add</mat-icon> New Admin</button>
       </div>
       <button mat-raised-button color="secondary" class="vert-button" (click)="gridOrderToggle()"><mat-icon>123</mat-icon> {{showOrdered ? "Disable" : "Enable" }} Grid Order?</button>
+      <button mat-raised-button color="secondary" class="vert-button" (click)="reverseDriverOrder()"><mat-icon>swap_horiz</mat-icon> Reverse Grid?</button>
       <button mat-raised-button color="secondary" class="vert-button" (click)="randomiseDriverOrder()"><mat-icon>shuffle</mat-icon> Randomise Drivers?</button>
       <button mat-raised-button color="secondary" class="vert-button" (click)="adminToggle()" *ngIf="doAdminsExist"><mat-icon>admin_panel_settings</mat-icon> {{showAdmins ? "Hide" : "Show" }} Admins?</button>
       <mat-divider class="my-2"></mat-divider>
