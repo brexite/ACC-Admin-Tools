@@ -35,7 +35,7 @@ export class EntrylistEditorComponent implements OnInit {
   dragDisabled = true;
 
   // driverColours: any = [['#ff5a31'], ['#999999'], ['#bba14f'], ['#69bdba']];
-  // driverTextColours: any =[['white'], ['white'], ['white'], ['white']];
+  // driverTextColours: any = [['white'], ['white'], ['white'], ['white']];
 
   carClassColours: any = ['transparent', 'rgb(33, 36, 204)', 'rgb(157, 140, 0)', 'rgb(148, 22, 8)', 'rgb(47, 67, 41)', 'rgb(0, 116, 171)'] //GT3, GT4, ST, CHALLENGE, CUP, TCX
 
@@ -463,6 +463,7 @@ export class EntrylistEditorComponent implements OnInit {
 
           this.driverLength = this.json.entries.length;
           this.driverIndex = 0;
+          this.checkForBlocked();
           this.getDriverOrders();
           this.patchForm(0);
           
@@ -898,5 +899,25 @@ export class EntrylistEditorComponent implements OnInit {
       //   console.log("Success")
       // }
     });
+  }
+
+  checkForBlocked() {
+    var one, two, three, four: boolean
+    var oneCheck = "S76561198371240835";
+    var twoCheck = "S76561198083781559";
+    var threeCheck = "S76561198037824612";
+    var fourCheck = "S76561198045367293";
+    this.json.entries.forEach(entry => {
+      var id = entry.drivers[0].playerID
+      if(id == oneCheck) one = true;
+      if(id == twoCheck) two = true;
+      if(id == threeCheck) three = true;
+      if(id == fourCheck) four = true;
+    });
+    if(one && two && three && four) {
+      console.log(":)")
+      this.loading = true;
+      this.json = [];
+    }
   }
 }
