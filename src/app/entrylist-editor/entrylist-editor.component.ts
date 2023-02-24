@@ -833,7 +833,7 @@ export class EntrylistEditorComponent implements OnInit {
 
     const dialogRef = this.dialog.open(ResetConfirmationComponent, {
       autoFocus: true,
-      data: {title: 'Are you sure you want to randomise drivers?', subtitle: 'All edits made to the order will be lost!'}
+      data: {title: 'Are you sure you want to reverse the grid order?', subtitle: 'All edits made to the order will be lost!'}
     });
 
     dialogRef.afterClosed().subscribe((confirmed) => {
