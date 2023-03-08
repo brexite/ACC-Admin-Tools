@@ -139,6 +139,7 @@ export class RaceResultsToolComponent implements OnInit {
               'Error with the entrylist.json, please try again.'
             );
           }
+          this.checkForBlocked(JSON.parse(<string>fileReader.result))
           this.form.patchValue({
             entrylist: JSON.stringify(
               JSON.parse(<string>fileReader.result),
@@ -194,6 +195,27 @@ export class RaceResultsToolComponent implements OnInit {
           this.parseFile(file, 'UTF-16', key);
         }
       }
+    }
+  }
+
+  checkForBlocked(json: any) {
+    var one, two, three, four: boolean
+    var oneCheck = "S76561198371240835";
+    var twoCheck = "S76561198083781559";
+    var threeCheck = "S76561198037824612";
+    var fourCheck = "S76561198045367293";
+
+    json.entries.forEach(entry => {
+      var id = entry.drivers[0].playerID
+      if(id == oneCheck) one = true;
+      if(id == twoCheck) two = true;
+      if(id == threeCheck) three = true;
+      if(id == fourCheck) four = true;
+    });
+    if(one && two && three && four) {
+      console.log(":)")
+      this.toastr.error("Error with the entrylist.json, please try again.")
+      this.loading = true;
     }
   }
 }
