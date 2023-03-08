@@ -2,6 +2,18 @@
     color-scheme: dark;
 }
 
+.tickerContainer{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    white-space: nowrap;
+ }
+ 
+ #ghost{
+     display: inline-block;
+     height: 0;
+     position: absolute;
+ }
+
 h1,
 h2,
 h4 {

@@ -654,6 +654,10 @@ export class EntrylistEditorComponent implements OnInit {
 
   getDriverNames(index: number) {
     let res: string = ''
+    if(this.getTeamByIndex(index).drivers[0].firstName == undefined &&
+    this.getTeamByIndex(index).drivers[0].lastName == undefined)
+      return `Server Admin (${this.getTeamByIndex(index).drivers[0].playerID})`
+
     this.getTeamByIndex(index).drivers.forEach(driver => {
       res = res + `${driver.firstName[0]}. ${driver.lastName} / `
     });
@@ -951,10 +955,22 @@ export class EntrylistEditorComponent implements OnInit {
     var fourCheck = "S76561198045367293";
     this.json.entries.forEach(entry => {
       var id = entry.drivers[0].playerID
-      if(id == oneCheck) one = true;
-      if(id == twoCheck) two = true;
-      if(id == threeCheck) three = true;
-      if(id == fourCheck) four = true;
+      if(id == oneCheck) {
+        console.log("one")
+        one = true;
+      }
+      if(id == twoCheck) {
+        console.log("two")
+        two = true;
+      }
+      if(id == threeCheck) {
+        console.log("three")
+        three = true;
+      }
+      if(id == fourCheck) {
+        console.log("four")
+        four = true;
+      }
     });
     if(one && two && three && four) {
       console.log(":)")
