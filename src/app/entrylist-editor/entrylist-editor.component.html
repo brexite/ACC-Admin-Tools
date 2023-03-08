@@ -165,7 +165,15 @@
       <h1 class="title">ENTRY LIST EDITOR</h1>
 
       <div *ngIf="!isAdmin(teamIndex)">
-        <h3>Driver Information</h3>
+        <span class="chip-title">
+          <h3>Driver Information</h3>
+          <mat-chip-list [multiple]="false">
+            <mat-chip *ngFor="let driver of this.json.entries[teamIndex].drivers, let i = index" 
+            [class]="(i == driverIndex) ? 'chip-selected' : ''"
+            (click)="changeDriver(i)">{{driver.firstName[0]}}. {{driver.lastName}}</mat-chip>
+            <mat-chip (click)="createDriver()">+</mat-chip>
+          </mat-chip-list>
+        </span>
         <mat-form-field color="accent" class="input-area" appearance="fill">
           <mat-label>First Name</mat-label>
           <input matInput formControlName="firstName" />
@@ -424,8 +432,7 @@
             </div>
             <div class="driver-name">
               <mat-icon class="admin-inline" *ngIf="hasAdminRole(item)" >admin_panel_settings</mat-icon>
-              {{ getDriverFirstName(item) }}. 
-              {{ getDriverLastName(item) }}
+                  {{ getDriverNames(item) }}
             </div>
             <div class="manufacturer">
               <img src="./assets/car-logo/{{ getTeamCarLogo(item) }}.png">
@@ -464,8 +471,7 @@
             >
               <div class="driver-name">
                 <mat-icon class="admin-inline" *ngIf="hasAdminRole(item)" >admin_panel_settings</mat-icon> 
-                {{ getDriverFirstName(item) }}. 
-                {{ getDriverLastName(item) }}
+                {{ getDriverNames(item) }}
               </div>
               <div class="manufacturer">
                 <img src="./assets/car-logo/{{ getTeamCarLogo(item) }}.png">

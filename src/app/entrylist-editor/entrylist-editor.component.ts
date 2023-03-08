@@ -25,6 +25,9 @@ export class EntrylistEditorComponent implements OnInit {
   form: FormGroup;
   inputForm: FormGroup;
   advancedForm: FormGroup;
+
+  driverIndex: number = 0;
+  driverLength: number  = 0;
   teamIndex: number = 0;
   teamLength: number = 0;
 
@@ -230,6 +233,32 @@ export class EntrylistEditorComponent implements OnInit {
     animations: [fadeInOut];
   }
 
+  changeDriver(i: number){
+    try {
+      this.saveData();
+    } catch (error) {
+      console.error(error);
+      this.toastr.error('There was an error with saving.');
+      return;
+    }
+    this.patchForm(this.teamIndex, i)
+    this.driverIndex = i;
+  }
+
+  createDriver() {
+    this.json.entries[this.teamIndex].drivers.push({
+      firstName: '',
+      lastName: '',
+      shortName: '',
+      driverCategory: null,
+      nationality: null,
+      playerID: '',
+    });
+    
+    this.patchForm(this.teamIndex, this.json.entries[this.teamIndex].drivers.length - 1)
+    this.driverIndex = this.json.entries[this.teamIndex].drivers.length - 1
+  }
+
   ngOnInit(): void {
     this.initForm();
     this.advancedInit();
@@ -266,6 +295,7 @@ export class EntrylistEditorComponent implements OnInit {
   }
 
   patchForm(key: number, index: number = 0) {
+    console.log(index)
     let json = this.json;
     let entry = json.entries[key];
     let driver = entry.drivers[index];
@@ -347,6 +377,7 @@ export class EntrylistEditorComponent implements OnInit {
       this.toastr.error('There was an error with saving.');
       return;
     }
+    this.driverIndex = 0;
     this.patchByIndex(teamNo);
   }
 
@@ -620,8 +651,18 @@ export class EntrylistEditorComponent implements OnInit {
     return this.getTeamByIndex(index).drivers[0]?.lastName ?? "\<blank>"
   }
 
+  getDriverNames(index: number) {
+    let res: string = ''
+    this.getTeamByIndex(index).drivers.forEach(driver => {
+      res = res + `${driver.firstName[0]}. ${driver.lastName} / `
+    });
+
+    return res.substring(0, res.length -3)
+  }
+
   getTeamClass(index: number) {
-    this.json.entries[index].drivers[0].driverCategory;
+    return 0;
+    //this.json.entries[index].drivers[0].driverCategory;
   }
 
   getTeamCarLogo(index: number) {
@@ -688,25 +729,26 @@ export class EntrylistEditorComponent implements OnInit {
     return `linear-gradient(-45deg, ${colour} 10px, transparent 0)`
   }
 
-  patchByIndex(index: number) {
+  patchByIndex(index: number, driverIndex: number = 0) {
     this.teamIndex = index;
+    this.driverIndex = driverIndex;
 
-    this.patchForm(this.teamIndex);
+    this.patchForm(this.teamIndex, this.driverIndex);
   }
 
   saveData() {
 
-    this.json.entries[this.teamIndex].drivers[0].firstName =
+    this.json.entries[this.teamIndex].drivers[this.driverIndex].firstName =
       this.form.get('firstName').value;
-    this.json.entries[this.teamIndex].drivers[0].lastName =
+    this.json.entries[this.teamIndex].drivers[this.driverIndex].lastName =
       this.form.get('lastName').value;
-    this.json.entries[this.teamIndex].drivers[0].nickname =
+    this.json.entries[this.teamIndex].drivers[this.driverIndex].nickname =
       this.form.get('nickname').value;
-    this.json.entries[this.teamIndex].drivers[0].shortName =
+    this.json.entries[this.teamIndex].drivers[this.driverIndex].shortName =
       this.form.get('shortName').value;
-    this.json.entries[this.teamIndex].drivers[0].driverCategory =
+    this.json.entries[this.teamIndex].drivers[this.driverIndex].driverCategory =
       this.form.get('driverCategory').value;
-    this.json.entries[this.teamIndex].drivers[0].playerID =
+    this.json.entries[this.teamIndex].drivers[this.driverIndex].playerID =
       'S' + this.form.get('steamId').value;     // Add back the S at the start
     this.json.entries[this.teamIndex].customCar =
       this.form.get('customCarName').value;
@@ -714,7 +756,7 @@ export class EntrylistEditorComponent implements OnInit {
       this.form.get('teamName').value;
     this.json.entries[this.teamIndex].raceNumber =
       this.form.get('raceNumber').value;
-    this.json.entries[this.teamIndex].drivers[0].nationality =
+    this.json.entries[this.teamIndex].drivers[this.driverIndex].nationality =
       this.form.get('nationality').value;
     this.json.entries[this.teamIndex].forcedCarModel =
       this.form.get('carChoice').value;
