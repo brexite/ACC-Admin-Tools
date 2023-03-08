@@ -164,7 +164,7 @@
     <div class="split input-data">
       <h1 class="title">ENTRY LIST EDITOR</h1>
 
-      <div *ngIf="!isAdmin(driverIndex)">
+      <div *ngIf="!isAdmin(teamIndex)">
         <h3>Driver Information</h3>
         <mat-form-field color="accent" class="input-area" appearance="fill">
           <mat-label>First Name</mat-label>
@@ -297,7 +297,7 @@
       </div>
     </div>
 
-      <div *ngIf="isAdmin(driverIndex)">
+      <div *ngIf="isAdmin(teamIndex)">
         <h3>Admin Information</h3>
         <mat-form-field color="accent" class="input-area input-wide" appearance="fill">
           <mat-label>Steam64ID</mat-label>
@@ -330,7 +330,7 @@
         style="width: 100%"
         mat-raised-button
         color="warn"
-        (click)="deleteDriver()"
+        (click)="deleteTeam()"
       >
         <mat-icon>delete</mat-icon> Delete Driver
       </button>
@@ -389,12 +389,12 @@
     <div class="flex-vert">
       <!-- <span style="text-align: center;">Enable Grid Order? <mat-slide-toggle [checked]="showOrdered" (change)="gridOrderToggle($event)"></mat-slide-toggle></span> -->
       <div class="flex-hor">
-        <button mat-raised-button color="secondary" class="hor-button" (click)="createDriver()"><mat-icon>add</mat-icon> New Driver</button>
+        <button mat-raised-button color="secondary" class="hor-button" (click)="createTeam()"><mat-icon>add</mat-icon> New Driver</button>
         <button mat-raised-button color="secondary" class="hor-button" (click)="createAdmin()"><mat-icon>add</mat-icon> New Admin</button>
       </div>
       <div class="flex-hor">
-        <button mat-raised-button color="secondary" class="hor-button" (click)="reverseDriverOrder()" [disabled]=" orderedDrivers.length <= 1 || !showOrdered"><mat-icon>swap_horiz</mat-icon> Reverse Grid?</button>
-        <button mat-raised-button color="secondary" class="hor-button" (click)="randomiseDriverOrder()"><mat-icon>shuffle</mat-icon> Randomise Drivers?</button>
+        <button mat-raised-button color="secondary" class="hor-button" (click)="reverseTeamOrder()" [disabled]=" orderedTeams.length <= 1 || !showOrdered"><mat-icon>swap_horiz</mat-icon> Reverse Grid?</button>
+        <button mat-raised-button color="secondary" class="hor-button" (click)="randomiseTeamOrder()"><mat-icon>shuffle</mat-icon> Randomise Drivers?</button>
       </div>
       <div class="flex-hor">
         <button mat-raised-button color="secondary" class="hor-button" (click)="adminToggle()" [disabled]="doAdminsExist"><mat-icon>admin_panel_settings</mat-icon> {{showAdmins ? "Hide" : "Show" }} Admins?</button>
@@ -408,19 +408,19 @@
           <div
             cdkDropList
             #orderedList="cdkDropList"
-            [cdkDropListData]="orderedDrivers"
+            [cdkDropListData]="orderedTeams"
             [cdkDropListConnectedTo]="[unorderedList]"
             class="example-list"
             (cdkDropListDropped)="drop($any($event))"
           >
             <div
               class="acc-drag-box"
-              *ngFor="let item of orderedDrivers"
-              (click)="navigateDriver(item)"
+              *ngFor="let item of orderedTeams"
+              (click)="navigateTeam(item)"
               cdkDrag
             >
             <div class="pos-box">
-              {{ getDriverByIndex(item).defaultGridPosition }}
+              {{ getTeamByIndex(item).defaultGridPosition }}
             </div>
             <div class="driver-name">
               <mat-icon class="admin-inline" *ngIf="hasAdminRole(item)" >admin_panel_settings</mat-icon>
@@ -428,12 +428,12 @@
               {{ getDriverLastName(item) }}
             </div>
             <div class="manufacturer">
-              <img src="./assets/car-logo/{{ getDriverCarLogo(item) }}.png">
+              <img src="./assets/car-logo/{{ getTeamCarLogo(item) }}.png">
             </div>
             <div class="num-box" [ngClass]="{'bronze' : this.json.entries[item].drivers[0].driverCategory == 0, 'silver' : this.json.entries[item].drivers[0].driverCategory == 1, 'gold' : this.json.entries[item].drivers[0].driverCategory >= 2}">
               <div class="triangle" [ngStyle]="{'background': getCarClassBg(item)}">
                 <div class="triangle-color" [ngStyle]="{'background': getCarClass(item)}">
-                  {{ !getDriverByIndex(item).raceNumber ? 'N/A' : getDriverByIndex(item).raceNumber }}
+                  {{ !getTeamByIndex(item).raceNumber ? 'N/A' : getTeamByIndex(item).raceNumber }}
                 </div>
               </div>
             </div>
@@ -449,7 +449,7 @@
           <div
             cdkDropList
             #unorderedList="cdkDropList"
-            [cdkDropListData]="unorderedDrivers"
+            [cdkDropListData]="unorderedTeams"
             cdkDropListSortingDisabled
             [cdkDropListConnectedTo]="[orderedList]"
             class="example-list"
@@ -457,8 +457,8 @@
           >
             <div
               class="acc-drag-box"
-              *ngFor="let item of unorderedDrivers"
-              (click)="navigateDriver(item)"
+              *ngFor="let item of unorderedTeams"
+              (click)="navigateTeam(item)"
               cdkDrag
               [cdkDragDisabled]="isAdmin(item) || dragDisabled"
             >
@@ -468,12 +468,12 @@
                 {{ getDriverLastName(item) }}
               </div>
               <div class="manufacturer">
-                <img src="./assets/car-logo/{{ getDriverCarLogo(item) }}.png">
+                <img src="./assets/car-logo/{{ getTeamCarLogo(item) }}.png">
               </div>
               <div class="num-box" [ngClass]="{'bronze' : this.json.entries[item].drivers[0].driverCategory == 0, 'silver' : this.json.entries[item].drivers[0].driverCategory == 1, 'gold' : this.json.entries[item].drivers[0].driverCategory >= 2}">
                 <div class="triangle" [ngStyle]="{'background': getCarClassBg(item)}">
                   <div class="triangle-color" [ngStyle]="{'background': getCarClass(item)}">
-                    {{ !getDriverByIndex(item).raceNumber ? 'N/A' : getDriverByIndex(item).raceNumber }}
+                    {{ !getTeamByIndex(item).raceNumber ? 'N/A' : getTeamByIndex(item).raceNumber }}
                   </div>
                 </div>
               </div>

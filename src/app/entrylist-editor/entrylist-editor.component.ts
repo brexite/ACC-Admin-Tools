@@ -25,8 +25,8 @@ export class EntrylistEditorComponent implements OnInit {
   form: FormGroup;
   inputForm: FormGroup;
   advancedForm: FormGroup;
-  driverIndex: number = 0;
-  driverLength: number = 0;
+  teamIndex: number = 0;
+  teamLength: number = 0;
 
   doAdminsExist = false;
   showAdmins = false;
@@ -216,8 +216,8 @@ export class EntrylistEditorComponent implements OnInit {
     { key: 'Enabled', value: 2 },
   ];
 
-  orderedDrivers: number[] = [];
-  unorderedDrivers: number[] = [];
+  orderedTeams: number[] = [];
+  unorderedTeams: number[] = [];
 
   output: string;
 
@@ -265,10 +265,10 @@ export class EntrylistEditorComponent implements OnInit {
     })
   }
 
-  patchForm(key: number) {
+  patchForm(key: number, index: number = 0) {
     let json = this.json;
     let entry = json.entries[key];
-    let driver = entry.drivers[0];
+    let driver = entry.drivers[index];
 
     this.form.patchValue({
       firstName: driver.firstName,
@@ -339,7 +339,7 @@ export class EntrylistEditorComponent implements OnInit {
     });
   }
 
-  navigateDriver(driverNo: number) {
+  navigateTeam(teamNo: number) {
     try {
       this.saveData();
     } catch (error) {
@@ -347,14 +347,14 @@ export class EntrylistEditorComponent implements OnInit {
       this.toastr.error('There was an error with saving.');
       return;
     }
-    this.patchByIndex(driverNo);
+    this.patchByIndex(teamNo);
   }
 
-  getDriverOrders() {
+  getTeamOrders() {
     this.doAdminsExist = false;
     let tempJSON = this.json;
 
-    this.unorderedDrivers = tempJSON.entries.map((entry, index) => {
+    this.unorderedTeams = tempJSON.entries.map((entry, index) => {
       if (entry.forcedCarModel == undefined && entry.isServerAdmin == 1) {
         this.doAdminsExist = true;
         this.handleSimGridAdmin(tempJSON, index)
@@ -365,18 +365,18 @@ export class EntrylistEditorComponent implements OnInit {
       if (<number>entry.defaultGridPosition == -1) return index;
     });
 
-    this.unorderedDrivers.sort(function (a, b) {
+    this.unorderedTeams.sort(function (a, b) {
       if(tempJSON.entries[a].raceNumber == undefined) return -1;
       if(tempJSON.entries[b].raceNumber == undefined) return 1;
       return tempJSON.entries[a].raceNumber - tempJSON.entries[b].raceNumber;
     });
 
-    this.unorderedDrivers = this.unorderedDrivers.filter(function (element) {
+    this.unorderedTeams = this.unorderedTeams.filter(function (element) {
       return element !== undefined;
     });
 
     try {
-      this.orderedDrivers = tempJSON.entries
+      this.orderedTeams = tempJSON.entries
         .map((entry, index) => {
           return {
             defaultGridPosition: parseInt(entry.defaultGridPosition),
@@ -390,7 +390,7 @@ export class EntrylistEditorComponent implements OnInit {
           return element.defaultGridPosition !== -1;
         })
         .map((a) => a.index);
-      this.showOrdered = this.orderedDrivers.length !== 0;
+      this.showOrdered = this.orderedTeams.length !== 0;
         
     } catch (error) {
       console.error(error);
@@ -403,7 +403,7 @@ export class EntrylistEditorComponent implements OnInit {
 
   adminToggle() {
     this.showAdmins = !this.showAdmins
-    this.getDriverOrders()
+    this.getTeamOrders()
   }
 
   gridOrderToggle() {
@@ -411,10 +411,10 @@ export class EntrylistEditorComponent implements OnInit {
 
     this.showOrdered = !this.showOrdered
     if(!this.showOrdered) {
-      this.unorderedDrivers = this.unorderedDrivers.concat(this.orderedDrivers);
-      this.orderedDrivers = [];
+      this.unorderedTeams = this.unorderedTeams.concat(this.orderedTeams);
+      this.orderedTeams = [];
 
-      this.unorderedDrivers = this.unorderedDrivers.sort(function (a, b) {
+      this.unorderedTeams = this.unorderedTeams.sort(function (a, b) {
         if(tempJSON.entries[a].raceNumber == undefined) return -1;
         if(tempJSON.entries[b].raceNumber == undefined) return 1;
         return tempJSON.entries[a].raceNumber - tempJSON.entries[b].raceNumber;
@@ -425,15 +425,15 @@ export class EntrylistEditorComponent implements OnInit {
   }
 
   updateGridPosition() {
-    for (let i = 0; i < this.orderedDrivers.length; i++) {
-      this.json.entries[this.orderedDrivers[i]].defaultGridPosition = i + 1;
+    for (let i = 0; i < this.orderedTeams.length; i++) {
+      this.json.entries[this.orderedTeams[i]].defaultGridPosition = i + 1;
     }
 
-    for (let i = 0; i < this.unorderedDrivers.length; i++) {
-      this.json.entries[this.unorderedDrivers[i]].defaultGridPosition = -1;
+    for (let i = 0; i < this.orderedTeams.length; i++) {
+      this.json.entries[this.orderedTeams[i]].defaultGridPosition = -1;
     }
 
-    this.getDriverOrders();
+    this.getTeamOrders();
   }
 
   onFileSelected(event: any) {
@@ -461,9 +461,9 @@ export class EntrylistEditorComponent implements OnInit {
             output: this.output,
           });
 
-          this.driverLength = this.json.entries.length;
-          this.driverIndex = 0;
-          this.getDriverOrders();
+          this.teamLength = this.json.entries.length;
+          this.teamIndex = 0;
+          this.getTeamOrders();
           this.patchForm(0);
           
         } catch (error) {
@@ -502,13 +502,13 @@ export class EntrylistEditorComponent implements OnInit {
         defaultGridPosition: -1,
         isServerAdmin: 0,
       });
-      this.getDriverOrders();
-      this.driverLength = 1;
+      this.getTeamOrders();
+      this.teamLength = 1;
     }
     else try{
       this.json = JSON.parse(input);
-      this.getDriverOrders();
-      this.driverLength = this.json.entries.length;
+      this.getTeamOrders();
+      this.teamLength = this.json.entries.length;
     } catch {
       this.loading = false;
       this.json = null;
@@ -524,7 +524,7 @@ export class EntrylistEditorComponent implements OnInit {
     this.loading = false;
   }
   
-  createDriver() {
+  createTeam() {
     this.json.entries.push({
       drivers: [
         {
@@ -543,8 +543,8 @@ export class EntrylistEditorComponent implements OnInit {
       isServerAdmin: 0,
     });
     
-    this.getDriverOrders();
-    this.navigateDriver(this.json.entries.length - 1);
+    this.getTeamOrders();
+    this.navigateTeam(this.json.entries.length - 1);
   }
 
   createAdmin() {
@@ -559,43 +559,43 @@ export class EntrylistEditorComponent implements OnInit {
     });
     
     this.showAdmins = true;
-    this.getDriverOrders();
-    this.navigateDriver(this.json.entries.length - 1);
+    this.getTeamOrders();
+    this.navigateTeam(this.json.entries.length - 1);
   }
 
-  deleteDriver() {
+  deleteTeam() {
 
-    let deleteIndex = this.driverIndex
+    let deleteIndex = this.teamIndex
 
     if(this.json.entries.length === 1)
-      return this.toastr.error("Cannot delete the last driver in an entrylist!")
+      return this.toastr.error("Cannot delete the last team in an entrylist!")
 
     this.json.entries.splice(deleteIndex, 1)
-    this.unorderedDrivers.map(x => {
+    this.unorderedTeams.map(x => {
       if(x < deleteIndex){
         //do nothing
       }
       else if(x == deleteIndex) {
-        this.unorderedDrivers.splice(this.unorderedDrivers.indexOf(x), 1)
+        this.unorderedTeams.splice(this.unorderedTeams.indexOf(x), 1)
       }
       else {
         x -= 1;
       }
     })
 
-    this.orderedDrivers.map(x => {
+    this.orderedTeams.map(x => {
       if(x < deleteIndex){
         //do nothing
       }
       else if(x == deleteIndex) {
-        this.orderedDrivers.splice(this.unorderedDrivers.indexOf(x), 1)
+        this.orderedTeams.splice(this.unorderedTeams.indexOf(x), 1)
       }
       else {
         x -= 1;
       }
     })
-    this.patchByIndex(this.unorderedDrivers[0] ?? this.orderedDrivers[0])
-    this.getDriverOrders()
+    this.patchByIndex(this.unorderedTeams[0] ?? this.orderedTeams[0])
+    this.getTeamOrders()
     //remove currently selected driver
     //if last driver in json, do createDriver() or not allow deletion of last driver
     // this.saveData();
@@ -603,33 +603,33 @@ export class EntrylistEditorComponent implements OnInit {
   }
 
   isAdmin(index: number) {
-    return this.getDriverByIndex(index).forcedCarModel == undefined
+    return this.getTeamByIndex(index).forcedCarModel == undefined
   }
 
   hasAdminRole(index: number) {
-    return this.getDriverByIndex(index).isServerAdmin
+    return this.getTeamByIndex(index).isServerAdmin
   }
 
   getDriverFirstName(index: number) {
-    if(this.getDriverByIndex(index).drivers[0].firstName == undefined) return "A"
-    return this.getDriverByIndex(index).drivers[0]?.firstName[0] ?? "\<blank>"
+    if(this.getTeamByIndex(index).drivers[0].firstName == undefined) return "A"
+    return this.getTeamByIndex(index).drivers[0]?.firstName[0] ?? "\<blank>"
   }
 
   getDriverLastName(index: number) {
-    if(this.getDriverByIndex(index).drivers[0].lastName == undefined) return `Server Admin (${this.getDriverByIndex(index).drivers[0].playerID})`
-    return this.getDriverByIndex(index).drivers[0]?.lastName ?? "\<blank>"
+    if(this.getTeamByIndex(index).drivers[0].lastName == undefined) return `Server Admin (${this.getTeamByIndex(index).drivers[0].playerID})`
+    return this.getTeamByIndex(index).drivers[0]?.lastName ?? "\<blank>"
   }
 
-  getDriverClass(index: number) {
+  getTeamClass(index: number) {
     this.json.entries[index].drivers[0].driverCategory;
   }
 
-  getDriverCarLogo(index: number) {
+  getTeamCarLogo(index: number) {
     var car = (this.carNamesArray.find(x => x.value == this.json.entries[index].forcedCarModel))
     return car ? car.key.split(" ")[0] : "Error"
   }
 
-  getDriverByIndex(index: number) {
+  getTeamByIndex(index: number) {
     return this.json.entries[index];
   }
 
@@ -689,45 +689,45 @@ export class EntrylistEditorComponent implements OnInit {
   }
 
   patchByIndex(index: number) {
-    this.driverIndex = index;
+    this.teamIndex = index;
 
-    this.patchForm(this.driverIndex);
+    this.patchForm(this.teamIndex);
   }
 
   saveData() {
 
-    this.json.entries[this.driverIndex].drivers[0].firstName =
+    this.json.entries[this.teamIndex].drivers[0].firstName =
       this.form.get('firstName').value;
-    this.json.entries[this.driverIndex].drivers[0].lastName =
+    this.json.entries[this.teamIndex].drivers[0].lastName =
       this.form.get('lastName').value;
-    this.json.entries[this.driverIndex].drivers[0].nickname =
+    this.json.entries[this.teamIndex].drivers[0].nickname =
       this.form.get('nickname').value;
-    this.json.entries[this.driverIndex].drivers[0].shortName =
+    this.json.entries[this.teamIndex].drivers[0].shortName =
       this.form.get('shortName').value;
-    this.json.entries[this.driverIndex].drivers[0].driverCategory =
+    this.json.entries[this.teamIndex].drivers[0].driverCategory =
       this.form.get('driverCategory').value;
-    this.json.entries[this.driverIndex].drivers[0].playerID =
+    this.json.entries[this.teamIndex].drivers[0].playerID =
       'S' + this.form.get('steamId').value;     // Add back the S at the start
-    this.json.entries[this.driverIndex].customCar =
+    this.json.entries[this.teamIndex].customCar =
       this.form.get('customCarName').value;
-    this.json.entries[this.driverIndex].teamName = 
+    this.json.entries[this.teamIndex].teamName = 
       this.form.get('teamName').value;
-    this.json.entries[this.driverIndex].raceNumber =
+    this.json.entries[this.teamIndex].raceNumber =
       this.form.get('raceNumber').value;
-    this.json.entries[this.driverIndex].drivers[0].nationality =
+    this.json.entries[this.teamIndex].drivers[0].nationality =
       this.form.get('nationality').value;
-    this.json.entries[this.driverIndex].forcedCarModel =
+    this.json.entries[this.teamIndex].forcedCarModel =
       this.form.get('carChoice').value;
-    this.json.entries[this.driverIndex].overrideDriverInfo = this.form.get(
+    this.json.entries[this.teamIndex].overrideDriverInfo = this.form.get(
       'overrideDriverInfo'
     ).value
       ? 1
       : 0;
-    this.json.entries[this.driverIndex].isServerAdmin = this.form.get('isAdmin')
+    this.json.entries[this.teamIndex].isServerAdmin = this.form.get('isAdmin')
       .value
       ? 1
       : 0;
-    this.json.entries[this.driverIndex].overrideCarModelForCustomCar =
+    this.json.entries[this.teamIndex].overrideCarModelForCustomCar =
       this.form.get('overrideCar').value ? 1 : 0;
     this.json.forceEntryList = this.form.get('forceEntryList').value ? 1 : 0;
 
@@ -736,7 +736,7 @@ export class EntrylistEditorComponent implements OnInit {
       output: this.output,
     });
 
-    this.getCarClass(this.driverIndex)
+    this.getCarClass(this.teamIndex)
   }
 
   //id: cdk-drop-list-0 = ordered
@@ -812,21 +812,21 @@ export class EntrylistEditorComponent implements OnInit {
     }
 
     this.advancedInit();
-    this.patchForm(this.driverIndex);
+    this.patchForm(this.teamIndex);
   }
 
-  reverseDriverOrder(){
+  reverseTeamOrder(){
     this.saveData();
 
     if(!this.showOrdered) {
       this.toastr.error("You have no drivers to reverse!");
       return;
     }
-    if(this.orderedDrivers.length == 0) {
+    if(this.orderedTeams.length == 0) {
       this.toastr.error("You have no drivers to reverse!");
       return;
     }
-    if(this.orderedDrivers.length == 1) {
+    if(this.orderedTeams.length == 1) {
       return;
     }
 
@@ -840,7 +840,7 @@ export class EntrylistEditorComponent implements OnInit {
 
       let tempJSON = this.json;
 
-      this.orderedDrivers = tempJSON.entries
+      this.orderedTeams = tempJSON.entries
         .map((entry, index) => {
           return {
             defaultGridPosition: parseInt(entry.defaultGridPosition),
@@ -855,7 +855,7 @@ export class EntrylistEditorComponent implements OnInit {
         })
         .map((a) => a.index);
       
-        for(let [i, driver] of this.orderedDrivers.entries()) {
+        for(let [i, driver] of this.orderedTeams.entries()) {
           tempJSON.entries[driver].defaultGridPosition = i + 1;
         }
 
@@ -863,7 +863,7 @@ export class EntrylistEditorComponent implements OnInit {
     })
   }
 
-  randomiseDriverOrder() {
+  randomiseTeamOrder() {
     this.saveData();
     const dialogRef = this.dialog.open(ResetConfirmationComponent, {
       autoFocus: true,
@@ -875,26 +875,26 @@ export class EntrylistEditorComponent implements OnInit {
       var amountOfDrivers = this.json.entries.length;
 
       this.showOrdered = true;
-      this.unorderedDrivers = [];
-      this.orderedDrivers = Array(amountOfDrivers).fill(0).map((n, i) => n + i) //Fill all drivers into this list randomly
+      this.unorderedTeams = [];
+      this.orderedTeams = Array(amountOfDrivers).fill(0).map((n, i) => n + i) //Fill all drivers into this list randomly
 
-      this.unorderedDrivers = this.orderedDrivers.filter(x => this.isAdmin(x))
-      this.orderedDrivers = this.orderedDrivers.filter(x => !this.isAdmin(x))
+      this.unorderedTeams = this.orderedTeams.filter(x => this.isAdmin(x))
+      this.orderedTeams = this.orderedTeams.filter(x => !this.isAdmin(x))
 
-      for (let i = this.orderedDrivers.length - 1; i > 0; i--) {
+      for (let i = this.orderedTeams.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [this.orderedDrivers[i], this.orderedDrivers[j]] = [this.orderedDrivers[j], this.orderedDrivers[i]];
+        [this.orderedTeams[i], this.orderedTeams[j]] = [this.orderedTeams[j], this.orderedTeams[i]];
       }
 
-      for(let [i, driver] of this.orderedDrivers.entries()) {
+      for(let [i, driver] of this.orderedTeams.entries()) {
         this.json.entries[driver].defaultGridPosition = i + 1;
       }
 
-      this.getDriverOrders();
+      this.getTeamOrders();
 
-      // for(let i = 0; i < this.orderedDrivers.length; i++) {
-      //   console.log(`Iterator: ${i} - Position #${this.orderedDrivers[i]}`)
-      //   this.json.entries[this.orderedDrivers[i]].defaultGridPosition = i + 1
+      // for(let i = 0; i < this.orderedTeams.length; i++) {
+      //   console.log(`Iterator: ${i} - Position #${this.orderedTeams[i]}`)
+      //   this.json.entries[this.orderedTeams[i]].defaultGridPosition = i + 1
       //   console.log("Success")
       // }
     });
