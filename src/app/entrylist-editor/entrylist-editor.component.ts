@@ -253,6 +253,13 @@ export class EntrylistEditorComponent implements OnInit {
   }
 
   createDriver() {
+    try {
+      this.saveData();
+    } catch (error) {
+      console.error(error);
+      this.toastr.error('There was an error with saving.');
+      return;
+    }
     this.json.entries[this.teamIndex].drivers.push({
       firstName: '',
       lastName: '',
