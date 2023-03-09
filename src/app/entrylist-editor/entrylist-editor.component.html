@@ -416,12 +416,12 @@
     <div class="flex-vert">
       <!-- <span style="text-align: center;">Enable Grid Order? <mat-slide-toggle [checked]="showOrdered" (change)="gridOrderToggle($event)"></mat-slide-toggle></span> -->
       <div class="flex-hor">
-        <button mat-raised-button color="secondary" class="hor-button" (click)="createTeam()"><mat-icon>add</mat-icon> New Driver</button>
+        <button mat-raised-button color="secondary" class="hor-button" (click)="createTeam()"><mat-icon>add</mat-icon> New Entry</button>
         <button mat-raised-button color="secondary" class="hor-button" (click)="createAdmin()"><mat-icon>add</mat-icon> New Admin</button>
       </div>
       <div class="flex-hor">
         <button mat-raised-button color="secondary" class="hor-button" (click)="reverseTeamOrder()" [disabled]=" orderedTeams.length <= 1 || !showOrdered"><mat-icon>swap_horiz</mat-icon> Reverse Grid?</button>
-        <button mat-raised-button color="secondary" class="hor-button" (click)="randomiseTeamOrder()"><mat-icon>shuffle</mat-icon> Randomise Drivers?</button>
+        <button mat-raised-button color="secondary" class="hor-button" (click)="randomiseTeamOrder()"><mat-icon>shuffle</mat-icon> Randomise Entry?</button>
       </div>
       <div class="flex-hor">
         <button mat-raised-button color="secondary" class="hor-button" (click)="adminToggle()" [disabled]="!doAdminsExist"><mat-icon>admin_panel_settings</mat-icon> {{showAdmins ? "Hide" : "Show" }} Admins?</button>
