@@ -783,7 +783,6 @@ export class EntrylistEditorComponent implements OnInit {
           ) !== undefined
         )
         cat = index == -1 ? 'GT3' : this.carNames[i].category;
-        console.log(cat)
     }
   }
 
