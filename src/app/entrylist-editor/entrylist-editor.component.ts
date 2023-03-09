@@ -478,8 +478,8 @@ export class EntrylistEditorComponent implements OnInit {
       this.json.entries[this.orderedTeams[i]].defaultGridPosition = i + 1;
     }
 
-    for (let i = 0; i < this.orderedTeams.length; i++) {
-      this.json.entries[this.orderedTeams[i]].defaultGridPosition = -1;
+    for (let i = 0; i < this.unorderedTeams.length; i++) {
+      this.json.entries[this.unorderedTeams[i]].defaultGridPosition = -1;
     }
 
     this.getTeamOrders();
