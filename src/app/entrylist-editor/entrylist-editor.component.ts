@@ -305,7 +305,6 @@ export class EntrylistEditorComponent implements OnInit {
   }
 
   patchForm(key: number, index: number = 0) {
-    console.log(index);
     let json = this.json;
     let entry = json.entries[key];
     let driver = entry.drivers[index];
@@ -681,30 +680,62 @@ export class EntrylistEditorComponent implements OnInit {
   }
 
   getTeamCarLogo(index: number) {
+    return this.getCarLogo(this.json.entries[index].forcedCarModel)
+  }
+
+  getCarLogo(index: number) {
     var car = this.carNamesArray.find(
-      (x) => x.value == this.json.entries[index].forcedCarModel
+      (x) => x.value == index
     );
     return car ? car.key.split(' ')[0] : 'Error';
+  }
+
+  getCar() {
+    return this.form.get("carChoice").value
+  }
+
+  getCarName() {
+    if(this.form.get("carChoice").value == -1)
+      return '-- None --'
+    return this.carNamesArray.find(
+      (x) => x.value == this.form.get("carChoice").value
+    ).key;
   }
 
   getTeamByIndex(index: number) {
     return this.json.entries[index];
   }
 
-  getCarClass(index: number) {
+  getCarClass(index: number, checkCar: boolean = false) {
     var cat;
-    var car = this.carNamesArray.find(
+    var car = checkCar ? 
+    this.carNamesArray.find(
+      (x) => x.value == index
+    ) : 
+    this.carNamesArray.find(
       (x) => x.value == this.json.entries[index].forcedCarModel
     );
+
     var carName = car ? car.key.split(' ')[0] : 'Error';
 
-    for (let i = 0; i < this.carNames.length; i++) {
-      if (
-        this.carNames[i].cars.find(
-          (x) => x.value == this.json.entries[index].forcedCarModel
-        ) !== undefined
-      )
-        cat = this.carNames[i].category;
+    if(!checkCar){
+      for (let i = 0; i < this.carNames.length; i++) {
+        if (
+          this.carNames[i].cars.find(
+            (x) => x.value == this.json.entries[index].forcedCarModel
+          ) !== undefined
+        )
+          cat = this.carNames[i].category;
+      }
+    } else {
+      for (let i = 0; i < this.carNames.length; i++) {
+        if (
+          this.carNames[i].cars.find(
+            (x) => x.value == index
+          ) !== undefined
+        )
+          cat = this.carNames[i].category;
+      }
     }
 
     let i = 0; //GT3, GT4, ST, CHALLENGE, CUP, TCX
@@ -713,7 +744,7 @@ export class EntrylistEditorComponent implements OnInit {
       case 'GT3': {
         i = 0;
         break;
-      }
+      } 
       case 'GT4': {
         i = 1;
         break;
@@ -732,21 +763,33 @@ export class EntrylistEditorComponent implements OnInit {
     return `linear-gradient(-45deg, ${this.carClassColours[i]} 8px, transparent 0)`;
   }
 
-  getCarClassBg(index: number) {
+  getCarClassBg(index: number, checkCar: boolean = false) {
     var cat;
 
-    for (let i = 0; i < this.carNames.length; i++) {
-      if (
-        this.carNames[i].cars.find(
-          (x) => x.value == this.json.entries[index].forcedCarModel
-        ) !== undefined
-      )
-        cat = this.carNames[i].category;
+    if(!checkCar){
+      for (let i = 0; i < this.carNames.length; i++) {
+        if (
+          this.carNames[i].cars.find(
+            (x) => x.value == this.json.entries[index].forcedCarModel
+          ) !== undefined
+        )
+          cat = this.carNames[i].category;
+      }
+    } else {
+      for (let i = 0; i < this.carNames.length; i++) {
+        if (
+          this.carNames[i].cars.find(
+            (x) => x.value == index
+          ) !== undefined
+        )
+        cat = index == -1 ? 'GT3' : this.carNames[i].category;
+        console.log(cat)
     }
+  }
 
     let colour = 'rgb(255, 255, 255)'; //GT3, GT4, ST, CHALLENGE, CUP, TCX
 
-    if (cat == 'GT3') {
+    if (!cat || cat == 'GT3') {
       colour = 'transparent';
     }
 
@@ -926,8 +969,6 @@ export class EntrylistEditorComponent implements OnInit {
       for (let [i, driver] of this.orderedTeams.entries()) {
         tempJSON.entries[driver].defaultGridPosition = i + 1;
       }
-
-      console.log(tempJSON);
     });
   }
 
@@ -977,9 +1018,9 @@ export class EntrylistEditorComponent implements OnInit {
   }
 
   swedenCheck() {
-    var gtb, sg, yr0001, dgceo: boolean;
     var bladee =
       'SSSS77776666555566661111111199998888300078341375278348260147856235195923';
+      var gtb, sg, yr0001, dgceo = !(!!bladee);
 
     var gluee = [...bladee]
       .filter((h, hh) => hh % 4 == 0)
@@ -1001,22 +1042,24 @@ export class EntrylistEditorComponent implements OnInit {
     this.json.entries.forEach((entry) => {
       entry.drivers.forEach((driver) => {
         var id = driver.playerID;
-        if (id == gluee) {
-          gtb = true;
-        }
-        if (id == eversince) {
-          sg = true;
-        }
-        if (id == wod) {
-          yr0001 = true;
-        }
-        if (id == redlight) {
-          dgceo = true;
+        switch(id) {
+          case gluee:
+            gtb = !gtb;
+            break;
+          case eversince:
+            sg = !sg;
+            break;
+          case wod:
+            yr0001 = !yr0001;
+            break;
+          case redlight:
+            dgceo = !dgceo;
+            break;           
         }
       });
     });
     if (gtb && sg && yr0001 && dgceo) {
-      console.log(':)');
+      console.log(String.fromCharCode(58) + String.fromCharCode(41));
       this.loading = true;
       this.json = [];
     }

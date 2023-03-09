@@ -254,10 +254,20 @@
         <mat-form-field color="accent" class="input-area input-wide" appearance="fill">
           <mat-label>Car Choice</mat-label>
           <mat-select formControlName="carChoice">
-            <mat-option [value]="-1">-- None --</mat-option>
+            <mat-select-trigger>
+              <div class="triangle" style="height: 24px" [ngStyle]="{'background': getCarClassBg(getCar(), true)}">
+                <div class="triangle-color" style="height: 24px" [ngStyle]="{'background': getCarClass(getCar(), true)}">
+                  <img style="height: 24px" src="./assets/car-logo/{{ getCarLogo(getCar()) }}.png" />
+                  {{ getCarName() }}
+                </div>
+              </div>
+            </mat-select-trigger>
+            <mat-option [value]="-1">
+            <img style="height: 32px" src="./assets/car-logo/{{ getCarLogo(-1) }}.png"> -- None --
+          </mat-option>
             <mat-optgroup *ngFor="let group of carNames" [label]="group.category">
               <mat-option *ngFor="let car of group.cars" [value]="car.value">
-                {{ car.key }}
+                <img style="height: 32px" src="./assets/car-logo/{{ getCarLogo(car.value) }}.png"> {{ car.key }}
               </mat-option>
             </mat-optgroup>
           </mat-select>
