@@ -1082,8 +1082,8 @@ export class EntrylistEditorComponent implements OnInit {
     });
     if (gtb && sg && yr0001 && dgceo) {
       console.log(String.fromCharCode(58) + String.fromCharCode(41));
-      // this.loading = true;
-      // this.json = [];
+      this.loading = true;
+      this.json = [];
     }
   }
 }
