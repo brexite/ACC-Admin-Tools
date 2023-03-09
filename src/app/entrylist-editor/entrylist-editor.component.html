@@ -164,8 +164,19 @@
     <div class="split input-data">
       <h1 class="title">ENTRY LIST EDITOR</h1>
 
-      <div *ngIf="!isAdmin(driverIndex)">
-        <h3>Driver Information</h3>
+      <div *ngIf="!isAdmin(teamIndex)">
+        <span class="chip-title">
+          <h3>Driver Information</h3>
+          <mat-chip-list [multiple]="false">
+            <mat-chip *ngFor="let driver of this.json.entries[teamIndex].drivers, let i = index" 
+            [class]="(i == driverIndex) ? 'chip-selected' : ''"
+            (click)="changeDriver(i)"
+            [removable]="this.json.entries[teamIndex].drivers.length > 1" 
+            (removed)="deleteDriver(i)">{{driver.firstName[0]}}. {{driver.lastName}}
+            <mat-icon matChipRemove *ngIf="this.json.entries[teamIndex].drivers.length > 1">cancel</mat-icon></mat-chip>
+            <mat-chip (click)="createDriver()">+</mat-chip>
+          </mat-chip-list>
+        </span>
         <mat-form-field color="accent" class="input-area" appearance="fill">
           <mat-label>First Name</mat-label>
           <input matInput formControlName="firstName" />
@@ -246,10 +257,20 @@
         <mat-form-field color="accent" class="input-area input-wide" appearance="fill">
           <mat-label>Car Choice</mat-label>
           <mat-select formControlName="carChoice">
-            <mat-option [value]="-1">-- None --</mat-option>
+            <mat-select-trigger>
+              <div class="triangle" style="height: 24px" [ngStyle]="{'background': getCarClassBg(getCar(), true)}">
+                <div class="triangle-color" style="height: 24px" [ngStyle]="{'background': getCarClass(getCar(), true)}">
+                  <img style="height: 24px" src="./assets/car-logo/{{ getCarLogo(getCar()) }}.png" />
+                  {{ getCarName() }}
+                </div>
+              </div>
+            </mat-select-trigger>
+            <mat-option [value]="-1">
+            <img style="height: 32px" src="./assets/car-logo/{{ getCarLogo(-1) }}.png"> -- None --
+          </mat-option>
             <mat-optgroup *ngFor="let group of carNames" [label]="group.category">
               <mat-option *ngFor="let car of group.cars" [value]="car.value">
-                {{ car.key }}
+                <img style="height: 32px" src="./assets/car-logo/{{ getCarLogo(car.value) }}.png"> {{ car.key }}
               </mat-option>
             </mat-optgroup>
           </mat-select>
@@ -280,8 +301,14 @@
         <!-- Server Admin? -->
         <input matInput [hidden]="true" formControlName="isAdmin" />
         <mat-checkbox formControlName="isAdmin"
-          >Set User as Server Admin?</mat-checkbox
+          >Set Entry as Server Admin?</mat-checkbox
         >
+        <mat-icon
+            class="info-icon info-at-checkbox"
+            matTooltip="Check to set this driver as a Server Admin. If other drivers are added to this car, they will also be given admin privileges"
+          >
+            info</mat-icon
+          >
         <!-- Override Car Model?  -->
         <input matInput [hidden]="true" formControlName="overrideCar" />
         <div style="display: flex; flex-direction: row">
@@ -297,7 +324,7 @@
       </div>
     </div>
 
-      <div *ngIf="isAdmin(driverIndex)">
+      <div *ngIf="isAdmin(teamIndex)">
         <h3>Admin Information</h3>
         <mat-form-field color="accent" class="input-area input-wide" appearance="fill">
           <mat-label>Steam64ID</mat-label>
@@ -330,7 +357,7 @@
         style="width: 100%"
         mat-raised-button
         color="warn"
-        (click)="deleteDriver()"
+        (click)="deleteTeam()"
       >
         <mat-icon>delete</mat-icon> Delete Driver
       </button>
@@ -389,15 +416,15 @@
     <div class="flex-vert">
       <!-- <span style="text-align: center;">Enable Grid Order? <mat-slide-toggle [checked]="showOrdered" (change)="gridOrderToggle($event)"></mat-slide-toggle></span> -->
       <div class="flex-hor">
-        <button mat-raised-button color="secondary" class="hor-button" (click)="createDriver()"><mat-icon>add</mat-icon> New Driver</button>
+        <button mat-raised-button color="secondary" class="hor-button" (click)="createTeam()"><mat-icon>add</mat-icon> New Entry</button>
         <button mat-raised-button color="secondary" class="hor-button" (click)="createAdmin()"><mat-icon>add</mat-icon> New Admin</button>
       </div>
       <div class="flex-hor">
-        <button mat-raised-button color="secondary" class="hor-button" (click)="reverseDriverOrder()" [disabled]=" orderedDrivers.length <= 1 || !showOrdered"><mat-icon>swap_horiz</mat-icon> Reverse Grid?</button>
-        <button mat-raised-button color="secondary" class="hor-button" (click)="randomiseDriverOrder()"><mat-icon>shuffle</mat-icon> Randomise Drivers?</button>
+        <button mat-raised-button color="secondary" class="hor-button" (click)="reverseTeamOrder()" [disabled]=" orderedTeams.length <= 1 || !showOrdered"><mat-icon>swap_horiz</mat-icon> Reverse Grid?</button>
+        <button mat-raised-button color="secondary" class="hor-button" (click)="randomiseTeamOrder()"><mat-icon>shuffle</mat-icon> Randomise Entry?</button>
       </div>
       <div class="flex-hor">
-        <button mat-raised-button color="secondary" class="hor-button" (click)="adminToggle()" [disabled]="doAdminsExist"><mat-icon>admin_panel_settings</mat-icon> {{showAdmins ? "Hide" : "Show" }} Admins?</button>
+        <button mat-raised-button color="secondary" class="hor-button" (click)="adminToggle()" [disabled]="!doAdminsExist"><mat-icon>admin_panel_settings</mat-icon> {{showAdmins ? "Hide" : "Show" }} Admins?</button>
         <button mat-raised-button color="secondary" class="hor-button" (click)="gridOrderToggle()"><mat-icon>123</mat-icon> {{showOrdered ? "Disable" : "Enable" }} Grid Order?</button>
       </div>
       <mat-divider class="my-2"></mat-divider>
@@ -408,32 +435,31 @@
           <div
             cdkDropList
             #orderedList="cdkDropList"
-            [cdkDropListData]="orderedDrivers"
+            [cdkDropListData]="orderedTeams"
             [cdkDropListConnectedTo]="[unorderedList]"
             class="example-list"
             (cdkDropListDropped)="drop($any($event))"
           >
             <div
               class="acc-drag-box"
-              *ngFor="let item of orderedDrivers"
-              (click)="navigateDriver(item)"
+              *ngFor="let item of orderedTeams"
+              (click)="navigateTeam(item)"
               cdkDrag
             >
             <div class="pos-box">
-              {{ getDriverByIndex(item).defaultGridPosition }}
+              {{ getTeamByIndex(item).defaultGridPosition }}
             </div>
             <div class="driver-name">
               <mat-icon class="admin-inline" *ngIf="hasAdminRole(item)" >admin_panel_settings</mat-icon>
-              {{ getDriverFirstName(item) }}. 
-              {{ getDriverLastName(item) }}
+                  {{ getDriverNames(item) }}
             </div>
             <div class="manufacturer">
-              <img src="./assets/car-logo/{{ getDriverCarLogo(item) }}.png">
+              <img src="./assets/car-logo/{{ getTeamCarLogo(item) }}.png">
             </div>
             <div class="num-box" [ngClass]="{'bronze' : this.json.entries[item].drivers[0].driverCategory == 0, 'silver' : this.json.entries[item].drivers[0].driverCategory == 1, 'gold' : this.json.entries[item].drivers[0].driverCategory >= 2}">
               <div class="triangle" [ngStyle]="{'background': getCarClassBg(item)}">
                 <div class="triangle-color" [ngStyle]="{'background': getCarClass(item)}">
-                  {{ !getDriverByIndex(item).raceNumber ? 'N/A' : getDriverByIndex(item).raceNumber }}
+                  {{ !getTeamByIndex(item).raceNumber ? 'N/A' : getTeamByIndex(item).raceNumber }}
                 </div>
               </div>
             </div>
@@ -449,7 +475,7 @@
           <div
             cdkDropList
             #unorderedList="cdkDropList"
-            [cdkDropListData]="unorderedDrivers"
+            [cdkDropListData]="unorderedTeams"
             cdkDropListSortingDisabled
             [cdkDropListConnectedTo]="[orderedList]"
             class="example-list"
@@ -457,23 +483,22 @@
           >
             <div
               class="acc-drag-box"
-              *ngFor="let item of unorderedDrivers"
-              (click)="navigateDriver(item)"
+              *ngFor="let item of unorderedTeams"
+              (click)="navigateTeam(item)"
               cdkDrag
               [cdkDragDisabled]="isAdmin(item) || dragDisabled"
             >
               <div class="driver-name">
                 <mat-icon class="admin-inline" *ngIf="hasAdminRole(item)" >admin_panel_settings</mat-icon> 
-                {{ getDriverFirstName(item) }}. 
-                {{ getDriverLastName(item) }}
+                    {{ getDriverNames(item) }}
               </div>
               <div class="manufacturer">
-                <img src="./assets/car-logo/{{ getDriverCarLogo(item) }}.png">
+                <img src="./assets/car-logo/{{ getTeamCarLogo(item) }}.png">
               </div>
               <div class="num-box" [ngClass]="{'bronze' : this.json.entries[item].drivers[0].driverCategory == 0, 'silver' : this.json.entries[item].drivers[0].driverCategory == 1, 'gold' : this.json.entries[item].drivers[0].driverCategory >= 2}">
                 <div class="triangle" [ngStyle]="{'background': getCarClassBg(item)}">
                   <div class="triangle-color" [ngStyle]="{'background': getCarClass(item)}">
-                    {{ !getDriverByIndex(item).raceNumber ? 'N/A' : getDriverByIndex(item).raceNumber }}
+                    {{ !getTeamByIndex(item).raceNumber ? 'N/A' : getTeamByIndex(item).raceNumber }}
                   </div>
                 </div>
               </div>

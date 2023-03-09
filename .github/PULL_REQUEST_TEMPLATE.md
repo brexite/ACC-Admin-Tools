@@ -19,4 +19,3 @@ No Updates
 - [ ] Version Number in `package.json` is up to date.
 - [ ] Code conforms to previous standards set.
 - [ ] Testing has been carried out on the changes.
-- [ ] Any updates to the .env have been added to the GitHub secrets and the merge pipeline.
