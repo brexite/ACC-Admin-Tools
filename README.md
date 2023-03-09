@@ -30,8 +30,8 @@ A tool designed for helping edit server-side files easily and quickly. ACC Serve
  - [x] Ability to add new drivers and delete drivers
  - [x] Remove requirement for driver nationality
  - [x] Remove workarounds for invalid forms
- - [ ] Add ability to work with multiple drivers per team
- - [ ] Add Car Logos with tooltips
+ - [x] Add ability to work with multiple drivers per team
+ - [x] Add Car Logos with tooltips
  - [x] Enable/Disable Ordering drivers on the grid shortcut
  - [x] Update styling to match the in-game leaderboard
 
@@ -39,7 +39,7 @@ A tool designed for helping edit server-side files easily and quickly. ACC Serve
  - [x] De-tangle codebase
  - [x] Change colour scheme to match REVSPORT better
 
- **Future Features**
+ ## Future Features
  - [ ] Full server file config (Race Weekend Setup)
  - [ ] Mobile support
  - [ ] SSR Support to assist with initial load times (Coming with the latest version of Firebase)
