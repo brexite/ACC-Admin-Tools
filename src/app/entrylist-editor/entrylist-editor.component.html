@@ -170,7 +170,10 @@
           <mat-chip-list [multiple]="false">
             <mat-chip *ngFor="let driver of this.json.entries[teamIndex].drivers, let i = index" 
             [class]="(i == driverIndex) ? 'chip-selected' : ''"
-            (click)="changeDriver(i)">{{driver.firstName[0]}}. {{driver.lastName}}</mat-chip>
+            (click)="changeDriver(i)"
+            [removable]="this.json.entries[teamIndex].drivers.length > 1" 
+            (removed)="deleteDriver(i)">{{driver.firstName[0]}}. {{driver.lastName}}
+            <mat-icon matChipRemove *ngIf="this.json.entries[teamIndex].drivers.length > 1">cancel</mat-icon></mat-chip>
             <mat-chip (click)="createDriver()">+</mat-chip>
           </mat-chip-list>
         </span>

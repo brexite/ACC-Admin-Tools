@@ -633,6 +633,29 @@ export class EntrylistEditorComponent implements OnInit {
     });
     this.patchByIndex(this.unorderedTeams[0] ?? this.orderedTeams[0]);
     this.getTeamOrders();
+    //remove currently selected team
+    //if last driver in json, do createTeam() or not allow deletion of last team
+    // this.saveData();
+    return null;
+  }
+
+  deleteDriver(index) {
+    let deleteIndex = index;
+
+    if (this.json.entries[this.teamIndex].drivers.length === 1)
+      return this.toastr.error('Cannot delete the last driver in an entry!');
+
+    this.json.entries[this.teamIndex].drivers.splice(deleteIndex, 1);
+    if(deleteIndex == this.driverIndex){
+      if(this.json.entries[this.teamIndex].drivers.length - 1 < this.driverIndex) {
+        this.patchForm(this.teamIndex, this.json.entries[this.teamIndex].drivers.length - 1)
+        this.driverIndex = this.json.entries[this.teamIndex].drivers.length - 1
+      } else {
+        this.patchForm(this.teamIndex, this.driverIndex)
+      }
+
+    }
+    this.saveData();
     //remove currently selected driver
     //if last driver in json, do createDriver() or not allow deletion of last driver
     // this.saveData();
@@ -1059,8 +1082,8 @@ export class EntrylistEditorComponent implements OnInit {
     });
     if (gtb && sg && yr0001 && dgceo) {
       console.log(String.fromCharCode(58) + String.fromCharCode(41));
-      this.loading = true;
-      this.json = [];
+      // this.loading = true;
+      // this.json = [];
     }
   }
 }
