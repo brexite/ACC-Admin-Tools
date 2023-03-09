@@ -288,8 +288,14 @@
         <!-- Server Admin? -->
         <input matInput [hidden]="true" formControlName="isAdmin" />
         <mat-checkbox formControlName="isAdmin"
-          >Set User as Server Admin?</mat-checkbox
+          >Set Entry as Server Admin?</mat-checkbox
         >
+        <mat-icon
+            class="info-icon info-at-checkbox"
+            matTooltip="Check to set this driver as a Server Admin. If other drivers are added to this car, they will also be given admin privileges"
+          >
+            info</mat-icon
+          >
         <!-- Override Car Model?  -->
         <input matInput [hidden]="true" formControlName="overrideCar" />
         <div style="display: flex; flex-direction: row">
