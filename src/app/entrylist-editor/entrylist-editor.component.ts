@@ -358,8 +358,8 @@ export class EntrylistEditorComponent implements OnInit {
     downloader.setAttribute('download', 'entrylist.json');
     downloader.click();
 
-    if(this.enabledTeamJSON)
-      this.dlTeamJSON()
+    // if(this.enabledTeamJSON)
+    //   this.dlTeamJSON()
   }
 
   dlTeamJSON() {
@@ -386,8 +386,8 @@ export class EntrylistEditorComponent implements OnInit {
   }
 
   filterTeamName(json: any) {
-    // if(this.enabledTeamJSON)
-    //   return json
+    if(this.enabledTeamJSON)
+      return json
 
     for(let i = 0; i < json.entries.length; i++) {
       try{
