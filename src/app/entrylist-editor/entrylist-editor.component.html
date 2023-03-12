@@ -142,6 +142,35 @@
           </mat-button-toggle-group>
         </div>
       </div>
+
+      <div style="display: flex; flex-direction: column; margin-top: 20px">
+        <div style="display: flex; flex-direction: row; margin: auto">
+          <p>
+            Enable Team Names?
+            <mat-icon
+              class="info-at-radio"
+              matTooltip="Add an extra field for adding team names, for notation purposes."
+              >info
+            </mat-icon>
+          </p>
+        </div>
+
+        <mat-button-toggle-group
+          style="font-size: small; margin-top: 10px"
+          name="driver"
+          formControlName="teamJSON"
+          [value]="advancedForm.get('teamJSON').value"
+        >
+          <mat-button-toggle
+            style="width: calc(100% / 2)"
+            *ngFor="let op of enableTeamJSONOptions"
+            [value]="op.value"
+            (change)="advancedUpdate($event, 2)"
+            >{{ op.key }}</mat-button-toggle
+          >
+        </mat-button-toggle-group>
+      </div>
+
       <h4 class="section-title"></h4>
       <button
         mat-raised-button
@@ -276,6 +305,18 @@
           </mat-select>
         </mat-form-field>
 
+        <mat-form-field *ngIf="enabledTeamJSON" color="accent" class="input-area input-wide" appearance="fill">
+          <mat-label>Team Name</mat-label>
+          <div style="display: flex; flex-direction: row;">
+            <input matInput type="text" formControlName="teamName"/>
+            <!-- <a href="https://steamcommunity.com/profiles/{{form.get('steamId').value}}" target="_blank">
+              <button mat-icon-button class="icon-button" color="warn">
+                <mat-icon class="info-icon" matTooltip="Input the raw Steam64ID, no letters required. Click to navigate to user.">info</mat-icon>
+              </button>
+            </a> -->
+          </div>
+        </mat-form-field>
+
       <!-- <mat-form-field color="accent" class="input-area" appearance="fill">
             <mat-label type="number">Grid Position</mat-label>
             <input matInput formControlName="raceNumber">
@@ -300,15 +341,17 @@
         </div>
         <!-- Server Admin? -->
         <input matInput [hidden]="true" formControlName="isAdmin" />
-        <mat-checkbox formControlName="isAdmin"
-          >Set Entry as Server Admin?</mat-checkbox
-        >
-        <mat-icon
-            class="info-icon info-at-checkbox"
-            matTooltip="Check to set this driver as a Server Admin. If other drivers are added to this car, they will also be given admin privileges"
+        <div style="display: flex; flex-direction: row">
+          <mat-checkbox formControlName="isAdmin"
+            >Set Entry as Server Admin?</mat-checkbox
           >
-            info</mat-icon
-          >
+          <mat-icon
+              class="info-icon info-at-checkbox"
+              matTooltip="Check to set this driver as a Server Admin. If other drivers are added to this car, they will also be given admin privileges"
+            >
+              info</mat-icon
+            >
+        </div>
         <!-- Override Car Model?  -->
         <input matInput [hidden]="true" formControlName="overrideCar" />
         <div style="display: flex; flex-direction: row">
@@ -384,7 +427,7 @@
           </mat-icon>
         </div>
 
-        <div style="display: flex; flex-direction: column; width: 60%">
+        <div style="display: flex; flex-direction: column; width: 60%" *ngIf="!enabledTeamJSON">
           <button
             class="json-out"
             mat-stroked-button
@@ -401,6 +444,66 @@
           >
             <mat-icon>download</mat-icon> Download JSON
           </button>
+          <button
+            class="json-out"
+            mat-raised-button
+            color="warn"
+            (click)="newJson()"
+          >
+            <mat-icon>close</mat-icon> Upload a new JSON
+          </button>
+        </div>
+
+        <div style="display: flex; flex-direction: column; width: 60%" *ngIf="enabledTeamJSON">
+          <div style="
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          width: 99%;
+          margin: 0 5px;
+        ">
+            <button
+              class="json-out-half"
+              mat-stroked-button
+              color="accent"
+              (click)="viewJson()"
+            >
+              <mat-icon>visibility</mat-icon> View JSON
+            </button>
+            <button
+              class="json-out-half"
+              mat-stroked-button
+              color="accent"
+              (click)="viewTeamJson()"
+            >
+              <mat-icon>visibility</mat-icon> View Team Names
+            </button>
+          </div>
+          <div style="
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          width: 99%;
+          margin: 0 5px;
+        ">
+            <button
+              class="json-out-half"
+              mat-raised-button
+              color="secondary"
+              (click)="dl()"
+            >
+              <mat-icon>download</mat-icon> Download JSON
+            </button>
+            <button
+              class="json-out-half"
+              mat-raised-button
+              color="secondary"
+              (click)="dlTeamJSON()"
+              *ngIf="enabledTeamJSON"
+            >
+              <mat-icon>download</mat-icon> Download Team Names
+            </button>
+          </div>
           <button
             class="json-out"
             mat-raised-button
@@ -456,7 +559,7 @@
             <div class="manufacturer">
               <img src="./assets/car-logo/{{ getTeamCarLogo(item) }}.png">
             </div>
-            <div class="num-box" [ngClass]="{'bronze' : this.json.entries[item].drivers[0].driverCategory == 0, 'silver' : this.json.entries[item].drivers[0].driverCategory == 1, 'gold' : this.json.entries[item].drivers[0].driverCategory >= 2}">
+            <div class="num-box" [ngClass]="{'bronze' : getTeamClass(item) == 0, 'silver' : getTeamClass(item) == 1, 'gold' : getTeamClass(item) >= 2}">
               <div class="triangle" [ngStyle]="{'background': getCarClassBg(item)}">
                 <div class="triangle-color" [ngStyle]="{'background': getCarClass(item)}">
                   {{ !getTeamByIndex(item).raceNumber ? 'N/A' : getTeamByIndex(item).raceNumber }}
@@ -495,7 +598,7 @@
               <div class="manufacturer">
                 <img src="./assets/car-logo/{{ getTeamCarLogo(item) }}.png">
               </div>
-              <div class="num-box" [ngClass]="{'bronze' : this.json.entries[item].drivers[0].driverCategory == 0, 'silver' : this.json.entries[item].drivers[0].driverCategory == 1, 'gold' : this.json.entries[item].drivers[0].driverCategory >= 2}">
+              <div class="num-box" [ngClass]="{'bronze' : getTeamClass(item) == 0, 'silver' : getTeamClass(item) == 1, 'gold' : getTeamClass(item) >= 2}">
                 <div class="triangle" [ngStyle]="{'background': getCarClassBg(item)}">
                   <div class="triangle-color" [ngStyle]="{'background': getCarClass(item)}">
                     {{ !getTeamByIndex(item).raceNumber ? 'N/A' : getTeamByIndex(item).raceNumber }}
