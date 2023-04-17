@@ -162,7 +162,7 @@ export class EntrylistEditorComponent implements OnInit {
         { key: 'Honda NSX GT3 Evo', value: 21 },
         { key: 'Honda NSX GT3', value: 17 },
         { key: 'Lamborghini Huracán GT3 Evo', value: 16 },
-        { key: 'Lamborghini Huracán GT3 Evo2', value: 33 },
+        { key: 'Lamborghini Huracán GT3 EVO2', value: 33 },
         { key: 'Lamborghini Huracán GT3', value: 4 },
         { key: 'Lexus RC F GT3', value: 15 },
         { key: 'McLaren 650S GT3', value: 5 },
