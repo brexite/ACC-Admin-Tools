@@ -167,6 +167,7 @@ export class EntrylistEditorComponent implements OnInit {
         { key: 'Lexus RC F GT3', value: 15 },
         { key: 'McLaren 650S GT3', value: 5 },
         { key: 'McLaren 720S GT3', value: 22 },
+        { key: 'McLaren 720S GT3 EVO', value: 35 },
         { key: 'Mercedes-AMG GT3', value: 1 },
         { key: 'Mercedes-AMG GT3 Evo', value: 25 },
         { key: 'Nissan GT-R Nismo GT3 2015', value: 10 },
