@@ -9,6 +9,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ToastrModule } from 'ngx-toastr';
 import { AngularFireModule } from '@angular/fire/compat';
 import {HttpClientModule} from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 // import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 // import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 // import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -40,6 +42,12 @@ const config = {
     ToastrModule.forRoot({
       timeOut: 2500,
       positionClass: 'toast-top-right',
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
     }),
   ],
   providers: [],
