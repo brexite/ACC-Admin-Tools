@@ -28,7 +28,7 @@
     "express": "^4.18.1",
     "firebase": "^9.9.4",
     "ngx-toastr": "~14.3.0",
-    "node": "16.x",
+    "node": "18.x",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
