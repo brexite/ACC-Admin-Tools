@@ -49,7 +49,8 @@ export class EntrylistEditorComponent implements OnInit {
     'rgb(148, 22, 8)',
     'rgb(47, 67, 41)',
     'rgb(0, 116, 171)',
-  ]; //GT3, GT4, ST, CHALLENGE, CUP, TCX
+    'rgb(185, 42, 19)'
+  ]; //GT3, GT4, ST, CHALLENGE, CUP, TCX, GT2
 
   driverNationality: any = [
     { key: 'No Nationality', value: 0 },
@@ -194,7 +195,17 @@ export class EntrylistEditorComponent implements OnInit {
         { key: 'Porsche 718 Cayman GT4 Clubsport', value: 61 },
       ],
     },
-
+    {
+      category: 'GT2',
+      cars: [
+        { key: 'Audi R8 LMS GT2', value: 80 },
+        { key: 'KTM XBOW GT2', value: 82 },
+        { key: 'Maserati MC20 GT2', value: 83 },
+        { key: 'Mercedes AMG GT2', value: 84 },
+        { key: 'Porsche 911 GT2 RS CS Evo', value: 85 },
+        { key: 'Porsche 935', value: 86 },
+      ],
+    },
     {
       category: 'CUP',
       cars: [
@@ -208,7 +219,7 @@ export class EntrylistEditorComponent implements OnInit {
     {
       category: 'TCX',
       cars: [{ key: 'BMW M2 Club Sport Racing', value: 27 }],
-    },
+    }
   ];
 
   carNamesArray: Car[] = [];
@@ -878,6 +889,10 @@ export class EntrylistEditorComponent implements OnInit {
       }
       case 'TCX': {
         i = 5;
+        break;
+      }
+      case 'GT2': {
+        i = 6;
         break;
       }
     }
