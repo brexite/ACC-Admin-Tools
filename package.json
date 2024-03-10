@@ -1,6 +1,6 @@
 {
   "name": "acc-admin-tools",
-  "version": "3.3.1",
+  "version": "3.3.3",
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
