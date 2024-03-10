@@ -504,8 +504,10 @@ export class EntrylistEditorComponent implements OnInit {
     });
 
     this.unorderedTeams.sort(function (a, b) {
-      if (tempJSON.entries[a].raceNumber == undefined) return -1;
-      if (tempJSON.entries[b].raceNumber == undefined) return 1;
+      if (tempJSON.entries[a].raceNumber == undefined || 
+        (tempJSON.entries[b].forcedCarModel == undefined && tempJSON.entries[b].isServerAdmin == 1)) return -1; // Move server admins to the end
+      if (tempJSON.entries[b].raceNumber == undefined ||
+        (tempJSON.entries[a].forcedCarModel == undefined && tempJSON.entries[a].isServerAdmin == 1)) return 1; // Move server admins to the end
       return tempJSON.entries[a].raceNumber - tempJSON.entries[b].raceNumber;
     });
 
