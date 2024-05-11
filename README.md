@@ -15,9 +15,17 @@ A tool designed for helping edit server-side files easily and quickly. ACC Serve
 
 - Coming soon...
 
-## To-do List for V3 Release
+## To-do List for V4 Release
 
 **Race Results Tool**
+
+- No edits planned
+
+**Entry List Editor**
+
+- No edits planned
+
+**General Edits**
 
 - No edits planned
 
@@ -25,22 +33,12 @@ A tool designed for helping edit server-side files easily and quickly. ACC Serve
 
 - Coming Soon
 
-**Entry List Editor**
- - [x] Sort Unordered by driver number by default
- - [x] Ability to add new drivers and delete drivers
- - [x] Remove requirement for driver nationality
- - [x] Remove workarounds for invalid forms
- - [x] Add ability to work with multiple drivers per team
- - [x] Add Car Logos with tooltips
- - [x] Enable/Disable Ordering drivers on the grid shortcut
- - [x] Update styling to match the in-game leaderboard
+**BOP Creator**
 
-**General Edits**
- - [x] De-tangle codebase
- - [x] Change colour scheme to match REVSPORT better
+- Coming Soon
 
  ## Future Features
- - [ ] Full server file config (Race Weekend Setup)
+ - [ ] Full server file config (Race Weekend Setup, BOP Creation)
  - [ ] Mobile support
  - [ ] SSR Support to assist with initial load times (Coming with the latest version of Firebase)
  - [ ] Setup Viewer Tool

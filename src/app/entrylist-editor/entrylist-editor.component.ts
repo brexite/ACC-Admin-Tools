@@ -160,6 +160,7 @@ export class EntrylistEditorComponent implements OnInit {
         { key: 'Ferrari 296 GT3', value: 32 },
         { key: 'Ferrari 488 GT3 Evo', value: 24 },
         { key: 'Ferrari 488 GT3', value: 2 },
+        { key: 'Ford Mustang GT3', value: 36 },
         { key: 'Honda NSX GT3 Evo', value: 21 },
         { key: 'Honda NSX GT3', value: 17 },
         { key: 'Lamborghini Huracán GT3 Evo', value: 16 },
